@@ -1,9 +1,12 @@
 'use strict'
 
-const key = require('./key.js');
 const fs = require('fs');
+const key = require('./key.js');
 const net = require('./net.js');
 const jsonrpc = require('./jsonrpc.js');
+const tx = require('./tx.js');
+
+const DEFAULT_STEP_LIMIT = 75000;
 
 /**
  * A class for ICON Wallet
@@ -124,12 +127,69 @@ Wallet.prototype.getEndPoint = function() {
     return this._endpoint;
 }
 
+
+/**
+ * Get block information by height
+ * @param  {Number|String} height
+ * @return {Object}
+ */
+Wallet.prototype.getBlockByHeight = function(height) {
+    return jsonrpc.getBlockByHeight(height, this.getEndPoint().url);
+}
+
+
+/**
+ * Get block information by hash
+ * @param  {String} height
+ * @return {Object}
+ */
+Wallet.prototype.getBlockByHash = function(hash) {
+    return jsonrpc.getBlockByHash(hash, this.getEndPoint().url);
+}
+
+
+/**
+ * Get a last block information
+ * @return {Object}
+ */
+Wallet.prototype.getLastBlock = function() {
+    return jsonrpc.getLastBlock(this.getEndPoint().url);
+}
+
+
 /**
  * Get balance of the wallet
  * @return {String}
  */
 Wallet.prototype.getBalance = function() {
-    return jsonrpc.getBalance(this.getAddressString(), this.getEndPoint());
+    return jsonrpc.getBalance(this.getAddressString(), this.getEndPoint().url);
+}
+
+
+/**
+ * Send ICX coins
+ * @param {String} to
+ * @param {Number} value
+ * @return {String} txHash
+ */
+Wallet.prototype.sendICX = function(to, value) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            stepLimit: DEFAULT_STEP_LIMIT,
+            value: value,
+        };
+
+        const rawTx = tx.makeIcxRawTx(false, data);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
 }
 
 /**
@@ -155,6 +215,7 @@ Wallet.fromPrivateKey = function(privateKeyString) {
  * @return {Wallet}             [description]
  */
 Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
+    console.log('typeof keyStoreObj:'+typeof keyStoreObj);
     const json = (typeof keyStoreObj === 'object') ? keyStoreObj : JSON.parse(keyStoreObj);
 
     return new Wallet(key.privateKeyFromKeyStoreObj(
@@ -163,33 +224,6 @@ Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
         ));
 }
 
-/**
- * Get block information by height
- * @param  {Number|String} height
- * @return {Object}
- */
-Wallet.getBlockByHeight = function(height) {
-    return jsonrpc.getBlockByHeight(height, this.getEndPoint());
-}
-
-
-/**
- * Get block information by hash
- * @param  {String} height
- * @return {Object}
- */
-Wallet.getBlockByHash = function(hash) {
-    return jsonrpc.getBlockByHash(hash, this.getEndPoint());
-}
-
-
-/**
- * Get a last block information
- * @return {Object}
- */
-Wallet.getLastBlock = function() {
-    return jsonrpc.getLastBlock(this.getEndPoint());
-}
 
 /**
  * ICON wallet module for javascript

@@ -5,10 +5,13 @@ const assert = chai.assert;
 const Wallet = require('../icon-js/wallet.js');
 const net = require('../icon-js/net.js');
 const jsonrpc = require('../icon-js/jsonrpc.js');
+const utils = require('../icon-js/utils.js');
+const BigNumber = require('bignumber.js');
+const key = require('../icon-js/key.js');
 
 describe('Wallet.create()', function() {
 
-    it('case 1 : create a wallet with a newly generated private key',
+    it('create a wallet with a newly generated private key',
         function() {
 
         const wallet = Wallet.create();
@@ -24,7 +27,9 @@ describe('Wallet.create()', function() {
         */
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
+        assert.lengthOf(wallet.getPrivateKeyString(), 64);
         assert.lengthOf(wallet.getPublicKey(), 64);
+        assert.lengthOf(wallet.getPublicKeyString(), 128);
         assert.lengthOf(wallet.getAddress(), 20);
         assert.equal(wallet.getAddressString().substr(0, 2), 'hx');
     });
@@ -32,7 +37,7 @@ describe('Wallet.create()', function() {
 
 describe('Wallet.fromPrivateKey()', function() {
 
-    it('case 1 : create a wallet from a given private key',
+    it('create a wallet from a given private key',
         function() {
 
         const wallet = Wallet.fromPrivateKey('71fc378d3a3fb92b57474af156f376711a8a89d277c9b60a923a1db75575b1cc');
@@ -57,30 +62,29 @@ describe('Wallet.fromPrivateKey()', function() {
 
 describe('Wallet.fromKeyStoreObj()', function() {
 
-    it('case 1 : create a wallet from a given keystore object',
+    it('create a wallet from a given keystore object',
         function() {
 
-
         const keyStoreObj = {
-            address: "hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64",
+            address: 'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64',
             crypto: {
-                cipher: "aes-128-ctr",
+                cipher: 'aes-128-ctr',
                 cipherparams: {
-                    iv: "2b512a55a793e019e42e180b363031a7"
+                    iv: '2b512a55a793e019e42e180b363031a7'
                 },
-                ciphertext: "766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b",
-                kdf: "pbkdf2",
+                ciphertext: '766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b',
+                kdf: 'pbkdf2',
                 kdfparams: {
                     c: 262144,
                     dklen: 32,
-                    prf: "hmac-sha256",
-                    salt: "ec60e4e5021a248908d2d0012d389620"
+                    prf: 'hmac-sha256',
+                    salt: 'ec60e4e5021a248908d2d0012d389620'
                 },
-                mac: "b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810"
+                mac: 'b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810'
             },
-            id: "3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8",
+            id: '3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8',
             version: 3,
-            coinType: "icx"
+            coinType: 'icx'
         };
 
         const password = 'test1234*';
@@ -107,11 +111,62 @@ describe('Wallet.fromKeyStoreObj()', function() {
             'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64'
         );
     });
+
+    it('create a wallet from a given keystore JSON string',
+        function() {
+
+        const keyStoreObj = '{' +
+            '"address": "hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64",' +
+            '"crypto": {' +
+            '   "cipher": "aes-128-ctr",' +
+            '   "cipherparams": {' +
+            '       "iv": "2b512a55a793e019e42e180b363031a7"' +
+            '   },' +
+            '   "ciphertext": "766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b",' +
+            '   "kdf": "pbkdf2",' +
+            '   "kdfparams": {' +
+            '       "c": 262144,' +
+            '       "dklen": 32,' +
+            '       "prf": "hmac-sha256",' +
+            '       "salt": "ec60e4e5021a248908d2d0012d389620"' +
+            '   },' +
+            '   "mac": "b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810"' +
+            '},' +
+            '"id": "3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8",' +
+            '"version": 3,' +
+            '"coinType": "icx"' +
+        '}';
+
+        const password = 'test1234*';
+
+        const wallet = Wallet.fromKeyStoreObj(keyStoreObj, password);
+
+        /*
+        console.log('address(string) = ' + wallet.getAddressString());
+        console.log('length of private key = ' + wallet.getPrivateKey().length);
+        console.log('private key string = ' + wallet.getPrivateKeyString());
+        console.log('length of public key = ' + wallet.getPublicKey().length);
+        console.log('public key strin = ' + wallet.getPublicKeyString());
+        console.log('length of address = ' + wallet.getAddress().length);
+        console.log('address string = ' + wallet.getAddressString());
+        */
+
+
+        assert.lengthOf(wallet.getPrivateKey(), 32);
+        assert.lengthOf(wallet.getPublicKey(), 64);
+        assert.lengthOf(wallet.getAddress(), 20);
+        assert.equal(wallet.getAddressString().substr(0, 2), 'hx');
+        assert.equal(
+            wallet.getAddressString(),
+            'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64'
+        );
+    });
+
 });
 
 describe('Wallet.toKeyStoreObj()', function() {
 
-    it('case 1 :  get a keystore object from the wallet', function() {
+    it('get a keystore object from the wallet', function() {
 
         const wallet1 = Wallet.create();
         const password = 'test123';
@@ -128,12 +183,12 @@ describe('Wallet.toKeyStoreObj()', function() {
 
 describe('Wallet.getEndPoint()', function() {
 
-    it('case 1 :  get a default endpoint', function() {
+    it('get a default endpoint', function() {
 
         const wallet = Wallet.create();
         //console.log('endpoint = ' + wallet.getEndPoint());
 
-        assert.equal(
+        assert.deepEqual(
             wallet.getEndPoint(),
             net.getEndPointFromEnv()
         );
@@ -142,23 +197,23 @@ describe('Wallet.getEndPoint()', function() {
 
 describe('Wallet.setEndPoint()', function() {
 
-    it('case 1 :  set the endpoint to mainnet ', function() {
+    it('set the endpoint to mainnet ', function() {
 
         const wallet = Wallet.create();
         wallet.setEndPoint('mainnet');
 
-        assert.equal(
+        assert.deepEqual(
             wallet.getEndPoint(),
             net.getEndPoint('mainnet')
         );
     });
 
-    it('case 2 :  set the endpoint to testnet ', function() {
+    it('set the endpoint to testnet ', function() {
 
         const wallet = Wallet.create();
         wallet.setEndPoint('testnet');
 
-        assert.equal(
+        assert.deepEqual(
             wallet.getEndPoint(),
             net.getEndPoint('testnet')
         );
@@ -166,76 +221,194 @@ describe('Wallet.setEndPoint()', function() {
 });
 
 
+describe('Wallet.getBlockByHeight()', function() {
+
+    it('get a block by height in number', async function() {
+        const wallet = Wallet.create();
+        const block = await wallet.getBlockByHeight(22163);
+
+        assert.equal(block.height, 22163);
+    });
+
+    it('invalid height', function() {
+        const wallet = Wallet.create();
+        wallet.getBlockByHeight(-10)
+        .then(function(balance) {
+            assert(false);
+        }).catch(function(err) {
+            assert(true);
+        });
+    });
+});
+
+
+describe('Wallet.getBlockByHash()', function() {
+
+    it('get a block by hash', async function() {
+        const wallet = Wallet.create();
+        const block = await wallet.getBlockByHash(
+            '657568ae461a4931ac943384a57c080632b5bcd46753cc02419c55740a4c46f6'
+        );
+
+        //console.log('block :' + block);
+        assert.equal(block.height, 22135);
+    });
+
+    it('invalid hash', function() {
+        const wallet = Wallet.create();
+        wallet.getBlockByHash(
+            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+        ).then(function(balance) {
+            assert(false);
+        }).catch(function(err) {
+            assert(true);
+        });
+    });
+});
+
+
+describe('Wallet.getLastBlock()', function() {
+
+    it('get a last block', async function() {
+        const wallet = Wallet.create();
+        const block = await wallet.getLastBlock(
+            net.getEndPoint('testnet').url
+        );
+
+        //console.log('block :' + block);
+        assert.typeOf(block.height, 'number');
+    });
+});
+
+
+describe('Wallet.getBalance()', function() {
+
+    it('get balance', async function() {
+        const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+
+        const balance = await wallet.getBalance();
+
+        console.log('balance :' + balance);
+        assert.typeOf(balance, 'string');
+    });
+
+    it('get balance', async function() {
+        const wallet = Wallet.fromPrivateKey('016224835ae4d2c2826db071e21911925d811f68ba54be2f330b5ec3ecfd15dd');
+
+        const balance = await wallet.getBalance();
+
+        console.log('balance :' + balance);
+        assert.typeOf(balance, 'string', 'balance='+balance);
+    });
+
+
+});
+
+
+describe('Wallet.sendICX()', function() {
+
+    it('send a transaction', async function() {
+        const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+        const txHash = await wallet.sendICX(
+            'hxfda7ec74dfeac5d6b22844c8cbbf63f0b81c736e',
+            0.1
+        );
+
+        //console.log('txHash :' + txHash);
+        //console.log('typeof txHash :' + typeof txHash);
+        assert.typeOf(txHash, 'String');
+    });
+
+
+    it('invalid address', async function() {
+        try {
+            const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+
+            const txHash = await wallet.sendICX(
+            'fda7ec74dfeac5d6b22844c8cbbf63f0b81c736e',
+            0.1
+            );
+
+            assert(false);
+        } catch (e) {
+            //console.log(e);
+            assert(true);
+        }
+    });
+});
+
 
 describe('net.getEndPointFromEnv()', function() {
 
-    it('case 1 :  get a endpoint under development', function() {
+    it('get a endpoint under development', function() {
 
         process.env.NODE_ENV = 'development';
 
-        assert.equal(
+        assert.deepEqual(
             net.getEndPointFromEnv(),
-            'https://testwallet.icon.foundation'
+            net.getEndPoint('testnet')
         );
     });
 
-    it('case 2 :  get a endpoint under production', function() {
+    it('get a endpoint under production', function() {
 
         process.env.NODE_ENV = 'production';
 
-        assert.equal(
+        assert.deepEqual(
             net.getEndPointFromEnv(),
-            'https://wallet.icon.foundation'
+            net.getEndPoint('mainnet')
         );
     });
 });
 
 
+/*
 describe('net.getEndPoint()', function() {
 
-    it('case 1 :  get a endpoint of mainnet', function() {
+    it('get a endpoint of mainnet', function() {
 
         assert.equal(
-            net.getEndPoint('mainnet'),
+            net.getEndPoint('mainnet').url,
             'https://wallet.icon.foundation'
         );
     });
 
-    it('case 2 :  get a endpoint of testnet', function() {
+    it('get a endpoint of testnet', function() {
 
         assert.equal(
-            net.getEndPoint('testnet'),
+            net.getEndPoint('testnet').url,
             'https://testwallet.icon.foundation'
         );
     });
 });
+*/
 
 describe('jsonrpc.getBalance()', function() {
 
-    it('case 1 : get balance', async function() {
+    it('get balance', async function() {
             const balance = await jsonrpc.getBalance(
                 'hx36a371b0aa839f029ad997a2b64b240f49f001cc',
-                net.getEndPoint('testnet')
+                net.getEndPoint('testnet').url
             );
 
             //console.log('balance :' + balance);
             assert.typeOf(balance, 'string');
     });
 
-    it('case 2 : get balance of nonexisting address', async function() {
+    it('get balance of nonexisting address', async function() {
             const balance = await jsonrpc.getBalance(
                 'hx36a371b0aa839f029ad997a2b64b240f49f001c1',
-                net.getEndPoint('testnet')
+                net.getEndPoint('testnet').url
             );
 
             //console.log('balance :' + balance);
             assert.typeOf(balance, 'string');
     });
 
-    it('case 3 : invalid address', function() {
+    it('invalid address', function() {
        jsonrpc.getBalance(
         'x36a371b0aa839f029ad997a2b64b240f49f001cc',
-        net.getEndPoint('testnet')
+        net.getEndPoint('testnet').url
         )
        .then(function(balance) {
             assert(false);
@@ -245,7 +418,7 @@ describe('jsonrpc.getBalance()', function() {
        });
     });
 
-    it('case 4 : invalid endpoint', function() {
+    it('invalid endpoint', function() {
        jsonrpc.getBalance(
         'hx36a371b0aa839f029ad997a2b64b240f49f001cc',
         'https://www.naver.com'
@@ -260,41 +433,20 @@ describe('jsonrpc.getBalance()', function() {
 
 describe('jsonrpc.getBlockByHeight()', function() {
 
-    it('case 1 : get a block by height in number', async function() {
+    it('get a block by height in number', async function() {
             const block = await jsonrpc.getBlockByHeight(
-                22135,
-                net.getEndPoint('testnet')
+                22163,
+                net.getEndPoint('testnet').url
             );
 
-            //console.log('block :' + block);
-            assert.equal(block.height, 22135);
+            //console.log('block :' + JSON.stringify(block));
+            assert.equal(block.height, 22163);
     });
 
-    it('case 2 : get a block by height in string', async function() {
-            const block = await jsonrpc.getBlockByHeight(
-                '22135',
-                net.getEndPoint('testnet')
-            );
-
-            //console.log('block :' + block);
-            assert.equal(block.height, 22135);
-    });
-
-    it('case 3 : get a top block by height', async function() {
-            const block = await jsonrpc.getBlockByHeight(
-                -1,
-                net.getEndPoint('testnet')
-            );
-
-            //console.log('block :' + block);
-            //console.log('typeof height:' + typeof block.height)
-            assert.typeOf(block.height, 'number');
-    });
-
-    it('case 4 : invalid height', function() {
+    it('invalid height', function() {
         jsonrpc.getBlockByHeight(
             -10,
-            net.getEndPoint('testnet')
+            net.getEndPoint('testnet').url
         ).then(function(balance) {
             assert(false);
         }).catch(function(err) {
@@ -302,7 +454,7 @@ describe('jsonrpc.getBlockByHeight()', function() {
         });
     });
 
-    it('case 5 : invalid endpoint', function() {
+    it('invalid endpoint', function() {
         jsonrpc.getBlockByHeight(
             10,
             'http://www.google.com'
@@ -317,20 +469,20 @@ describe('jsonrpc.getBlockByHeight()', function() {
 
 describe('jsonrpc.getBlockByHash()', function() {
 
-    it('case 1 : get a block by hash', async function() {
-            const block = await jsonrpc.getBlockByHash(
-                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b1a',
-                net.getEndPoint('testnet')
-            );
+    it('get a block by hash', async function() {
+        const block = await jsonrpc.getBlockByHash(
+            'de1e03474e51154286738fd1bd23b569214eae4d5a1001df23825bcab93e4252',
+            net.getEndPoint('testnet').url
+        );
 
-            //console.log('block :' + block);
-            assert.equal(block.height, 22135);
+        //console.log('block :' + block);
+        assert.equal(block.height, 22135);
     });
 
-    it('case 2 : invalid hash', function() {
+    it('invalid hash', function() {
         jsonrpc.getBlockByHash(
             '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-            net.getEndPoint('testnet')
+            net.getEndPoint('testnet').url
         ).then(function(balance) {
             assert(false);
         }).catch(function(err) {
@@ -338,7 +490,7 @@ describe('jsonrpc.getBlockByHash()', function() {
         });
     });
 
-    it('case 3 : invalid endpoint', function() {
+    it('invalid endpoint', function() {
         jsonrpc.getBlockByHash(
             '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b1a',
             'http://www.daum.net'
@@ -353,16 +505,16 @@ describe('jsonrpc.getBlockByHash()', function() {
 
 describe('jsonrpc.getLastBlock()', function() {
 
-    it('case 1 : get a last block', async function() {
-            const block = await jsonrpc.getLastBlock(
-                net.getEndPoint('testnet')
-            );
+    it('get a last block', async function() {
+        const block = await jsonrpc.getLastBlock(
+            net.getEndPoint('testnet').url
+        );
 
             //console.log('block :' + block);
             assert.typeOf(block.height, 'number');
     });
 
-    it('case 2 : invalid endpoint', function() {
+    it('invalid endpoint', function() {
         jsonrpc.getLastBlock(
             '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
             'http://www.naver.com'
@@ -375,25 +527,118 @@ describe('jsonrpc.getLastBlock()', function() {
 
 });
 
-describe('jsonrpc.sendTransaction()', function() {
 
-    it('case 1 : send a transaction', async function() {
-            const txHash = await jsonrpc.sendTransaction(
-                {
-                    "from": "hxbe258ceb872e08851f1f59694dac2558708ece11",
-                    "to": "hxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32",
-                    "value": "0xde0b6b3a7640000",
-                    "fee": "0x2386f26fc10000",
-                    "timestamp": "1516942975500598",
-                    "nonce": "8367273",
-                    "tx_hash": "4bf74e6aeeb43bde5dc8d5b62537a33ac8eb7605ebbdb51b015c1881b45b3aed",
-                    "signature": "VAia7YZ2Ji6igKWzjR2YsGa2m53nKPrfK7uXYW78QLE+ATehAVZPC40szvAiA6NEU5gCYB4c4qaQzqDh2ugcHgA="
-                },
-                net.getEndPoint('testnet')
-            );
+describe('utils.toBigNumber()', function() {
 
-            console.log('txHash :' + txHash);
-            console.log('typeof txHash :' + typeof txHash);
-            assert.typeOf(block.height, 'String');
+    it('input parameter is BigNumber', async function() {
+        const someVal = new BigNumber(12341234123412341234);
+
+        assert.deepEqual(utils.toBigNumber(someVal), someVal);
+    });
+
+    it('input parameter is null', async function() {
+        assert.deepEqual(utils.toBigNumber(null), BigNumber(0));
+    });
+
+    it('input parameter is hexadecimal string without 0x prefix', async function() {
+        assert.deepEqual(utils.toBigNumber('100'), BigNumber(100));
+    });
+
+    it('input parameter is hexadecimal string with 0x prefix', async function() {
+        assert.deepEqual(utils.toBigNumber('0x100'), BigNumber(256));
     });
 });
+
+describe('utils.toHexString()', function() {
+
+    it('input parameter is Object', async function() {
+        const someVal = {a:1, b:2};
+
+        assert.deepEqual(utils.toHexString(someVal), someVal);
+    });
+});
+
+describe('utils.toHashString()', function() {
+
+    it('input parameter is a string without 0x prefix', async function() {
+        assert.equal(utils.toHashString('1212'), '0x1212');
+    });
+
+    it('input parameter is a string with 0x prefix', async function() {
+        assert.equal(utils.toHashString('0x1212'), '0x1212');
+    });
+});
+
+describe('key.privateKeyFromKeyStoreObj()', function() {
+
+    it('keyStoreObj is not a Object', async function() {
+        try {
+            const privKey = key.privateKeyFromKeyStoreObj('test', 'test');
+            assert(false);
+        } catch(e) {
+            assert(true);
+        }
+    });
+
+    it('password is not a String', async function() {
+        try {
+            const keyStoreObj = {
+                address: 'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64',
+                crypto: {
+                    cipher: 'aes-128-ctr',
+                    cipherparams: {
+                        iv: '2b512a55a793e019e42e180b363031a7'
+                    },
+                    ciphertext: '766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b',
+                    kdf: 'pbkdf2',
+                    kdfparams: {
+                        c: 262144,
+                        dklen: 32,
+                        prf: 'hmac-sha256',
+                        salt: 'ec60e4e5021a248908d2d0012d389620'
+                    },
+                    mac: 'b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810'
+                },
+                id: '3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8',
+                version: 3,
+                coinType: 'icx'
+            };
+            const privKey = key.privateKeyFromKeyStoreObj(keyStoreObj, 1);
+            assert(false);
+        } catch(e) {
+            assert(true);
+        }
+    });
+
+    it('version is not 3', async function() {
+        try {
+            const keyStoreObj = {
+                address: 'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64',
+                crypto: {
+                    cipher: 'aes-128-ctr',
+                    cipherparams: {
+                        iv: '2b512a55a793e019e42e180b363031a7'
+                    },
+                    ciphertext: '766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b',
+                    kdf: 'pbkdf2',
+                    kdfparams: {
+                        c: 262144,
+                        dklen: 32,
+                        prf: 'hmac-sha256',
+                        salt: 'ec60e4e5021a248908d2d0012d389620'
+                    },
+                    mac: 'b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810'
+                },
+                id: '3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8',
+                version: 2,
+                coinType: 'icx'
+            };
+            const privKey = key.privateKeyFromKeyStoreObj(keyStoreObj, 'test123');
+            assert(false);
+        } catch(e) {
+            assert(true);
+        }
+    });
+
+});
+

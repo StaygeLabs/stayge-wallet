@@ -1,8 +1,22 @@
 'use strict'
 
 const endpoints = {
-    mainnet : 'https://wallet.icon.foundation',
-    testnet : 'https://testwallet.icon.foundation'
+    mainnet : {
+        url : 'https://wallet.icon.foundation',
+        nid : '0x1'
+    },
+
+    /*
+    testnet : {
+        url : 'https://testwallet.icon.foundation',
+        nid : '0x2'
+    }
+    */
+
+    testnet : {
+        url : 'http://52.79.233.89:9000',
+        nid : '0x3'
+    },
 };
 
 function getEndPoint(name) {

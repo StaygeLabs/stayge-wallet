@@ -1,6 +1,6 @@
 'use strict'
 
-const API_VERSION = 'v2';
+const API_VERSION = 'v3';
 
 const request = require('request');
 const utils = require('./utils.js');
@@ -14,14 +14,18 @@ function getCurrentApiPrefix() {
 }
 
 function toPayload(method, params) {
-    msgId++;
 
-    return {
+    const payload = {
         jsonrpc: '2.0',
-        id: msgId,
+        id: ++msgId,
         method: method,
-        params: params || []
-    };
+    }
+
+    if (params) {
+        payload.params = params;
+    }
+
+    return payload;
 }
 
 function requestJsonRpc(url, payload) {
@@ -60,21 +64,19 @@ function getBalance(address, endpoint) {
 
     return (async () => {
         const body = await requestJsonRpc(url, payload);
-        const balance = body.result.response;
+        const result = body.result;
 
-        //console.log(JSON.stringify(body));
-
-        if (balance === undefined || balance === null) {
-            throw new Error(JSON.stringify(body.result));
+        if (!result) {
+            throw new Error(JSON.stringify(body));
         }
 
-        return utils.ConvertToIcxUnit(balance);
+        return utils.convertToIcx(result);
     })();
 }
 
 /**
  * Get a block information by height
- * @param  {Number|String} height
+ * @param  {Number} height
  * @param  {String} endpoint
  * @return {Object}
  */
@@ -83,21 +85,24 @@ function getBlockByHeight(height, endpoint) {
     const payload = toPayload(
         'icx_getBlockByHeight',
         {
-            height : height
+            height : utils.toHexString(height)
         }
     );
 
+    //console.log('payload = ' + JSON.stringify(payload));
+
     return (async () => {
         const body = await requestJsonRpc(url, payload);
+        const result = body.result;
 
         //console.log(JSON.stringify(body));
         //console.log('typeof body.error : ' + typeof body.error);
 
-        if (typeof body.error === 'object') {
-            throw new Error(JSON.stringify(body.error));
+        if (!result) {
+            throw new Error(JSON.stringify(body));
         }
 
-        return body.result.block;
+        return result;
     })();
 }
 
@@ -113,21 +118,24 @@ function getBlockByHash(hash, endpoint) {
     const payload = toPayload(
         'icx_getBlockByHash',
         {
-            hash : hash
+            hash : utils.toHashString(hash)
         }
     );
 
+    //console.log('payload = ' + JSON.stringify(payload));
+
     return (async () => {
         const body = await requestJsonRpc(url, payload);
+        const result = body.result;
 
         //console.log(JSON.stringify(body));
         //console.log('typeof body.error : ' + typeof body.error);
 
-        if (typeof body.error === 'object') {
-            throw new Error(JSON.stringify(body.error));
+        if (!result) {
+            throw new Error(JSON.stringify(body));
         }
 
-        return body.result.block;
+        return result;
     })();
 }
 
@@ -141,20 +149,23 @@ function getLastBlock(endpoint) {
     const url = endpoint + getCurrentApiPrefix();
     const payload = toPayload(
         'icx_getLastBlock',
-        {}
+        null
     );
+
+    //console.log('payload = ' + JSON.stringify(payload));
 
     return (async () => {
         const body = await requestJsonRpc(url, payload);
+        const result = body.result;
 
         //console.log(JSON.stringify(body));
         //console.log('typeof body.error : ' + typeof body.error);
 
-        if (typeof body.error === 'object') {
-            throw new Error(JSON.stringify(body.error));
+        if (!result) {
+            throw new Error(JSON.stringify(body));
         }
 
-        return body.result.block;
+        return result;
     })();
 }
 
@@ -174,19 +185,16 @@ function sendTransaction(rawTx, endpoint) {
 
     return (async () => {
         const body = await requestJsonRpc(url, payload);
+        const result = body.result;
 
-        console.log(JSON.stringify(body));
+        //console.log(JSON.stringify(body));
+        //console.log('typeof body.error : ' + typeof body.error);
 
-        if (typeof body.error === 'object') {
-            throw new Error(JSON.stringify(body.error));
+        if (!result) {
+            throw new Error(JSON.stringify(body));
         }
 
-        if (body.result.response_code === 0) {
-            return body.result.tx_hash;
-        } else {
-            throw new Error(JSON.stringify(body.result));
-        }
-
+        return result;
     })();
 }
 
