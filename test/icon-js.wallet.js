@@ -247,11 +247,11 @@ describe('Wallet.getBlockByHash()', function() {
     it('get a block by hash', async function() {
         const wallet = Wallet.create();
         const block = await wallet.getBlockByHash(
-            '657568ae461a4931ac943384a57c080632b5bcd46753cc02419c55740a4c46f6'
+            'b6982def81169afe6e1e9a26875cf8b2b41d6554377ae54520b860776c3186c6'
         );
 
-        //console.log('block :' + block);
-        assert.equal(block.height, 22135);
+        //console.log('block :' + JSON.stringify(block));
+        assert.equal(block.height, 108239);
     });
 
     it('invalid hash', function() {
@@ -305,16 +305,30 @@ describe('Wallet.getBalance()', function() {
 });
 
 
-describe('Wallet.sendICX()', function() {
+describe('Wallet.getTotalSupply()', function() {
 
-    it('send a transaction', async function() {
+    it('get total supply of ICX', async function() {
         const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
-        const txHash = await wallet.sendICX(
+
+        const totalSupply = await wallet.getTotalSupply();
+
+        console.log('totalSupply :' + totalSupply);
+        assert.typeOf(totalSupply, 'string');
+    });
+});
+
+
+
+describe('Wallet.transferICX()', function() {
+
+    it('transfer a transaction', async function() {
+        const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+        const txHash = await wallet.transferICX(
             'hxfda7ec74dfeac5d6b22844c8cbbf63f0b81c736e',
             0.1
         );
 
-        //console.log('txHash :' + txHash);
+        console.log('txHash :' + txHash);
         //console.log('typeof txHash :' + typeof txHash);
         assert.typeOf(txHash, 'String');
     });
@@ -324,7 +338,7 @@ describe('Wallet.sendICX()', function() {
         try {
             const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
 
-            const txHash = await wallet.sendICX(
+            const txHash = await wallet.transferICX(
             'fda7ec74dfeac5d6b22844c8cbbf63f0b81c736e',
             0.1
             );
@@ -338,17 +352,164 @@ describe('Wallet.sendICX()', function() {
 });
 
 
-describe('net.getEndPointFromEnv()', function() {
+describe('Wallet.call()', function() {
 
-    it('get a endpoint under development', function() {
-
-        process.env.NODE_ENV = 'development';
-
-        assert.deepEqual(
-            net.getEndPointFromEnv(),
-            net.getEndPoint('testnet')
+    it('call SCORE\'s function', async function() {
+        const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+        const result = await wallet.call(
+            'cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32',
+            'get_balance',
+            {
+                address: 'hx1f9a3310f60a03934b917509c86442db703cbd52'
+            }
         );
+
+        console.log('result :' + result);
+        //console.log('typeof txHash :' + typeof txHash);
+        assert.typeOf(result, 'String');
     });
+
+
+    it('invalid address', async function() {
+        try {
+            const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+            const result = await wallet.call(
+                'xb0776ee37f5b45bfaea8cff1d8232fbb6122ec32',
+                'get_balance',
+                {
+                    address: 'hx1f9a3310f60a03934b917509c86442db703cbd52'
+                }
+            );
+
+            assert(false);
+        } catch (e) {
+            console.log(e);
+            assert(true);
+        }
+    });
+
+    it('invalid address', async function() {
+        try {
+            const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+            const result = await wallet.icxCall(
+                'cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec31',
+                'get_balance',
+                {
+                    address: 'hx1f9a3310f60a03934b917509c86442db703cbd52'
+                }
+            );
+
+            assert(false);
+        } catch (e) {
+            console.log(e);
+            assert(true);
+        }
+    });
+});
+
+
+
+
+describe('Wallet.getScoreApi()', function() {
+
+    it('get SCORE\'s api list', async function() {
+        const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+        const result = await wallet.getScoreApi(
+            'cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32',
+        );
+
+        console.log('result :' + result);
+        //console.log('typeof txHash :' + typeof txHash);
+        assert.typeOf(result, 'Object');
+    });
+
+
+    it('invalid address', async function() {
+        try {
+            const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+            const result = await wallet.getScoreApi(
+                'xb0776ee37f5b45bfaea8cff1d8232fbb6122ec32',
+            );
+
+            assert(false);
+        } catch (e) {
+            console.log(e);
+            assert(true);
+        }
+    });
+
+    it('invalid address', async function() {
+        try {
+            const wallet = Wallet.fromPrivateKey('94cb440b49ff1c8f95d75e7ce0b4238781a9a601a3f7d40af1d529de16a338a3');
+            const result = await wallet.getScoreApi(
+                'cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec31',
+            );
+
+            assert(false);
+        } catch (e) {
+            console.log(e);
+            assert(true);
+        }
+    });
+});
+
+
+
+
+
+describe('Wallet.getTransactionResult()', function() {
+
+    it('successfully completed transaction', async function() {
+        const wallet = Wallet.create();
+        const txResult = await wallet.getTransactionResult(
+            '97f3b03eeee12c4ed62b86b5901039e8b48d031d3f595466712075200de9bdff'
+        );
+
+        console.log('txResult :' + JSON.stringify(txResult));
+        assert.equal(txResult.txHash, utils.toHashString('97f3b03eeee12c4ed62b86b5901039e8b48d031d3f595466712075200de9bdff'));
+    });
+
+    it('invalid txHash', function() {
+        const wallet = Wallet.create();
+        wallet.getTransactionResult(
+            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+        ).then(function(balance) {
+            assert(false);
+        }).catch(function(err) {
+            assert(true);
+        });
+    });
+});
+
+
+describe('Wallet.getTransactionByHash()', function() {
+
+    it('successfully completed transaction', async function() {
+        const wallet = Wallet.create();
+        const txResult = await wallet.getTransactionByHash(
+            '97f3b03eeee12c4ed62b86b5901039e8b48d031d3f595466712075200de9bdff'
+        );
+
+        console.log('txResult :' + JSON.stringify(txResult));
+        assert.equal(txResult.txHash, utils.toHashString('97f3b03eeee12c4ed62b86b5901039e8b48d031d3f595466712075200de9bdff'));
+    });
+
+    it('invalid txHash', function() {
+        const wallet = Wallet.create();
+        wallet.getTransactionByHash(
+            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+        ).then(function(balance) {
+            assert(false);
+        }).catch(function(err) {
+            assert(true);
+        });
+    });
+});
+
+
+
+
+describe('net.getEndPointFromEnv()', function() {
 
     it('get a endpoint under production', function() {
 
@@ -359,7 +520,18 @@ describe('net.getEndPointFromEnv()', function() {
             net.getEndPoint('mainnet')
         );
     });
+
+    it('get a endpoint under development', function() {
+
+        process.env.NODE_ENV = 'development';
+
+        assert.deepEqual(
+            net.getEndPointFromEnv(),
+            net.getEndPoint('testnet')
+        );
+    });
 });
+
 
 
 /*
@@ -471,12 +643,12 @@ describe('jsonrpc.getBlockByHash()', function() {
 
     it('get a block by hash', async function() {
         const block = await jsonrpc.getBlockByHash(
-            'de1e03474e51154286738fd1bd23b569214eae4d5a1001df23825bcab93e4252',
+            'b6982def81169afe6e1e9a26875cf8b2b41d6554377ae54520b860776c3186c6',
             net.getEndPoint('testnet').url
         );
 
         //console.log('block :' + block);
-        assert.equal(block.height, 22135);
+        assert.equal(block.height, 108239);
     });
 
     it('invalid hash', function() {

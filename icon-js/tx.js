@@ -9,11 +9,10 @@ var nonce = 1;
 
 /**
  * Make a raw transaction for ICX
- * @param  {Boolean} isContract
  * @param  {Object}  data
  * @return {Object}
  */
-function makeIcxRawTx(isContract, data) {
+function makeIcxRawTx(data) {
     const rawTx = {
         from: data.from,
         to: data.to,
@@ -28,21 +27,14 @@ function makeIcxRawTx(isContract, data) {
         nonce: utils.toHexString(nonce++)
     };
 
-    if (isContract) {
-        rawTx.dataType = 'call';
-        rawTx.data = {
-            'method': data.methodName,
-            'params': data.inputObj
-        }
-    } else {
+    if (!data.value) {
         const sendAmount = utils.convertToLoop(data.value);
-
         rawTx.value = utils.toHexString(sendAmount);
+    }
 
-        if (data.data) {
-            rawTx['data'] = data.data;
-            rawTx['dataType'] = 'message';
-        }
+    if (!data.dataType) {
+        rawTx.dataType = data.dataType;
+        rawTx.data = data.data;
     }
 
     return rawTx;

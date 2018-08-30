@@ -74,6 +74,31 @@ function getBalance(address, endpoint) {
     })();
 }
 
+
+/**
+ * Get total supply of ICX
+ * @param  {String} endpoint
+ * @return {String}
+ */
+function getTotalSupply(endpoint) {
+    const url = endpoint + getCurrentApiPrefix();
+    const payload = toPayload(
+        'icx_getTotalSupply',
+        null
+    );
+
+    return (async () => {
+        const body = await requestJsonRpc(url, payload);
+        const result = body.result;
+
+        if (!result) {
+            throw new Error(JSON.stringify(body));
+        }
+
+        return utils.convertToIcx(result);
+    })();
+}
+
 /**
  * Get a block information by height
  * @param  {Number} height
@@ -199,10 +224,147 @@ function sendTransaction(rawTx, endpoint) {
 }
 
 
+/**
+ * Get the transaction result requested by transaction hash
+ * @param  {String} txHash
+ * @param  {String} endpoint
+ * @return {Object}
+ */
+function getTransactionResult(txHash, endpoint) {
+    const url = endpoint + getCurrentApiPrefix();
+    const payload = toPayload(
+        'icx_getTransactionResult',
+        {
+            txHash : utils.toHashString(txHash)
+        }
+    );
+
+    //console.log('payload = ' + JSON.stringify(payload));
+
+    return (async () => {
+        const body = await requestJsonRpc(url, payload);
+        const result = body.result;
+
+        //console.log(JSON.stringify(body));
+        //console.log('typeof body.error : ' + typeof body.error);
+
+        if (!result) {
+            throw new Error(JSON.stringify(body));
+        }
+
+        return result;
+    })();
+}
+
+
+/**
+ * call SCORE's external function
+ * @param  {Object} params
+ * @param  {String} endpoint
+ * @return {String}
+ */
+function call(params, endpoint) {
+    const url = endpoint + getCurrentApiPrefix();
+    const payload = toPayload(
+        'icx_call',
+        params
+    );
+
+    //console.log('payload = ' + JSON.stringify(payload));
+
+    return (async () => {
+        const body = await requestJsonRpc(url, payload);
+        const result = body.result;
+
+        //console.log(JSON.stringify(body));
+        //console.log('typeof body.error : ' + typeof body.error);
+
+        if (!result) {
+            throw new Error(JSON.stringify(body));
+        }
+
+        return result;
+    })();
+}
+
+
+/**
+ * call SCORE's external function
+ * @param  {Object} params
+ * @param  {String} endpoint
+ * @return {String}
+ */
+function getScoreApi(address, endpoint) {
+    const url = endpoint + getCurrentApiPrefix();
+    const payload = toPayload(
+        'icx_getScoreApi',
+        {
+            address: address
+        }
+    );
+
+    //console.log('payload = ' + JSON.stringify(payload));
+
+    return (async () => {
+        const body = await requestJsonRpc(url, payload);
+        const result = body.result;
+
+        //console.log(JSON.stringify(body));
+        //console.log('typeof body.error : ' + typeof body.error);
+
+        if (!result) {
+            throw new Error(JSON.stringify(body));
+        }
+
+        return result;
+    })();
+}
+
+
+
+/**
+ * Get the transaction information by txHash
+ * @param  {String} txHash
+ * @param  {String} endpoint
+ * @return {Object}
+ */
+function getTransactionByHash(txHash, endpoint) {
+    const url = endpoint + getCurrentApiPrefix();
+    const payload = toPayload(
+        'icx_getTransactionByHash',
+        {
+            txHash : utils.toHashString(txHash)
+        }
+    );
+
+    //console.log('payload = ' + JSON.stringify(payload));
+
+    return (async () => {
+        const body = await requestJsonRpc(url, payload);
+        const result = body.result;
+
+        //console.log(JSON.stringify(body));
+        //console.log('typeof body.error : ' + typeof body.error);
+
+        if (!result) {
+            throw new Error(JSON.stringify(body));
+        }
+
+        return result;
+    })();
+}
+
+
+
+
 module.exports = {
     getBalance : getBalance,
     getBlockByHeight : getBlockByHeight,
     getBlockByHash : getBlockByHash,
     getLastBlock : getLastBlock,
-    sendTransaction : sendTransaction
+    sendTransaction : sendTransaction,
+    getTransactionResult : getTransactionResult,
+    getTransactionByHash : getTransactionByHash,
+    getTotalSupply : getTotalSupply,
+    call : call,
 };

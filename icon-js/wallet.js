@@ -167,12 +167,20 @@ Wallet.prototype.getBalance = function() {
 
 
 /**
- * Send ICX coins
+ * Get total supply of ICX
+ * @return {String}
+ */
+Wallet.prototype.getTotalSupply = function() {
+    return jsonrpc.getTotalSupply(this.getEndPoint().url);
+}
+
+/**
+ * Transfer ICX coins
  * @param {String} to
  * @param {Number} value
  * @return {String} txHash
  */
-Wallet.prototype.sendICX = function(to, value) {
+Wallet.prototype.transferICX = function(to, value) {
     return (async () => {
         const data = {
             from: this.getAddressString(),
@@ -181,7 +189,7 @@ Wallet.prototype.sendICX = function(to, value) {
             value: value,
         };
 
-        const rawTx = tx.makeIcxRawTx(false, data);
+        const rawTx = tx.makeIcxRawTx(data);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -190,6 +198,192 @@ Wallet.prototype.sendICX = function(to, value) {
 
         return result
     })();
+}
+
+
+/**
+ * Transafer a message
+ * @param  {String} to
+ * @param  {String} msg
+ * @return {String} txHash
+ */
+Wallet.prototype.transferMessage = function(to, msg) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            stepLimit: DEFAULT_STEP_LIMIT,
+            dataType: 'message',
+            data: msg,
+        };
+
+        const rawTx = tx.makeIcxRawTx(data);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
+}
+
+
+/**
+ * Send a transaction for calling a SCORE'S method
+ * @param  {String} scoreAddress
+ * @param  {String]} scoreMethod
+ * @param  {Object} methodParams
+ * @return {String} txHash
+ */
+Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            stepLimit: DEFAULT_STEP_LIMIT,
+            dataType: 'call',
+            data: {
+                method: scoreMethod,
+                params: methodParams,
+            },
+        };
+
+        const rawTx = tx.makeIcxRawTx(data);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
+}
+
+
+
+/**
+ * Install a SCORE on the ICON blockchain
+ * @param  {String} to
+ * @param  {String} scoreContent
+ * @param  {Object} installParams
+ * @return {String} txHash
+ */
+Wallet.prototype.installScore = function(scoreContent, installParams) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: 'cx0000000000000000000000000000000000000000',   // address 0 means SCORE install
+            stepLimit: DEFAULT_STEP_LIMIT,
+            dataType: 'deploy',
+            data: {
+                contentType: 'application/zip',
+                content: scoreContent,
+                params: installParams,
+            },
+        };
+
+        const rawTx = tx.makeIcxRawTx(data);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
+}
+
+
+/**
+ * Update a SCORE on the ICON blockchain
+ * @param  {[type]} scoreAddress [description]
+ * @param  {[type]} scoreContent [description]
+ * @param  {[type]} updateParams [description]
+ * @return {[type]}              [description]
+ */
+Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            stepLimit: DEFAULT_STEP_LIMIT,
+            dataType: 'deploy',
+            data: {
+                contentType: 'application/zip',
+                content: scoreContent,
+                params: updateParams,
+            },
+        };
+
+        const rawTx = tx.makeIcxRawTx(data);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
+}
+
+
+/**
+ * Call SCORE's external function
+ * @param  {String} to
+ * @param  {String} method
+ * @param  {Object} params
+ * @return {String}
+ */
+Wallet.prototype.call = function(to, method, params) {
+    return (async () => {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            dataType: 'call',
+            data: {
+                method: method,
+                params: params
+            }
+        };
+
+        const result = await jsonrpc.call(
+            data,
+            this.getEndPoint().url
+        );
+
+        return result
+    })();
+}
+
+
+/**
+ * Get SCORE's external API list
+ * @param  {String} address
+ * @return {Object}
+ */
+Wallet.prototype.getScoreApi = function(address) {
+    return jsonrpc.getScoreApi(address);
+}
+
+
+/**
+ * Get the transaction result requested by transaction hash
+ * @param  {String} txHash
+ * @return {Object}
+ */
+Wallet.prototype.getTransactionResult = function(txHash) {
+    return jsonrpc.getTransactionResult(txHash, this.getEndPoint().url);
+}
+
+
+/**
+ * Get the transaction information by txHash
+ * @param  {String} txHash
+ * @return {Object}
+ */
+Wallet.prototype.getTransactionByHash = function(txHash) {
+    return jsonrpc.getTransactionByHash(txHash, this.getEndPoint().url);
 }
 
 /**
@@ -215,7 +409,7 @@ Wallet.fromPrivateKey = function(privateKeyString) {
  * @return {Wallet}             [description]
  */
 Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
-    console.log('typeof keyStoreObj:'+typeof keyStoreObj);
+    //console.log('typeof keyStoreObj:'+typeof keyStoreObj);
     const json = (typeof keyStoreObj === 'object') ? keyStoreObj : JSON.parse(keyStoreObj);
 
     return new Wallet(key.privateKeyFromKeyStoreObj(
