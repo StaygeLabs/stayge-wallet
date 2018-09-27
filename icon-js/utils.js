@@ -1,8 +1,7 @@
 'use strict'
 
-const UNIT_ICX = '1000000000000000000';
-
 const BigNumber = require('bignumber.js');
+const config = require('./config.js');
 
 /**
  * Returns true if object is string, otherwise false
@@ -85,7 +84,7 @@ function toHashString(value) {
 */
 function convertToIcx(value) {
     return toBigNumber(value)
-            .dividedBy(UNIT_ICX)
+            .dividedBy(config.unitIcx)
             .toString(10);
 }
 
@@ -96,9 +95,27 @@ function convertToIcx(value) {
  * @return {BigNumber}
  */
 function convertToLoop(value) {
-    return toBigNumber(value).times(UNIT_ICX);
+    return toBigNumber(value).times(config.unitIcx);
 };
 
+
+function getEndPoint(name) {
+    return config.endpoints[name];
+}
+
+/**
+ * get a endpoint for current environment
+ * @return {String}
+ */
+function getEndPointFromEnv() {
+    //console.log('NODE_ENV : ' + process.env.NODE_ENV);
+
+    if (process.env.NODE_ENV === 'production') {
+        return getEndPoint('mainnet');
+    } else {
+        return getEndPoint('testnet');
+    }
+}
 
 module.exports = {
     isString : isString,
@@ -108,4 +125,6 @@ module.exports = {
     convertToLoop : convertToLoop,
     toHexString : toHexString,
     toHashString : toHashString,
+    getEndPoint : getEndPoint,
+    getEndPointFromEnv : getEndPointFromEnv,
 };

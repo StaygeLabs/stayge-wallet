@@ -1,6 +1,6 @@
 'use strict'
 
-const API_VERSION = 'v3';
+const API_VERSION = require('./config.js').apiVersion;
 
 const request = require('request');
 const utils = require('./utils.js');
@@ -10,7 +10,7 @@ var msgId = 0;
 
 
 function getCurrentApiPrefix() {
-    return '/api/' + API_VERSION;
+    return '/api/v' + API_VERSION;
 }
 
 function toPayload(method, params) {
@@ -208,6 +208,8 @@ function sendTransaction(rawTx, endpoint) {
         rawTx
     );
 
+    //console.log(JSON.stringify(payload))
+
     return (async () => {
         const body = await requestJsonRpc(url, payload);
         const result = body.result;
@@ -366,5 +368,6 @@ module.exports = {
     getTransactionResult : getTransactionResult,
     getTransactionByHash : getTransactionByHash,
     getTotalSupply : getTotalSupply,
+    getScoreApi : getScoreApi,
     call : call,
 };

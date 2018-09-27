@@ -2,11 +2,13 @@
 
 const fs = require('fs');
 const key = require('./key.js');
-const net = require('./net.js');
+const utils = require('./utils.js');
 const jsonrpc = require('./jsonrpc.js');
 const tx = require('./tx.js');
 
-const DEFAULT_STEP_LIMIT = 75000;
+const DEFAULT_DEPLOY_STEP_LIMIT = 2000000000; // 20 ICX, step price : 0.00000001 ICX(10 Gloop)
+const DEFAULT_UPDATE_STEP_LIMIT = 3000000000; // 30 ICX, step price : 0.00000001 ICX(10 Gloop)
+const DEFAULT_TX_STEP_LIMIT = 100000000; // 1 ICX, step price : 0.00000001 ICX(10 Gloop)
 
 /**
  * A class for ICON Wallet
@@ -37,7 +39,7 @@ const Wallet = function(privateKey) {
      */
     this._address = key.publicToAddress(this._publicKey);
 
-    this._endpoint = net.getEndPointFromEnv();
+    this._endpoint = utils.getEndPointFromEnv();
 }
 
 
@@ -116,7 +118,7 @@ Wallet.prototype.toKeyStoreObj = function(password) {
  * @param {String} name 'mainnet' | 'testnet'
  */
 Wallet.prototype.setEndPoint = function(name) {
-    this._endpoint = net.getEndPoint(name);
+    this._endpoint = utils.getEndPoint(name);
 }
 
 /**
@@ -185,11 +187,11 @@ Wallet.prototype.transferICX = function(to, value) {
         const data = {
             from: this.getAddressString(),
             to: to,
-            stepLimit: DEFAULT_STEP_LIMIT,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
             value: value,
         };
 
-        const rawTx = tx.makeIcxRawTx(data);
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -212,12 +214,12 @@ Wallet.prototype.transferMessage = function(to, msg) {
         const data = {
             from: this.getAddressString(),
             to: to,
-            stepLimit: DEFAULT_STEP_LIMIT,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
             dataType: 'message',
             data: msg,
         };
 
-        const rawTx = tx.makeIcxRawTx(data);
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -241,7 +243,7 @@ Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams)
         const data = {
             from: this.getAddressString(),
             to: scoreAddress,
-            stepLimit: DEFAULT_STEP_LIMIT,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
             dataType: 'call',
             data: {
                 method: scoreMethod,
@@ -249,7 +251,7 @@ Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams)
             },
         };
 
-        const rawTx = tx.makeIcxRawTx(data);
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -274,7 +276,7 @@ Wallet.prototype.installScore = function(scoreContent, installParams) {
         const data = {
             from: this.getAddressString(),
             to: 'cx0000000000000000000000000000000000000000',   // address 0 means SCORE install
-            stepLimit: DEFAULT_STEP_LIMIT,
+            stepLimit: DEFAULT_DEPLOY_STEP_LIMIT,
             dataType: 'deploy',
             data: {
                 contentType: 'application/zip',
@@ -283,7 +285,7 @@ Wallet.prototype.installScore = function(scoreContent, installParams) {
             },
         };
 
-        const rawTx = tx.makeIcxRawTx(data);
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -307,7 +309,7 @@ Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams
         const data = {
             from: this.getAddressString(),
             to: scoreAddress,
-            stepLimit: DEFAULT_STEP_LIMIT,
+            stepLimit: DEFAULT_UPDATE_STEP_LIMIT,
             dataType: 'deploy',
             data: {
                 contentType: 'application/zip',
@@ -316,7 +318,7 @@ Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams
             },
         };
 
-        const rawTx = tx.makeIcxRawTx(data);
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
         const result = await jsonrpc.sendTransaction(
             rawTxSigned,
@@ -363,7 +365,7 @@ Wallet.prototype.call = function(to, method, params) {
  * @return {Object}
  */
 Wallet.prototype.getScoreApi = function(address) {
-    return jsonrpc.getScoreApi(address);
+    return jsonrpc.getScoreApi(address, this.getEndPoint().url);
 }
 
 

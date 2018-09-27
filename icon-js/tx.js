@@ -1,9 +1,10 @@
 'use strict'
 
-const utils = require('./utils.js');
 const secp256k1 = require('secp256k1');
 const sha3_256 = require('js-sha3').sha3_256;
 const BigNumber = require('bignumber.js');
+const utils = require('./utils.js');
+const config = require('./config.js');
 
 var nonce = 1;
 
@@ -12,12 +13,12 @@ var nonce = 1;
  * @param  {Object}  data
  * @return {Object}
  */
-function makeIcxRawTx(data) {
+function makeIcxRawTx(data, nid) {
     const rawTx = {
         from: data.from,
         to: data.to,
-        version: '0x3',
-        nid: '0x3',
+        version: utils.toHexString(config.apiVersion),
+        nid: nid,
         stepLimit: utils.toHexString(
             new BigNumber(data.stepLimit).toString(16)
         ),
@@ -27,12 +28,12 @@ function makeIcxRawTx(data) {
         nonce: utils.toHexString(nonce++)
     };
 
-    if (!data.value) {
+    if (data.value) {
         const sendAmount = utils.convertToLoop(data.value);
         rawTx.value = utils.toHexString(sendAmount);
     }
 
-    if (!data.dataType) {
+    if (data.dataType) {
         rawTx.dataType = data.dataType;
         rawTx.data = data.data;
     }
