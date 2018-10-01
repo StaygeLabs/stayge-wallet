@@ -238,6 +238,35 @@ describe('wallet/index.fromKeyStoreObj()', function() {
 
 });
 
+
+describe('wallet/index.fromKeyStoreFile()', function() {
+
+    it('create a wallet from a given keystore object', function() {
+        const password = 'test123!';
+        const wallet = Wallet.fromKeyStoreFile('test/test_user1.keystore', password);
+
+        /*
+        console.log('address(string) = ' + wallet.getAddressString());
+        console.log('length of private key = ' + wallet.getPrivateKey().length);
+        console.log('private key string = ' + wallet.getPrivateKeyString());
+        console.log('length of public key = ' + wallet.getPublicKey().length);
+        console.log('public key strin = ' + wallet.getPublicKeyString());
+        console.log('length of address = ' + wallet.getAddress().length);
+        console.log('address string = ' + wallet.getAddressString());
+        */
+
+        assert.lengthOf(wallet.getPrivateKey(), 32);
+        assert.lengthOf(wallet.getPublicKey(), 64);
+        assert.lengthOf(wallet.getAddress(), 20);
+        assert.equal(wallet.getAddressString().substr(0, 2), 'hx');
+        assert.equal(
+            wallet.getAddressString(),
+            'hx3938461680520062e9fe7e46288d6b74a8682ce7'
+        );
+    });
+});
+
+
 describe('wallet/index.toKeyStoreObj()', function() {
 
     it('get a keystore object from the wallet', function() {
@@ -562,6 +591,7 @@ describe('wallet/index.getTransactionByHash()', function() {
 });
 
 
+/*
 describe('wallet/index.installScore()', function() {
 
     it('install a new score of ACT', async function() {
@@ -600,6 +630,25 @@ describe('wallet/index.updateScore()', function() {
         const txResult = await ownerWallet.getTransactionResult(txHash);
         console.log(`txResult = ${JSON.stringify(txResult)}`);
         console.log(`scoreAddress = ${txResult.scoreAddress}`)
+        assert.equal(txResult.status, '0x1');
+    });
+
+});
+*/
+
+describe('wallet/index.transferMessage()', function() {
+
+    it('transfer a message', async function() {
+        const txHash = await ownerWallet.transferMessage(
+            user1Wallet.getAddressString(),
+            'test message',
+        );
+
+        console.log('txHash :' + txHash);
+        assert.typeOf(txHash, 'String');
+
+        const txResult = await ownerWallet.getTransactionResult(txHash);
+        console.log(`txResult = ${JSON.stringify(txResult)}`);
         assert.equal(txResult.status, '0x1');
     });
 

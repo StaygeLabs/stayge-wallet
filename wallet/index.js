@@ -167,7 +167,10 @@ Wallet.prototype.transferICX = function(to, value) {
  * @return {String} txHash
  */
 Wallet.prototype.transferMessage = function(to, msg) {
-    return this._baseWallet.transferMessage(to, msg);
+    return this._baseWallet.transferMessage(
+        to,
+        msg.length > 0 ? utils.convertToHex(msg) : msg
+    );
 }
 
 
@@ -312,8 +315,8 @@ Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
  * @return {[type]}              [description]
  */
 Wallet.fromKeyStoreFile = function(keyStorePath, password) {
-    content = fs.readFileSync(keyStorePath);
-    keyStoreObj = JSON.parse(content);
+    const content = fs.readFileSync(keyStorePath);
+    const keyStoreObj = JSON.parse(content);
     return new Wallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
 }
 
