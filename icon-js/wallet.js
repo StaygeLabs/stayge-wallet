@@ -284,9 +284,12 @@ Wallet.prototype.installScore = function(scoreContent, installParams) {
             data: {
                 contentType: 'application/zip',
                 content: scoreContent,
-                params: installParams,
             },
         };
+
+        if (installParams) {
+            data.data.params = installParams;
+        }
 
         const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
@@ -317,9 +320,12 @@ Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams
             data: {
                 contentType: 'application/zip',
                 content: scoreContent,
-                params: updateParams,
             },
         };
+
+        if (updateParams) {
+            data.data.params = updateParams;
+        }
 
         const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)

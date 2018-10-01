@@ -196,7 +196,7 @@ Wallet.prototype.callScoreTx = function(
  */
 Wallet.prototype.installScore = function(scorePath, installParams) {
     const zip = new AdmZip(scorePath);
-    const scoreContent = zip.toBuffer().toString('hex');
+    const scoreContent = '0x' + zip.toBuffer().toString('hex');
     return this._baseWallet.installScore(scoreContent, installParams);
 }
 
@@ -214,7 +214,7 @@ Wallet.prototype.updateScore = function(
     updateParams
 ) {
     const zip = new AdmZip(scorePath);
-    const scoreContent = zip.toBuffer().toString('hex');
+    const scoreContent = '0x' + zip.toBuffer().toString('hex');
     return this._baseWallet.updateScore(scoreAddress, scoreContent, updateParams);
 }
 
@@ -246,7 +246,7 @@ Wallet.prototype.getScoreApi = function(address) {
  * @param  {String} txHash
  * @return {Object}
  */
-Wallet.prototype.getTransactionResult = async function(txHash) {
+Wallet.prototype.getTransactionResult = async function(txHash, ignorePending=true) {
     let i = 0
 
     for (i = 0; i < 20; i++) {
@@ -256,7 +256,7 @@ Wallet.prototype.getTransactionResult = async function(txHash) {
         } catch (err) {
             //console.log(`getTransactionResult = ${err.message}`);
 
-            if (err.message.indexOf('Pending') != -1 ||
+            if ((ignorePending && err.message.indexOf('Pending') != -1) ||
                 err.message.indexOf('Invalid params txHash') != -1) {
                 await utils.sleep(500);
             } else {
