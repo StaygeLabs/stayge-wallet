@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
-    "doc": "./node_modules/.bin/jsdoc -r -c ./.jsdoc.json .",
-    "test": "mocha",
-    "test-coverage": "nyc mocha"
+    "doc": "./node_modules/.bin/jsdoc -r -d docs/refs -c ./.jsdoc.json .",
+    "test": "mocha --timeout 10000",
+    "test-coverage": "nyc mocha --timeout 10000"
   },
   "author": "stayge.io",
   "authors": [

@@ -56,14 +56,22 @@ function toBigNumber(number) {
 function toHexString(value) {
 
     if (typeof value === 'number') {
-        return '0x' + value.toString(16);
+        return value < 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
     } else if (typeof value === 'string' && !value.startsWith('0x')) {
         return '0x' + value.toString(16);
     } else if (isBigNumber(value)) {
-        return '0x' + value.toString(16);
+        return value < 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
     } else {
         return value;
     }
+}
+
+function convertToHex(str) {
+    let hex = '';
+    for(let i = 0; i < str.length; i++) {
+        hex += '' + str.charCodeAt(i).toString(16);
+    }
+    return hex;
 }
 
 /**
@@ -117,6 +125,12 @@ function getEndPointFromEnv() {
     }
 }
 
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 module.exports = {
     isString : isString,
     isBigNumber : isBigNumber,
@@ -127,4 +141,6 @@ module.exports = {
     toHashString : toHashString,
     getEndPoint : getEndPoint,
     getEndPointFromEnv : getEndPointFromEnv,
+    sleep : sleep,
+    convertToHex : convertToHex,
 };

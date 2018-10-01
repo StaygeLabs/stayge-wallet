@@ -3,10 +3,21 @@
 const fs = require('fs')
 const AdmZip = require('adm-zip');
 const IconWallet = require('../icon-js/wallet.js');
+const utils = require('../icon-js/utils.js');
+const STG = require('./stg.js')
+const ACT = require('./act.js')
 
 
-const StaygeWallet = function(baseWallet) {
+const Wallet = function(baseWallet) {
     this._baseWallet = baseWallet;
+}
+
+Wallet.prototype.stg = function(scoreAddress) {
+    return new STG(this, scoreAddress)
+}
+
+Wallet.prototype.act = function(scoreAddress) {
+    return new ACT(this, scoreAddress)
 }
 
 /**
@@ -14,7 +25,7 @@ const StaygeWallet = function(baseWallet) {
  * @memberOf Wallet
  * @return {Buffer}
  */
-StaygeWallet.prototype.getPrivateKey = function() {
+Wallet.prototype.getPrivateKey = function() {
     return this._baseWallet.getPrivateKey();
 }
 
@@ -23,7 +34,7 @@ StaygeWallet.prototype.getPrivateKey = function() {
  * @memberOf Wallet
  * @return {String}
  */
-StaygeWallet.prototype.getPrivateKeyString = function() {
+Wallet.prototype.getPrivateKeyString = function() {
     return this._baseWallet.getPrivateKeyString();
 }
 
@@ -33,7 +44,7 @@ StaygeWallet.prototype.getPrivateKeyString = function() {
  * @memberOf Wallet
  * @return {Buffer}
  */
-StaygeWallet.prototype.getPublicKey = function() {
+Wallet.prototype.getPublicKey = function() {
     return this._baseWallet.getPublicKey();
 }
 
@@ -43,7 +54,7 @@ StaygeWallet.prototype.getPublicKey = function() {
  * @memberOf Wallet
  * @return {String}
  */
-StaygeWallet.prototype.getPublicKeyString = function() {
+Wallet.prototype.getPublicKeyString = function() {
     return this._baseWallet.getPublicKeyString();
 }
 
@@ -53,7 +64,7 @@ StaygeWallet.prototype.getPublicKeyString = function() {
  * @memberOf Wallet
  * @return {Buffer}
  */
-StaygeWallet.prototype.getAddress = function() {
+Wallet.prototype.getAddress = function() {
     return this._baseWallet.getAddress();
 }
 
@@ -62,7 +73,7 @@ StaygeWallet.prototype.getAddress = function() {
  * @memberOf Wallet
  * @return {String}
  */
-StaygeWallet.prototype.getAddressString = function() {
+Wallet.prototype.getAddressString = function() {
     return this._baseWallet.getAddressString();
 }
 
@@ -71,7 +82,7 @@ StaygeWallet.prototype.getAddressString = function() {
  * @param  {String} password
  * @return {Object}
  */
-StaygeWallet.prototype.toKeyStoreObj = function(password) {
+Wallet.prototype.toKeyStoreObj = function(password) {
     return this._baseWallet.toKeyStoreObj(password);
 }
 
@@ -79,7 +90,7 @@ StaygeWallet.prototype.toKeyStoreObj = function(password) {
  * set endpoint
  * @param {String} name 'mainnet' | 'testnet'
  */
-StaygeWallet.prototype.setEndPoint = function(name) {
+Wallet.prototype.setEndPoint = function(name) {
     return this._baseWallet.setEndPoint(name);
 }
 
@@ -87,7 +98,7 @@ StaygeWallet.prototype.setEndPoint = function(name) {
  * get endpoint
  * @return {String} uri of endpoint
  */
-StaygeWallet.prototype.getEndPoint = function() {
+Wallet.prototype.getEndPoint = function() {
     return this._baseWallet.getEndPoint();
 }
 
@@ -97,7 +108,7 @@ StaygeWallet.prototype.getEndPoint = function() {
  * @param  {Number|String} height
  * @return {Object}
  */
-StaygeWallet.prototype.getBlockByHeight = function(height) {
+Wallet.prototype.getBlockByHeight = function(height) {
     return this._baseWallet.getBlockByHeight(height);
 }
 
@@ -107,7 +118,7 @@ StaygeWallet.prototype.getBlockByHeight = function(height) {
  * @param  {String} height
  * @return {Object}
  */
-StaygeWallet.prototype.getBlockByHash = function(hash) {
+Wallet.prototype.getBlockByHash = function(hash) {
     return this._baseWallet.getBlockByHash(hash);
 }
 
@@ -116,7 +127,7 @@ StaygeWallet.prototype.getBlockByHash = function(hash) {
  * Get a last block information
  * @return {Object}
  */
-StaygeWallet.prototype.getLastBlock = function() {
+Wallet.prototype.getLastBlock = function() {
     return this._baseWallet.getLastBlock();
 }
 
@@ -125,7 +136,7 @@ StaygeWallet.prototype.getLastBlock = function() {
  * Get balance of the wallet
  * @return {String}
  */
-StaygeWallet.prototype.getBalance = function() {
+Wallet.prototype.getBalance = function() {
     return this._baseWallet.getBalance();
 }
 
@@ -134,7 +145,7 @@ StaygeWallet.prototype.getBalance = function() {
  * Get total supply of ICX
  * @return {String}
  */
-StaygeWallet.prototype.getTotalSupply = function() {
+Wallet.prototype.getTotalSupply = function() {
     return this._baseWallet.getTotalSupply();
 }
 
@@ -144,7 +155,7 @@ StaygeWallet.prototype.getTotalSupply = function() {
  * @param {Number} value
  * @return {String} txHash
  */
-StaygeWallet.prototype.transferICX = function(to, value) {
+Wallet.prototype.transferICX = function(to, value) {
     return this._baseWallet.transferICX(to, value);
 }
 
@@ -155,7 +166,7 @@ StaygeWallet.prototype.transferICX = function(to, value) {
  * @param  {String} msg
  * @return {String} txHash
  */
-StaygeWallet.prototype.transferMessage = function(to, msg) {
+Wallet.prototype.transferMessage = function(to, msg) {
     return this._baseWallet.transferMessage(to, msg);
 }
 
@@ -167,7 +178,7 @@ StaygeWallet.prototype.transferMessage = function(to, msg) {
  * @param  {Object} methodParams
  * @return {String} txHash
  */
-StaygeWallet.prototype.callScoreTx = function(
+Wallet.prototype.callScoreTx = function(
     scoreAddress,
     scoreMethod,
     methodParams
@@ -183,7 +194,7 @@ StaygeWallet.prototype.callScoreTx = function(
  * @param  {Object} installParams
  * @return {String} txHash
  */
-StaygeWallet.prototype.installScore = function(scorePath, installParams) {
+Wallet.prototype.installScore = function(scorePath, installParams) {
     const zip = new AdmZip(scorePath);
     const scoreContent = zip.toBuffer().toString('hex');
     return this._baseWallet.installScore(scoreContent, installParams);
@@ -197,7 +208,7 @@ StaygeWallet.prototype.installScore = function(scorePath, installParams) {
  * @param  {[type]} updateParams [description]
  * @return {String} txHash
  */
-StaygeWallet.prototype.updateScore = function(
+Wallet.prototype.updateScore = function(
     scoreAddress,
     scorePath,
     updateParams
@@ -215,7 +226,7 @@ StaygeWallet.prototype.updateScore = function(
  * @param  {Object} params
  * @return {String}
  */
-StaygeWallet.prototype.call = function(to, method, params) {
+Wallet.prototype.call = function(to, method, params) {
     return this._baseWallet.call(to, method, params);
 }
 
@@ -225,7 +236,7 @@ StaygeWallet.prototype.call = function(to, method, params) {
  * @param  {String} address
  * @return {Object}
  */
-StaygeWallet.prototype.getScoreApi = function(address) {
+Wallet.prototype.getScoreApi = function(address) {
     return this._baseWallet.getScoreApi(address);
 }
 
@@ -235,8 +246,26 @@ StaygeWallet.prototype.getScoreApi = function(address) {
  * @param  {String} txHash
  * @return {Object}
  */
-StaygeWallet.prototype.getTransactionResult = function(txHash) {
-    return this._baseWallet.getTransactionResult(txHash);
+Wallet.prototype.getTransactionResult = async function(txHash) {
+    let i = 0
+
+    for (i = 0; i < 20; i++) {
+        try {
+            const txResult = await this._baseWallet.getTransactionResult(txHash)
+            return txResult;
+        } catch (err) {
+            //console.log(`getTransactionResult = ${err.message}`);
+
+            if (err.message.indexOf('Pending') != -1 ||
+                err.message.indexOf('Invalid params txHash') != -1) {
+                await utils.sleep(500);
+            } else {
+                throw err;
+            }
+        }
+    }
+
+    throw new Error(`The transaction of ${txHash} is pending`);
 }
 
 
@@ -245,7 +274,7 @@ StaygeWallet.prototype.getTransactionResult = function(txHash) {
  * @param  {String} txHash
  * @return {Object}
  */
-StaygeWallet.prototype.getTransactionByHash = function(txHash) {
+Wallet.prototype.getTransactionByHash = function(txHash) {
     return this._baseWallet.getTransactionByHash(txHash);
 }
 
@@ -253,8 +282,8 @@ StaygeWallet.prototype.getTransactionByHash = function(txHash) {
  * Create a new wallet with a newly generated private key
  * @return {Wallet}
  */
-StaygeWallet.create = function() {
-    return new StaygeWallet(IconWallet.create());
+Wallet.create = function() {
+    return new Wallet(IconWallet.create());
 }
 
 /**
@@ -262,7 +291,7 @@ StaygeWallet.create = function() {
  * @return {Wallet}
  */
 Wallet.fromPrivateKey = function(privateKeyString) {
-    return new StaygeWallet(IconWallet.fromPrivateKey(privateKeyString));
+    return new Wallet(IconWallet.fromPrivateKey(privateKeyString));
 }
 
 /**
@@ -272,7 +301,7 @@ Wallet.fromPrivateKey = function(privateKeyString) {
  * @return {Wallet}             [description]
  */
 Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
-    return new StaygeWallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
+    return new Wallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
 }
 
 
@@ -285,7 +314,7 @@ Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
 Wallet.fromKeyStoreFile = function(keyStorePath, password) {
     content = fs.readFileSync(keyStorePath);
     keyStoreObj = JSON.parse(content);
-    return new StaygeWallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
+    return new Wallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
 }
 
 
@@ -293,4 +322,4 @@ Wallet.fromKeyStoreFile = function(keyStorePath, password) {
  * STAYGE wallet module for javascript
  * @module stayge
 */
-module.exports = StaygeWallet;
+module.exports = Wallet;

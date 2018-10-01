@@ -246,10 +246,13 @@ Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams)
             stepLimit: DEFAULT_TX_STEP_LIMIT,
             dataType: 'call',
             data: {
-                method: scoreMethod,
-                params: methodParams,
+                method: scoreMethod
             },
         };
+
+        if (methodParams) {
+            data.data.params = methodParams;
+        }
 
         const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
         const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)

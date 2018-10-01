@@ -3,10 +3,7 @@
 const chai = require('chai');
 const assert = chai.assert;
 const Wallet = require('../icon-js/wallet.js');
-const jsonrpc = require('../icon-js/jsonrpc.js');
 const utils = require('../icon-js/utils.js');
-const BigNumber = require('bignumber.js');
-const key = require('../icon-js/key.js');
 
 const ownerWallet = Wallet.fromKeyStoreObj({
         "address": "hxf6ccadc18a4f4902e03b8fced09dd8cfdac2e005",
@@ -85,7 +82,7 @@ const user2Wallet = Wallet.fromKeyStoreObj({
 
 const stgScoreAddress = 'cx8ada5f95f337ae332c97f3375e7e4f8209617143';
 
-describe('Wallet.create()', function() {
+describe('icon-js/Wallet.create()', function() {
 
     it('create a wallet with a newly generated private key',
         function() {
@@ -111,7 +108,7 @@ describe('Wallet.create()', function() {
     });
 });
 
-describe('Wallet.fromPrivateKey()', function() {
+describe('icon-js/Wallet.fromPrivateKey()', function() {
 
     it('create a wallet from a given private key',
         function() {
@@ -136,7 +133,7 @@ describe('Wallet.fromPrivateKey()', function() {
     });
 });
 
-describe('Wallet.fromKeyStoreObj()', function() {
+describe('icon-js/Wallet.fromKeyStoreObj()', function() {
 
     it('create a wallet from a given keystore object',
         function() {
@@ -240,7 +237,7 @@ describe('Wallet.fromKeyStoreObj()', function() {
 
 });
 
-describe('Wallet.toKeyStoreObj()', function() {
+describe('icon-js/Wallet.toKeyStoreObj()', function() {
 
     it('get a keystore object from the wallet', function() {
 
@@ -257,7 +254,7 @@ describe('Wallet.toKeyStoreObj()', function() {
 });
 
 
-describe('Wallet.getEndPoint()', function() {
+describe('icon-js/Wallet.getEndPoint()', function() {
 
     it('get a default endpoint', function() {
 
@@ -271,7 +268,7 @@ describe('Wallet.getEndPoint()', function() {
     });
 });
 
-describe('Wallet.setEndPoint()', function() {
+describe('icon-js/Wallet.setEndPoint()', function() {
 
     it('set the endpoint to mainnet ', function() {
 
@@ -297,7 +294,7 @@ describe('Wallet.setEndPoint()', function() {
 });
 
 
-describe('Wallet.getBlockByHeight()', function() {
+describe('icon-js/Wallet.getBlockByHeight()', function() {
 
     it('get a block by height in number', async function() {
         const block = await ownerWallet.getBlockByHeight(132);
@@ -317,7 +314,7 @@ describe('Wallet.getBlockByHeight()', function() {
 });
 
 
-describe('Wallet.getBlockByHash()', function() {
+describe('icon-js/Wallet.getBlockByHash()', function() {
 
     it('get a block by hash', async function() {
         const block = await ownerWallet.getBlockByHash(
@@ -341,20 +338,20 @@ describe('Wallet.getBlockByHash()', function() {
 });
 
 
-describe('Wallet.getLastBlock()', function() {
+describe('icon-js/Wallet.getLastBlock()', function() {
 
     it('get a last block', async function() {
         const block = await ownerWallet.getLastBlock(
             utils.getEndPoint('testnet').url
         );
 
-        console.log('block :' + JSON.stringify(block));
+        //console.log('block :' + JSON.stringify(block));
         assert.typeOf(block.height, 'number');
     });
 });
 
 
-describe('Wallet.getBalance()', function() {
+describe('icon-js/Wallet.getBalance()', function() {
 
     it('get balance', async function() {
         const balance = await ownerWallet.getBalance();
@@ -376,7 +373,7 @@ describe('Wallet.getBalance()', function() {
 });
 
 
-describe('Wallet.getTotalSupply()', function() {
+describe('icon-js/Wallet.getTotalSupply()', function() {
 
     it('get total supply of ICX', async function() {
         const totalSupply = await ownerWallet.getTotalSupply();
@@ -388,7 +385,7 @@ describe('Wallet.getTotalSupply()', function() {
 
 
 
-describe('Wallet.transferICX()', function() {
+describe('icon-js/Wallet.transferICX()', function() {
 
     it('transfer a transaction', async function() {
         const txHash = await ownerWallet.transferICX(
@@ -418,7 +415,7 @@ describe('Wallet.transferICX()', function() {
 });
 
 
-describe('Wallet.call()', function() {
+describe('icon-js/Wallet.call()', function() {
 
     it('call SCORE\'s function', async function() {
         const result = await ownerWallet.call(
@@ -473,7 +470,7 @@ describe('Wallet.call()', function() {
 
 
 
-describe('Wallet.getScoreApi()', function() {
+describe('icon-js/Wallet.getScoreApi()', function() {
 
     it('get SCORE\'s api list', async function() {
         const result = await ownerWallet.getScoreApi(
@@ -516,7 +513,7 @@ describe('Wallet.getScoreApi()', function() {
 
 
 
-describe('Wallet.getTransactionResult()', function() {
+describe('icon-js/Wallet.getTransactionResult()', function() {
 
     it('successfully completed transaction', async function() {
         const txResult = await ownerWallet.getTransactionResult(
@@ -541,14 +538,14 @@ describe('Wallet.getTransactionResult()', function() {
 });
 
 
-describe('Wallet.getTransactionByHash()', function() {
+describe('icon-js/Wallet.getTransactionByHash()', function() {
 
     it('successfully completed transaction', async function() {
         const txResult = await ownerWallet.getTransactionByHash(
             '0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'
         );
 
-        console.log('txResult :' + JSON.stringify(txResult));
+        //console.log('txResult :' + JSON.stringify(txResult));
         assert.equal(txResult.txHash, utils.toHashString('0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'));
     });
 
@@ -562,291 +559,3 @@ describe('Wallet.getTransactionByHash()', function() {
         });
     });
 });
-
-
-
-
-describe('net.getEndPointFromEnv()', function() {
-
-    it('get a endpoint under production', function() {
-
-        process.env.NODE_ENV = 'production';
-
-        assert.deepEqual(
-            utils.getEndPointFromEnv(),
-            utils.getEndPoint('mainnet')
-        );
-    });
-
-    it('get a endpoint under development', function() {
-
-        process.env.NODE_ENV = 'development';
-
-        assert.deepEqual(
-            utils.getEndPointFromEnv(),
-            utils.getEndPoint('testnet')
-        );
-    });
-});
-
-
-
-describe('jsonrpc.getBalance()', function() {
-
-    it('get balance', async function() {
-            const balance = await jsonrpc.getBalance(
-                ownerWallet.getAddressString(),
-                utils.getEndPoint('testnet').url
-            );
-
-            //console.log('balance :' + balance);
-            assert.typeOf(balance, 'string');
-    });
-
-    it('get balance of nonexisting address', async function() {
-            const balance = await jsonrpc.getBalance(
-                'hx36a371b0aa839f029ad997a2b64b240f49f001c1',
-                utils.getEndPoint('testnet').url
-            );
-
-            //console.log('balance :' + balance);
-            assert.typeOf(balance, 'string');
-    });
-
-    it('invalid address', function() {
-       jsonrpc.getBalance(
-        'x36a371b0aa839f029ad997a2b64b240f49f001cc',
-        utils.getEndPoint('testnet').url
-        )
-       .then(function(balance) {
-            assert(false);
-       })
-       .catch(function(err) {
-            assert(true);
-       });
-    });
-
-    it('invalid endpoint', function() {
-       jsonrpc.getBalance(
-        'hx36a371b0aa839f029ad997a2b64b240f49f001cc',
-        'https://www.naver.com'
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-});
-
-
-describe('jsonrpc.getBlockByHeight()', function() {
-
-    it('get a block by height in number', async function() {
-            const block = await jsonrpc.getBlockByHeight(
-                132,
-                utils.getEndPoint('testnet').url
-            );
-
-            console.log('block :' + JSON.stringify(block));
-            assert.equal(block.height, 132);
-    });
-
-    it('invalid height', function() {
-        jsonrpc.getBlockByHeight(
-            -10,
-            utils.getEndPoint('testnet').url
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-
-    it('invalid endpoint', function() {
-        jsonrpc.getBlockByHeight(
-            10,
-            'http://www.google.com'
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-
-});
-
-describe('jsonrpc.getBlockByHash()', function() {
-
-    it('get a block by hash', async function() {
-        const block = await jsonrpc.getBlockByHash(
-            '0x76792ad0da07863ce71949d0c9adf4e6a3e9cfecc5ed8a093fe448aff0529f57',
-            utils.getEndPoint('testnet').url
-        );
-
-        //console.log('block :' + block);
-        assert.equal(block.height, 132);
-    });
-
-    it('invalid hash', function() {
-        jsonrpc.getBlockByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-            utils.getEndPoint('testnet').url
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-
-    it('invalid endpoint', function() {
-        jsonrpc.getBlockByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b1a',
-            'http://www.daum.net'
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-
-});
-
-describe('jsonrpc.getLastBlock()', function() {
-
-    it('get a last block', async function() {
-        const block = await jsonrpc.getLastBlock(
-            utils.getEndPoint('testnet').url
-        );
-
-            //console.log('block :' + block);
-            assert.typeOf(block.height, 'number');
-    });
-
-    it('invalid endpoint', function() {
-        jsonrpc.getLastBlock(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-            'http://www.naver.com'
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
-
-});
-
-
-describe('utils.toBigNumber()', function() {
-
-    it('input parameter is BigNumber', async function() {
-        const someVal = new BigNumber(12341234123412341234);
-
-        assert.deepEqual(utils.toBigNumber(someVal), someVal);
-    });
-
-    it('input parameter is null', async function() {
-        assert.deepEqual(utils.toBigNumber(null), BigNumber(0));
-    });
-
-    it('input parameter is hexadecimal string without 0x prefix', async function() {
-        assert.deepEqual(utils.toBigNumber('100'), BigNumber(100));
-    });
-
-    it('input parameter is hexadecimal string with 0x prefix', async function() {
-        assert.deepEqual(utils.toBigNumber('0x100'), BigNumber(256));
-    });
-});
-
-describe('utils.toHexString()', function() {
-
-    it('input parameter is Object', async function() {
-        const someVal = {a:1, b:2};
-
-        assert.deepEqual(utils.toHexString(someVal), someVal);
-    });
-});
-
-describe('utils.toHashString()', function() {
-
-    it('input parameter is a string without 0x prefix', async function() {
-        assert.equal(utils.toHashString('1212'), '0x1212');
-    });
-
-    it('input parameter is a string with 0x prefix', async function() {
-        assert.equal(utils.toHashString('0x1212'), '0x1212');
-    });
-});
-
-describe('key.privateKeyFromKeyStoreObj()', function() {
-
-    it('keyStoreObj is not a Object', async function() {
-        try {
-            const privKey = key.privateKeyFromKeyStoreObj('test', 'test');
-            assert(false);
-        } catch(e) {
-            assert(true);
-        }
-    });
-
-    it('password is not a String', async function() {
-        try {
-            const keyStoreObj = {
-                address: 'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64',
-                crypto: {
-                    cipher: 'aes-128-ctr',
-                    cipherparams: {
-                        iv: '2b512a55a793e019e42e180b363031a7'
-                    },
-                    ciphertext: '766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b',
-                    kdf: 'pbkdf2',
-                    kdfparams: {
-                        c: 262144,
-                        dklen: 32,
-                        prf: 'hmac-sha256',
-                        salt: 'ec60e4e5021a248908d2d0012d389620'
-                    },
-                    mac: 'b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810'
-                },
-                id: '3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8',
-                version: 3,
-                coinType: 'icx'
-            };
-            const privKey = key.privateKeyFromKeyStoreObj(keyStoreObj, 1);
-            assert(false);
-        } catch(e) {
-            assert(true);
-        }
-    });
-
-    it('version is not 3', async function() {
-        try {
-            const keyStoreObj = {
-                address: 'hx3672ff0ba4ff3a5f95bf2b11c742ead9eae34a64',
-                crypto: {
-                    cipher: 'aes-128-ctr',
-                    cipherparams: {
-                        iv: '2b512a55a793e019e42e180b363031a7'
-                    },
-                    ciphertext: '766a799590ff7e9cc01123e3a97da0cf67f717bbf6594cac622604ccba6f456b',
-                    kdf: 'pbkdf2',
-                    kdfparams: {
-                        c: 262144,
-                        dklen: 32,
-                        prf: 'hmac-sha256',
-                        salt: 'ec60e4e5021a248908d2d0012d389620'
-                    },
-                    mac: 'b2574ea2bf069198b45d81b41acfdfce00ae1f9bf616dd197989342b6e6fd810'
-                },
-                id: '3b7f45b7-ccd7-4604-83d7-2d4bbb8e6ef8',
-                version: 2,
-                coinType: 'icx'
-            };
-            const privKey = key.privateKeyFromKeyStoreObj(keyStoreObj, 'test123');
-            assert(false);
-        } catch(e) {
-            assert(true);
-        }
-    });
-
-});
-
