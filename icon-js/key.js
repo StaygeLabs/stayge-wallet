@@ -154,7 +154,7 @@ module.exports = {
 
         let derivedKey;
 
-            if (opts.kdf === 'pbkdf2') {
+        if (opts.kdf === 'pbkdf2') {
             kdfparams.c = opts.c;
             kdfparams.prf = opts.prf;
             derivedKey = crypto.pbkdf2Sync(
@@ -205,14 +205,14 @@ module.exports = {
             id: uuidv4({ random: opts.uuid }),
             address: address,
             crypto: {
-               ciphertext: ciphertext.toString('hex'),
-               cipherparams: {
+                ciphertext: ciphertext.toString('hex'),
+                cipherparams: {
                     iv: opts.iv.toString('hex')
-               },
-               cipher: opts.cipher,
-               kdf: opts.kdf,
-               kdfparams: kdfparams,
-               mac: mac
+                },
+                cipher: opts.cipher,
+                kdf: opts.kdf,
+                kdfparams: kdfparams,
+                mac: mac
             },
             coinType: 'icx'
         }

@@ -273,8 +273,8 @@ Wallet.prototype.getTransactionResult = async function(txHash, ignorePending=tru
         } catch (err) {
             //console.log(`getTransactionResult = ${err.message}`);
 
-            if ((ignorePending && err.message.indexOf('Pending') != -1) ||
-                err.message.indexOf('Invalid params txHash') != -1) {
+            if ((ignorePending && err.message.indexOf('Pending') !== -1) ||
+                err.message.indexOf('Invalid params txHash') !== -1) {
                 await utils.sleep(500);
             } else {
                 throw err;

@@ -345,7 +345,7 @@ STG.prototype.paused = async function() {
         {}
     );
 
-    if (paused == '0x1') {
+    if (paused === '0x1') {
         return true;
     } else {
         return false;

@@ -1,8 +1,10 @@
 root: true
 
 rules:
-  eol-last: error
-  eqeqeq: [error, allow-null]
-  indent: [error, 2, { SwitchCase: 1 }]
-  no-trailing-spaces: error
-  no-unused-vars: [error, { vars: all, args: none, ignoreRestSiblings: true }]
+    eqeqeq: [error, allow-null]
+    no-trailing-spaces: error
+    no-unused-vars: [error, { vars: all, args: none, ignoreRestSiblings: true }]
+
+parserOptions: 
+    ecmaVersion: 9
+

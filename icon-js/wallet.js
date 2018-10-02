@@ -5,7 +5,6 @@
 
 'use strict'
 
-const fs = require('fs');
 const key = require('./key.js');
 const utils = require('./utils.js');
 const jsonrpc = require('./jsonrpc.js');

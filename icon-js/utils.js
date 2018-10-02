@@ -55,8 +55,8 @@ module.exports = {
     */
     convertToIcx : function(value) {
         return this.toBigNumber(value)
-                .dividedBy(config.unitIcx)
-                .toString(10);
+                   .dividedBy(config.unitIcx)
+                   .toString(10);
     },
 
     /**
