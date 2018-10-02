@@ -1,4 +1,83 @@
-/**
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Source: wallet/stg.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: wallet/stg.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/**
  * Provides smart contract APIs for STG
  * @module  stayge-wallet/stg
  */
@@ -22,7 +101,7 @@ const STG = function(wallet, scoreAddress) {
 
 /**
  * Returns name
- * @return {Promise<String>}
+ * @return {Promise&lt;String>}
  */
 STG.prototype.name = async function() {
     const name = await this._wallet.call(
@@ -36,7 +115,7 @@ STG.prototype.name = async function() {
 
 /**
  * Returns symbol
- * @return {Promise<String>}
+ * @return {Promise&lt;String>}
  */
 STG.prototype.symbol = async function() {
     const symbol = await this._wallet.call(
@@ -50,7 +129,7 @@ STG.prototype.symbol = async function() {
 
 /**
  * Returns decimals
- * @return {Promise<Number>}
+ * @return {Promise&lt;Number>}
  */
 STG.prototype.decimals = async function() {
     const decimals = await this._wallet.call(
@@ -65,7 +144,7 @@ STG.prototype.decimals = async function() {
 
 /**
  * Returns total supply
- * @return {Promise<Number>}
+ * @return {Promise&lt;Number>}
  */
 STG.prototype.totalSupply = async function() {
     const totalSupply = await this._wallet.call(
@@ -89,7 +168,7 @@ STG.prototype.totalSupply = async function() {
 /**
  * Returns balance of STG for the specified owner
  * @param  {String} owner address of owner
- * @return {Promise<Number>}
+ * @return {Promise&lt;Number>}
  */
 STG.prototype.balanceOf = async function(owner) {
     owner = owner || this._wallet.getAddressString();
@@ -116,7 +195,7 @@ STG.prototype.balanceOf = async function(owner) {
  * @param  {String} to address of the recipient
  * @param  {Number} value the amount to transfer
  * @param  {String} data optional
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.transfer = async function(to, value, data='') {
     const decimals = await this._wallet.call(
@@ -142,7 +221,7 @@ STG.prototype.transfer = async function(to, value, data='') {
  * Returns allowance of the spender for the owner balance
  * @param  {String} owner   address of the owner
  * @param  {String} spender address of the spender
- * @return {Promise<Number>}
+ * @return {Promise&lt;Number>}
  */
 STG.prototype.allowance = async function(owner, spender) {
     const allowance = await this._wallet.call(
@@ -167,7 +246,7 @@ STG.prototype.allowance = async function(owner, spender) {
  * Approve spender to transfer the specified STG from the owner's balance
  * @param  {String} spender address of the spender
  * @param  {Number} value   STG amount to approve
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.approve = async function(spender, value) {
     const decimals = await this._wallet.call(
@@ -192,7 +271,7 @@ STG.prototype.approve = async function(spender, value) {
  * Increase allowance of the spender for the owner's balance
  * @param  {String} spender address of the spender
  * @param  {Number} value   STG amount to increase
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.incAllowance = async function(spender, value) {
     const decimals = await this._wallet.call(
@@ -217,7 +296,7 @@ STG.prototype.incAllowance = async function(spender, value) {
  * Decrease allowance of the spender for the owner's balance
  * @param  {String} spender address of the spender
  * @param  {Number} value   STG amount to decrease
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.decAllowance = async function(spender, value) {
     const decimals = await this._wallet.call(
@@ -244,7 +323,7 @@ STG.prototype.decAllowance = async function(spender, value) {
  * @param  {String} from  address of the sender
  * @param  {String} to    address of the recipient
  * @param  {Number} value STG amount to transfer
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.transferFrom = async function(from, to, value) {
     const decimals = await this._wallet.call(
@@ -269,7 +348,7 @@ STG.prototype.transferFrom = async function(from, to, value) {
 /**
  * Mint tokens and allocate to the contract owner
  * @param  {Number} amount amount to mint
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.mint = async function(amount) {
     const decimals = await this._wallet.call(
@@ -292,7 +371,7 @@ STG.prototype.mint = async function(amount) {
 /**
  * Burn tokens
  * @param  {Number} amount amount to burn
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.burn = async function(amount) {
     const decimals = await this._wallet.call(
@@ -314,7 +393,7 @@ STG.prototype.burn = async function(amount) {
 
 /**
  * Pause contract to disable it's functionalities
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.pause = async function() {
     return this._wallet.callScoreTx(
@@ -325,7 +404,7 @@ STG.prototype.pause = async function() {
 
 /**
  * Unpause contract to enable it's functionalities
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.unpause = async function() {
     return this._wallet.callScoreTx(
@@ -336,7 +415,7 @@ STG.prototype.unpause = async function() {
 
 /**
  * Returns whether the contract is paused or not
- * @return {Promise<Bool>} true: paused, false: unpaused
+ * @return {Promise&lt;Bool>} true: paused, false: unpaused
  */
 STG.prototype.paused = async function() {
     const paused = await this._wallet.call(
@@ -356,7 +435,7 @@ STG.prototype.paused = async function() {
  * set/unset blacklist
  * @param  {String} account address to be set/unset as blacklist
  * @param  {Bool} flag true:set, false:unset
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.setBlacklist = async function(account, flag) {
     return this._wallet.callScoreTx(
@@ -373,7 +452,7 @@ STG.prototype.setBlacklist = async function(account, flag) {
  * set/unset whitelist
  * @param  {String} account address to be set/unset as whitelist
  * @param  {Bool} flag true:set, false:unset
- * @return {Promise<String>} txHash
+ * @return {Promise&lt;String>} txHash
  */
 STG.prototype.setWhitelist = async function(account, flag) {
     return this._wallet.callScoreTx(
@@ -388,3 +467,140 @@ STG.prototype.setWhitelist = async function(account, flag) {
 
 module.exports = STG;
 
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on Tue Oct 2nd 2018
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

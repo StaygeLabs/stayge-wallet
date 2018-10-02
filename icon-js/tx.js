@@ -1,3 +1,8 @@
+/**
+ * Provides transaction related functions for ICON
+ * @module stayge-wallet/icon-js/tx
+ */
+
 'use strict'
 
 const secp256k1 = require('secp256k1');
@@ -7,73 +12,6 @@ const utils = require('./utils.js');
 const config = require('./config.js');
 
 var nonce = 1;
-
-/**
- * Make a raw transaction for ICX
- * @param  {Object}  data
- * @return {Object}
- */
-function makeIcxRawTx(data, nid) {
-    const rawTx = {
-        from: data.from,
-        to: data.to,
-        version: utils.toHexString(config.apiVersion),
-        nid: nid,
-        stepLimit: utils.toHexString(
-            new BigNumber(data.stepLimit).toString(16)
-        ),
-        timestamp: utils.toHexString(
-            ((new Date()).getTime() * 1000).toString(16)
-        ),
-        nonce: utils.toHexString(nonce++)
-    };
-
-    if (data.value) {
-        const sendAmount = utils.convertToLoop(data.value);
-        rawTx.value = utils.toHexString(sendAmount);
-    }
-
-    if (data.dataType) {
-        rawTx.dataType = data.dataType;
-        rawTx.data = data.data;
-    }
-
-    return rawTx;
-}
-
-
-/**
- * Sign a raw transaction
- * @param  {Buffer} privateKey
- * @param  {Object} rawTx
- * @return {Object}
- */
-function signRawTx(privateKey, rawTx) {
-    const phraseToSign = generateHashKey(rawTx);
-    const hashcode = sha3_256.update(phraseToSign).hex();
-    const message = Buffer.from(hashcode, 'hex');
-    const sign = secp256k1.sign(message, privateKey);
-    const recovery = new Uint8Array(1);
-    recovery[0] = sign.recovery;
-    const signature = concatTypedArrays(sign.signature, recovery);
-    const b64encoded = signature.toString('base64');
-
-    /*
-    const b64encoded = Buffer.from(
-      String.fromCharCode.apply(null, signature)
-    ).toString('base64');
-    */
-
-    const newRawTx = {
-        ...rawTx,
-        signature: b64encoded
-    };
-
-    //console.log('newRawTx: ' + JSON.stringify(newRawTx));
-
-    return newRawTx
-}
-
 
 /**
  * Generate a hash key for transaction
@@ -198,9 +136,9 @@ function escapeString(value) {
 
 /**
  * Concatenate two typed arrays
- * @param  {TypedArray} a [description]
- * @param  {TypedArray} b [description]
- * @return {Buffer}   [description]
+ * @param  {TypedArray} a
+ * @param  {TypedArray} b
+ * @return {Buffer}
  */
 function concatTypedArrays(a, b) { // a, b TypedArray of same type
     const c = Buffer.alloc(a.length + b.length);
@@ -212,6 +150,71 @@ function concatTypedArrays(a, b) { // a, b TypedArray of same type
 
 
 module.exports = {
-    makeIcxRawTx : makeIcxRawTx,
-    signRawTx : signRawTx,
+
+     /**
+      * Make a raw transaction for ICX
+      * @param  {Object} data
+      * @param  {String} nid
+      * @return {Object}
+      */
+    makeIcxRawTx : function(data, nid) {
+        const rawTx = {
+            from: data.from,
+            to: data.to,
+            version: utils.toHexString(config.apiVersion),
+            nid: nid,
+            stepLimit: utils.toHexString(
+                new BigNumber(data.stepLimit).toString(16)
+            ),
+            timestamp: utils.toHexString(
+                ((new Date()).getTime() * 1000).toString(16)
+            ),
+            nonce: utils.toHexString(nonce++)
+        };
+
+        if (data.value) {
+            const sendAmount = utils.convertToLoop(data.value);
+            rawTx.value = utils.toHexString(sendAmount);
+        }
+
+        if (data.dataType) {
+            rawTx.dataType = data.dataType;
+            rawTx.data = data.data;
+        }
+
+        return rawTx;
+    },
+
+    /**
+     * Sign a raw transaction
+     * @param  {Buffer} privateKey
+     * @param  {Object} rawTx
+     * @return {Object}
+     */
+    signRawTx : function(privateKey, rawTx) {
+        const phraseToSign = generateHashKey(rawTx);
+        const hashcode = sha3_256.update(phraseToSign).hex();
+        const message = Buffer.from(hashcode, 'hex');
+        const sign = secp256k1.sign(message, privateKey);
+        const recovery = new Uint8Array(1);
+        recovery[0] = sign.recovery;
+        const signature = concatTypedArrays(sign.signature, recovery);
+        const b64encoded = signature.toString('base64');
+
+        /*
+        const b64encoded = Buffer.from(
+          String.fromCharCode.apply(null, signature)
+        ).toString('base64');
+        */
+
+        const newRawTx = {
+            ...rawTx,
+            signature: b64encoded
+        };
+
+        //console.log('newRawTx: ' + JSON.stringify(newRawTx));
+
+        return newRawTx
+    },
+
 };
