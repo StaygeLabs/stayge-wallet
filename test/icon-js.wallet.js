@@ -302,14 +302,15 @@ describe('icon-js/Wallet.getBlockByHeight()', function() {
         assert.equal(block.height, 132);
     });
 
-    it('invalid height', function() {
-        const wallet = Wallet.create();
-        wallet.getBlockByHeight(-10)
-        .then(function(balance) {
+    it('invalid height', async function() {
+        try {
+            const wallet = Wallet.create();
+            await wallet.getBlockByHeight(-10);
+
             assert(false);
-        }).catch(function(err) {
+        } catch (err) {
             assert(true);
-        });
+        }
     });
 });
 
@@ -325,15 +326,17 @@ describe('icon-js/Wallet.getBlockByHash()', function() {
         assert.equal(block.height, 132);
     });
 
-    it('invalid hash', function() {
-        const wallet = Wallet.create();
-        wallet.getBlockByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
-        ).then(function(balance) {
+    it('invalid hash', async function() {
+        try {
+            const wallet = Wallet.create();
+            await wallet.getBlockByHash(
+                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+            );
+
             assert(false);
-        }).catch(function(err) {
+        } catch (err) {
             assert(true);
-        });
+        }
     });
 });
 
@@ -356,7 +359,7 @@ describe('icon-js/Wallet.getBalance()', function() {
     it('get balance', async function() {
         const balance = await ownerWallet.getBalance();
 
-        console.log('balance :' + balance);
+        //console.log('balance :' + balance);
         assert.typeOf(balance, 'string');
     });
 
@@ -365,7 +368,7 @@ describe('icon-js/Wallet.getBalance()', function() {
 
         const balance = await wallet.getBalance();
 
-        console.log('balance :' + balance);
+        //console.log('balance :' + balance);
         assert.typeOf(balance, 'string', 'balance='+balance);
     });
 
@@ -378,7 +381,7 @@ describe('icon-js/Wallet.getTotalSupply()', function() {
     it('get total supply of ICX', async function() {
         const totalSupply = await ownerWallet.getTotalSupply();
 
-        console.log('totalSupply :' + totalSupply);
+        //console.log('totalSupply :' + totalSupply);
         assert.typeOf(totalSupply, 'string');
     });
 });
@@ -393,9 +396,9 @@ describe('icon-js/Wallet.transferICX()', function() {
             1
         );
 
-        console.log('txHash :' + txHash);
+        //console.log('txHash :' + txHash);
         //console.log('typeof txHash :' + typeof txHash);
-        assert.typeOf(txHash, 'String');
+        assert.typeOf(txHash, 'String', `txHash=${txHash}`);
     });
 
 
@@ -409,7 +412,7 @@ describe('icon-js/Wallet.transferICX()', function() {
             assert(false);
         } catch (e) {
             //console.log(e);
-            assert(true);
+            assert(true, e);
         }
     });
 });
@@ -426,9 +429,9 @@ describe('icon-js/Wallet.call()', function() {
             }
         );
 
-        console.log('result :' + result);
+        //console.log('result :' + result);
         //console.log('typeof txHash :' + typeof txHash);
-        assert.typeOf(result, 'String');
+        assert.typeOf(result, 'String', `result=${result}`);
     });
 
 
@@ -444,8 +447,8 @@ describe('icon-js/Wallet.call()', function() {
 
             assert(false);
         } catch (e) {
-            console.log(e);
-            assert(true);
+            //console.log(e);
+            assert(true, e);
         }
     });
 
@@ -461,8 +464,8 @@ describe('icon-js/Wallet.call()', function() {
 
             assert(false);
         } catch (e) {
-            console.log(e);
-            assert(true);
+            //console.log(e);
+            assert(true, e);
         }
     });
 });
@@ -478,7 +481,7 @@ describe('icon-js/Wallet.getScoreApi()', function() {
         );
 
         //console.log(`result = {${typeof result}} ${JSON.stringify(result}`);
-        assert(result.length > 0)
+        assert(result.length > 0, `result=${result}`)
     });
 
 
@@ -490,8 +493,8 @@ describe('icon-js/Wallet.getScoreApi()', function() {
 
             assert(false);
         } catch (e) {
-            console.log(e);
-            assert(true);
+            //console.log(e);
+            assert(true, e);
         }
     });
 
@@ -503,8 +506,8 @@ describe('icon-js/Wallet.getScoreApi()', function() {
 
             assert(false);
         } catch (e) {
-            console.log(e);
-            assert(true);
+            //console.log(e);
+            assert(true, e);
         }
     });
 });
@@ -520,20 +523,21 @@ describe('icon-js/Wallet.getTransactionResult()', function() {
             '0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'
         );
 
-        console.log('txResult :' + JSON.stringify(txResult));
+        //console.log('txResult :' + JSON.stringify(txResult));
         assert.equal(txResult.txHash, utils.toHashString(
             '0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'
         ));
     });
 
-    it('invalid txHash', function() {
-        ownerWallet.getTransactionResult(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
-        ).then(function(balance) {
+    it('invalid txHash', async function() {
+        try {
+            await ownerWallet.getTransactionResult(
+                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+            );
             assert(false);
-        }).catch(function(err) {
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 });
 
@@ -549,13 +553,15 @@ describe('icon-js/Wallet.getTransactionByHash()', function() {
         assert.equal(txResult.txHash, utils.toHashString('0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'));
     });
 
-    it('invalid txHash', function() {
-        ownerWallet.getTransactionByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
-        ).then(function(balance) {
+    it('invalid txHash', async function() {
+        try {
+            await ownerWallet.getTransactionByHash(
+                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11'
+            );
+
             assert(false);
-        }).catch(function(err) {
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 });

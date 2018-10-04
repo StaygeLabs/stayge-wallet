@@ -85,42 +85,32 @@ const stgScoreAddress = 'cx8ada5f95f337ae332c97f3375e7e4f8209617143';
 
 describe('wallet/stg.name()', function() {
 
-    it('return STG',
-        function(done) {
-
-        const stg = ownerWallet.stg(stgScoreAddress);
-
-        stg.name()
-        .then((name) => {
-            console.log(`stg name = ${name}`);
+    it('return STG', async function() {
+        try {
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const name = await stg.name();
+            //console.log(`stg name = ${name}`);
             assert.equal(name, 'STG');
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 });
 
 
 describe('wallet/stg.symbol()', function() {
 
-    it('return STG',
-        function(done) {
-
-        const stg = ownerWallet.stg(stgScoreAddress);
-
-        stg.symbol()
-        .then((symbol) => {
-            console.log(`stg symbol = ${symbol}`);
+    it('return STG', async function() {
+        try {
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const symbol = await stg.symbol();
+            //console.log(`stg symbol = ${symbol}`);
             assert.equal(symbol, 'STG');
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 
 });
@@ -128,92 +118,75 @@ describe('wallet/stg.symbol()', function() {
 
 describe('wallet/stg.decimals()', function() {
 
-    it('return decimals of 18',
-        function(done) {
-
-        const stg = ownerWallet.stg(stgScoreAddress);
-
-        stg.decimals()
-        .then((decimals) => {
-            console.log(`stg decimals = ${decimals}`);
+    it('return decimals of 18', async function() {
+        try {
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const decimals = await stg.decimals();
+            //console.log(`stg decimals = ${decimals}`);
             assert.equal(decimals, 18);
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 });
 
 describe('wallet/stg.totalSupply()', function() {
 
-    it('return totalSupply', function(done) {
-        const stg = ownerWallet.stg(stgScoreAddress);
-
-        stg.totalSupply()
-        .then((totalSupply) => {
-            console.log(`stg totalSupply = ${totalSupply}`);
+    it('return totalSupply', async function() {
+        try {
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const totalSupply = await stg.totalSupply();
+            //console.log(`stg totalSupply = ${totalSupply}`);
             assert(totalSupply >= 0);
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 
 });
 
 describe('wallet/stg.balanceOf()', function() {
 
-    it('return owner balance', function(done) {
-
-        ownerWallet
-        .stg(stgScoreAddress)
-        .balanceOf(ownerWallet.getAddressString())
-        .then((balance) => {
-            console.log(`stg owner balance = ${balance}`);
+    it('return owner balance', async function() {
+        try {
+            const balance = await ownerWallet
+                                  .stg(stgScoreAddress)
+                                  .balanceOf(ownerWallet.getAddressString());
+            //console.log(`stg owner balance = ${balance}`);
             assert(balance >= 0);
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 
-    it('return user1 balance',
-        function(done) {
-
-        user1Wallet
-        .stg(stgScoreAddress)
-        .balanceOf(user1Wallet.getAddressString())
-        .then((balance) => {
-            console.log(`stg user1 balance = ${balance}`);
+    it('return user1 balance', async function() {
+        try {
+            const balance = await user1Wallet
+                                  .stg(stgScoreAddress)
+                                  .balanceOf(user1Wallet.getAddressString());
+            //console.log(`stg user1 balance = ${balance}`);
             assert(balance >= 0);
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 
-    it('return user2 balance',
-        function(done) {
-
-        user2Wallet.stg(stgScoreAddress)
-        .balanceOf(user2Wallet.getAddressString())
-        .then((balance) => {
-            console.log(`stg user2 balance = ${balance}`);
+    it('return user2 balance', async function() {
+        try {
+            const balance = await user2Wallet
+                                  .stg(stgScoreAddress)
+                                  .balanceOf(user2Wallet.getAddressString());
+            //console.log(`stg user2 balance = ${balance}`);
             assert(balance >= 0);
-        })
-        .catch((err) => {
-            console.log(`err = ${err}`);
+        } catch (err) {
+            //console.log(`err = ${err}`);
             assert(false)
-        })
-        .finally(done);
+        }
     });
 
 });
@@ -221,159 +194,147 @@ describe('wallet/stg.balanceOf()', function() {
 
 describe('wallet/stg.transfer()', function() {
 
-    it('token transfer',
-        async function() {
-
+    it('token transfer', async function() {
         try {
-            const stg = user1Wallet.stg(stgScoreAddress);
-            const oldUser1Balance = await stg.balanceOf();
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             const oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
 
-            const txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
+            const txHash = await stg.transfer(user1Wallet.getAddressString(), 100);
 
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
 
-            const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
-            assert.equal(txResult.status, '0x1');
+            const txResult = await ownerWallet.getTransactionResult(txHash);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
+            assert.equal(txResult.status, '0x1', );
 
-            const newUser1Balance = await stg.balanceOf();
+            const newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             const newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
 
-            assert.equal(newUser1Balance, oldUser1Balance - 1);
-            assert.equal(newOwnerBalance, oldOwnerBalance + 1);
+            assert.equal(newUser1Balance, oldUser1Balance + 100);
+            assert.equal(newOwnerBalance, oldOwnerBalance - 100);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
 
-    it('token transfer with data',
-        async function() {
-
+    it('token transfer with data', async function() {
         try {
-            const stg = user1Wallet.stg(stgScoreAddress);
-            const oldUser1Balance = await stg.balanceOf();
+            const stg = ownerWallet.stg(stgScoreAddress);
+            const oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             const oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
 
-            const txHash = await stg.transfer(ownerWallet.getAddressString(), 1, 'created a community of BigBang');
+            const txHash = await stg.transfer(user1Wallet.getAddressString(), 1, 'created a community of BigBang');
 
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
 
-            const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            const txResult = await ownerWallet.getTransactionResult(txHash);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
-            const newUser1Balance = await stg.balanceOf();
+            const newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             const newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
 
-            assert.equal(newUser1Balance, oldUser1Balance - 1);
-            assert.equal(newOwnerBalance, oldOwnerBalance + 1);
+            assert.equal(newUser1Balance, oldUser1Balance + 1);
+            assert.equal(newOwnerBalance, oldOwnerBalance - 1);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
-
-
-    it('negative value',
-        async function() {
-
+    it('negative value', async function() {
         try {
-            const stg = user1Wallet.stg(stgScoreAddress);
+            const stg = ownerWallet.stg(stgScoreAddress);
             const txHash = await stg.transfer(ownerWallet.getAddressString(), -1);
 
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
 
-            const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            const txResult = await ownerWallet.getTransactionResult(txHash);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
 
-    it('transfer by normal user when paused',
-        async function() {
-
+    it('transfer by normal user when paused', async function() {
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             txHash = await stg.setBlacklist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
-    it('transfer by whitelist when paused',
-        async function() {
-
+    it('transfer by whitelist when paused', async function() {
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), true);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
@@ -382,53 +343,51 @@ describe('wallet/stg.transfer()', function() {
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
-    it('transfer by blacklist when paused',
-        async function() {
-
+    it('transfer by blacklist when paused', async function() {
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setBlacklist(user1Wallet.getAddressString(), true);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
             let newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
@@ -437,45 +396,43 @@ describe('wallet/stg.transfer()', function() {
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
             txHash = await stg.setBlacklist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
 
-    it('transfer by blacklist',
-        async function() {
-
+    it('transfer by blacklist', async function() {
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.setBlacklist(user1Wallet.getAddressString(), true);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
             let newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
@@ -484,37 +441,35 @@ describe('wallet/stg.transfer()', function() {
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.setBlacklist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
 
-    it('transfer by whitelist',
-        async function() {
-
+    it('transfer by whitelist', async function() {
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.setWhitelist(user1Wallet.getAddressString(), true);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.transfer(ownerWallet.getAddressString(), 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
@@ -523,13 +478,13 @@ describe('wallet/stg.transfer()', function() {
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -541,16 +496,16 @@ describe('wallet/stg.transfer()', function() {
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let oldOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             let txHash = await stg.transfer(ownerWallet.getAddressString(), oldUser1Balance + 1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             let txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
             let newUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());
             let newOwnerBalance = await stg.balanceOf(ownerWallet.getAddressString());
             assert.equal(newUser1Balance, oldUser1Balance);
             assert.equal(newOwnerBalance, oldOwnerBalance);
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -560,9 +515,7 @@ describe('wallet/stg.transfer()', function() {
 
 describe('wallet/stg.mint()', function() {
 
-    it('token mint',
-        async function() {
-
+    it('token mint', async function() {
         try {
             const stg = ownerWallet.stg(stgScoreAddress);
             const oldOwnerBalance = await stg.balanceOf();
@@ -570,10 +523,10 @@ describe('wallet/stg.mint()', function() {
 
             const txHash = await stg.mint(10000);
 
-            console.log(`mint txHash = ${txHash}`);
+            //console.log(`mint txHash = ${txHash}`);
 
             const txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
 
             assert.equal(txResult.status, '0x1');
 
@@ -584,7 +537,7 @@ describe('wallet/stg.mint()', function() {
             assert.equal(newTotalSupply, oldTotalSupply + 10000);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -594,9 +547,7 @@ describe('wallet/stg.mint()', function() {
 
 describe('wallet/stg.burn()', function() {
 
-    it('token burn',
-        async function() {
-
+    it('token burn', async function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const oldUser1Balance = await stg.balanceOf();
@@ -604,12 +555,12 @@ describe('wallet/stg.burn()', function() {
 
             const txHash = await stg.burn(1);
 
-            console.log(`burn txHash = ${txHash}`);
+            //console.log(`burn txHash = ${txHash}`);
 
             const txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
 
-            assert.equal(txResult.status, '0x1');
+            assert.equal(txResult.status, '0x1', JSON.stringify(txResult));
 
             const newUser1Balance = await stg.balanceOf();
             const newTotalSupply = await stg.totalSupply();
@@ -618,7 +569,7 @@ describe('wallet/stg.burn()', function() {
             assert.equal(newTotalSupply, oldTotalSupply - 1);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -626,20 +577,17 @@ describe('wallet/stg.burn()', function() {
 });
 
 
-
 describe('wallet/stg.pause/unpause()', function() {
 
-    it('pause/unpause',
-        async function() {
-
+    it('pause/unpause', async function() {
         try {
             const stg = ownerWallet.stg(stgScoreAddress);
 
             const txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
 
             const txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
 
             assert.equal(txResult.status, '0x1');
 
@@ -648,10 +596,10 @@ describe('wallet/stg.pause/unpause()', function() {
             assert.isTrue(paused);
 
             const txHash2 = await stg.unpause();
-            console.log(`unpause txHash = ${txHash2}`);
+            //console.log(`unpause txHash = ${txHash2}`);
 
             const txResult2 = await ownerWallet.getTransactionResult(txHash2);
-            console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
+            //console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
 
             assert.equal(txResult2.status, '0x1');
 
@@ -659,7 +607,7 @@ describe('wallet/stg.pause/unpause()', function() {
             assert.isFalse(paused2);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -669,31 +617,29 @@ describe('wallet/stg.pause/unpause()', function() {
 
 describe('wallet/stg.setBlacklist()', function() {
 
-    it('set/unset blacklist',
-        async function() {
-
+    it('set/unset blacklist', async function() {
         try {
             const stg = ownerWallet.stg(stgScoreAddress);
 
             const txHash = await stg.setBlacklist(user1Wallet.getAddressString(), true);
-            console.log(`blacklist txHash = ${txHash}`);
+            //console.log(`blacklist txHash = ${txHash}`);
 
             const txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const txHash2 = await stg.setBlacklist(
                 user1Wallet.getAddressString(),
                 false
             );
-            console.log(`blacklist2 txHash = ${txHash2}`);
+            //console.log(`blacklist2 txHash = ${txHash2}`);
 
             const txResult2 = await ownerWallet.getTransactionResult(txHash2);
-            console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
+            //console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
 
             assert.equal(txResult2.status, '0x1');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -703,31 +649,29 @@ describe('wallet/stg.setBlacklist()', function() {
 
 describe('wallet/stg.setWhitelist()', function() {
 
-    it('set/unset whitelist',
-        async function() {
-
+    it('set/unset whitelist', async function() {
         try {
             const stg = ownerWallet.stg(stgScoreAddress);
 
             const txHash = await stg.setWhitelist(user1Wallet.getAddressString(), true);
-            console.log(`blacklist txHash = ${txHash}`);
+            //console.log(`blacklist txHash = ${txHash}`);
 
             const txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const txHash2 = await stg.setWhitelist(
                 user1Wallet.getAddressString(),
                 false
             );
-            console.log(`blacklist2 txHash = ${txHash2}`);
+            //console.log(`blacklist2 txHash = ${txHash2}`);
 
             const txResult2 = await ownerWallet.getTransactionResult(txHash2);
-            console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
+            //console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
 
             assert.equal(txResult2.status, '0x1');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -737,9 +681,7 @@ describe('wallet/stg.setWhitelist()', function() {
 
 describe('wallet/stg.allowance()', function() {
 
-    it('return owner allowance for user1',
-        async function() {
-
+    it('return owner allowance for user1', async function() {
         try {
             const allowance = await user1Wallet
                 .stg(stgScoreAddress)
@@ -748,10 +690,10 @@ describe('wallet/stg.allowance()', function() {
                     ownerWallet.getAddressString()
                 );
 
-            console.log(`stg owner allowance for user1 = ${allowance}`);
+            //console.log(`stg owner allowance for user1 = ${allowance}`);
             assert(allowance >= 0);
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -765,10 +707,10 @@ describe('wallet/stg.approve()', function() {
 
             const txHash = await stg.approve(ownerWallet.getAddressString(), 10);
 
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
 
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const newOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
@@ -776,7 +718,7 @@ describe('wallet/stg.approve()', function() {
             assert.equal(newOwnerAllowance, 10);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -785,54 +727,53 @@ describe('wallet/stg.approve()', function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const txHash = await stg.approve(ownerWallet.getAddressString(), -1);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
 
     it('approve when paused', async function() {
-
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.approve(ownerWallet.getAddressString(), 1);
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -841,19 +782,17 @@ describe('wallet/stg.approve()', function() {
 });
 
 describe('wallet/stg.incAllowance()', function() {
-    it('increase allowance of owner for user1 balance',
-        async function() {
-
+    it('increase allowance of owner for user1 balance', async function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const oldOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
 
             const txHash = await stg.incAllowance(ownerWallet.getAddressString(), 10);
 
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
 
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const newOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
@@ -861,7 +800,7 @@ describe('wallet/stg.incAllowance()', function() {
             assert.equal(newOwnerAllowance - oldOwnerAllowance, 10);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -870,53 +809,52 @@ describe('wallet/stg.incAllowance()', function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const txHash = await stg.incAllowance(ownerWallet.getAddressString(), -10);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
     it('increase allowance when paused', async function() {
-
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.incAllowance(ownerWallet.getAddressString(), 10);
-            console.log(`txHash = ${txHash}`);
+            //console.log(`txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -924,19 +862,17 @@ describe('wallet/stg.incAllowance()', function() {
 });
 
 describe('wallet/stg.decAllowance()', function() {
-    it('decrease allowance of owner for user1 balance',
-        async function() {
-
+    it('decrease allowance of owner for user1 balance', async function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const oldOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
 
             const txHash = await stg.decAllowance(ownerWallet.getAddressString(), 1);
 
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
 
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const newOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
@@ -944,7 +880,7 @@ describe('wallet/stg.decAllowance()', function() {
             assert.equal(oldOwnerAllowance - newOwnerAllowance, 1);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -954,53 +890,52 @@ describe('wallet/stg.decAllowance()', function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const txHash = await stg.decAllowance(ownerWallet.getAddressString(), -10);
-            console.log(`transfer txHash = ${txHash}`);
+            //console.log(`transfer txHash = ${txHash}`);
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
 
     it('decrease allowance when paused', async function() {
-
         try {
 
             let stg = ownerWallet.stg(stgScoreAddress);
             let txHash = await stg.pause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             let txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             let paused = await stg.paused();
             assert.isTrue(paused);
 
             txHash = await stg.setWhitelist(user1Wallet.getAddressString(), false);
-            console.log(`whitelist txHash = ${txHash}`);
+            //console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             stg = user1Wallet.stg(stgScoreAddress);
             txHash = await stg.decAllowance(ownerWallet.getAddressString(), 10);
-            console.log(`txHash = ${txHash}`);
+            //console.log(`txHash = ${txHash}`);
             txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x0');
 
             stg = ownerWallet.stg(stgScoreAddress);
             txHash = await stg.unpause();
-            console.log(`pause txHash = ${txHash}`);
+            //console.log(`pause txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
             paused = await stg.paused();
             assert.isFalse(paused);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -1008,19 +943,17 @@ describe('wallet/stg.decAllowance()', function() {
 });
 
 describe('wallet/stg.transferFrom()', function() {
-    it('transfer from user1 to user2 by owner',
-        async function() {
-
+    it('transfer from user1 to user2 by owner', async function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const oldOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
 
             const txHash = await stg.approve(ownerWallet.getAddressString(), 1);
 
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
 
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const newOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
@@ -1038,10 +971,10 @@ describe('wallet/stg.transferFrom()', function() {
                 1
             );
 
-            console.log(`transferFrom txHash = ${txHash2}`);
+            //console.log(`transferFrom txHash = ${txHash2}`);
             const txResult2 = await ownerWallet.getTransactionResult(txHash2);
 
-            console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
+            //console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
             assert.equal(txResult2.status, '0x1');
 
             const newUser1Balance = await stg2.balanceOf(user1Wallet.getAddressString());
@@ -1051,7 +984,7 @@ describe('wallet/stg.transferFrom()', function() {
             assert.equal(newUser2Balance - oldUser2Balance, 1);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });
@@ -1062,9 +995,9 @@ describe('wallet/stg.transferFrom()', function() {
         try {
             const stg = user1Wallet.stg(stgScoreAddress);
             const txHash = await stg.approve(ownerWallet.getAddressString(), 0);
-            console.log(`approve txHash = ${txHash}`);
+            //console.log(`approve txHash = ${txHash}`);
             const txResult = await user1Wallet.getTransactionResult(txHash);
-            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             const newOwnerAllowance = await stg.allowance(user1Wallet.getAddressString(), ownerWallet.getAddressString());
@@ -1080,10 +1013,10 @@ describe('wallet/stg.transferFrom()', function() {
                 1
             );
 
-            console.log(`transferFrom txHash = ${txHash2}`);
+            //console.log(`transferFrom txHash = ${txHash2}`);
             const txResult2 = await ownerWallet.getTransactionResult(txHash2);
 
-            console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
+            //console.log(`txResult2 = ${JSON.stringify(txResult2)}`);
             assert.equal(txResult2.status, '0x0');
 
             const newUser1Balance = await stg2.balanceOf(user1Wallet.getAddressString());
@@ -1093,7 +1026,7 @@ describe('wallet/stg.transferFrom()', function() {
             assert.equal(newUser2Balance - oldUser2Balance, 0);
 
         } catch (err) {
-            console.log(`err = ${err}`);
+            //console.log(`err = ${err}`);
             assert(false)
         }
     });

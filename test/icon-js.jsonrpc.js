@@ -91,7 +91,7 @@ describe('jsonrpc.getBalance()', function() {
                 utils.getEndPoint('testnet').url
             );
 
-            console.log('owner balance :' + balance);
+            //console.log('owner balance :' + balance);
             assert.typeOf(balance, 'string');
     });
 
@@ -101,7 +101,7 @@ describe('jsonrpc.getBalance()', function() {
                 utils.getEndPoint('testnet').url
             );
 
-            console.log('user1 balance :' + balance);
+            //console.log('user1 balance :' + balance);
             assert.typeOf(balance, 'string');
     });
 
@@ -111,42 +111,45 @@ describe('jsonrpc.getBalance()', function() {
                 utils.getEndPoint('testnet').url
             );
 
-            console.log('user2 balance :' + balance);
+            //console.log('user2 balance :' + balance);
             assert.typeOf(balance, 'string');
     });
 
     it('get balance of nonexisting address', async function() {
-            const balance = await jsonrpc.getBalance(
-                'hx36a371b0aa839f029ad997a2b64b240f49f001c1',
+        const balance = await jsonrpc.getBalance(
+            'hx36a371b0aa839f029ad997a2b64b240f49f001c1',
+            utils.getEndPoint('testnet').url
+        );
+
+        //console.log('balance :' + balance);
+        assert.typeOf(balance, 'string');
+    });
+
+    it('invalid address', async function() {
+        try {
+            await jsonrpc.getBalance(
+                'x36a371b0aa839f029ad997a2b64b240f49f001cc',
                 utils.getEndPoint('testnet').url
             );
 
-            //console.log('balance :' + balance);
-            assert.typeOf(balance, 'string');
+            assert(false);
+
+        } catch (err) {
+            assert(true);
+        }
     });
 
-    it('invalid address', function() {
-       jsonrpc.getBalance(
-        'x36a371b0aa839f029ad997a2b64b240f49f001cc',
-        utils.getEndPoint('testnet').url
-        )
-       .then(function(balance) {
-            assert(false);
-       })
-       .catch(function(err) {
-            assert(true);
-       });
-    });
+    it('invalid endpoint', async function() {
+        try {
+            await jsonrpc.getBalance(
+                'hx36a371b0aa839f029ad997a2b64b240f49f001cc',
+                'https://www.naver.com'
+            );
 
-    it('invalid endpoint', function() {
-       jsonrpc.getBalance(
-        'hx36a371b0aa839f029ad997a2b64b240f49f001cc',
-        'https://www.naver.com'
-        ).then(function(balance) {
             assert(false);
-        }).catch(function(err) {
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 });
 
@@ -154,35 +157,40 @@ describe('jsonrpc.getBalance()', function() {
 describe('jsonrpc.getBlockByHeight()', function() {
 
     it('get a block by height in number', async function() {
-            const block = await jsonrpc.getBlockByHeight(
-                132,
+        const block = await jsonrpc.getBlockByHeight(
+            132,
+            utils.getEndPoint('testnet').url
+        );
+
+        //console.log('block :' + JSON.stringify(block));
+        assert.equal(block.height, 132);
+    });
+
+    it('invalid height', async function() {
+        try {
+            await jsonrpc.getBlockByHeight(
+                -10,
                 utils.getEndPoint('testnet').url
             );
 
-            //console.log('block :' + JSON.stringify(block));
-            assert.equal(block.height, 132);
+            assert(false);
+        } catch(err) {
+            assert(true);
+        }
     });
 
-    it('invalid height', function() {
-        jsonrpc.getBlockByHeight(
-            -10,
-            utils.getEndPoint('testnet').url
-        ).then(function(balance) {
-            assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
-    });
+    it('invalid endpoint', async function() {
+        try {
+            await jsonrpc.getBlockByHeight(
+                10,
+                'http://www.google.com'
+            );
 
-    it('invalid endpoint', function() {
-        jsonrpc.getBlockByHeight(
-            10,
-            'http://www.google.com'
-        ).then(function(balance) {
             assert(false);
-        }).catch(function(err) {
+
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 
 });
@@ -199,50 +207,60 @@ describe('jsonrpc.getBlockByHash()', function() {
         assert.equal(block.height, 132);
     });
 
-    it('invalid hash', function() {
-        jsonrpc.getBlockByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-            utils.getEndPoint('testnet').url
-        ).then(function(balance) {
+    it('invalid hash', async function() {
+        try {
+            await jsonrpc.getBlockByHash(
+                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
+                utils.getEndPoint('testnet').url
+            )
+
             assert(false);
-        }).catch(function(err) {
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 
-    it('invalid endpoint', function() {
-        jsonrpc.getBlockByHash(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b1a',
-            'http://www.daum.net'
-        ).then(function(balance) {
+    it('invalid endpoint', async function() {
+        try {
+            await jsonrpc.getBlockByHash(
+                '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b1a',
+                'http://www.daum.net'
+            );
+
             assert(false);
-        }).catch(function(err) {
+        } catch(err) {
             assert(true);
-        });
+        }
     });
 
 });
 
 describe('jsonrpc.getLastBlock()', function() {
 
-    it('get a last block', async function() {
-        const block = await jsonrpc.getLastBlock(
-            utils.getEndPoint('testnet').url
-        );
+    it('get the last block', async function() {
+        try {
+            const block = await jsonrpc.getLastBlock(
+                utils.getEndPoint('testnet').url
+            );
 
             //console.log('block :' + block);
             assert.typeOf(block.height, 'number');
+        } catch (err) {
+            //console.log(err);
+            assert(false, err);
+        }
     });
 
-    it('invalid endpoint', function() {
-        jsonrpc.getLastBlock(
-            '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-            'http://www.naver.com'
-        ).then(function(balance) {
+    it('invalid endpoint', async function() {
+        try {
+            const block = await jsonrpc.getLastBlock(
+                'http://www.naver.com'
+            );
+
             assert(false);
-        }).catch(function(err) {
-            assert(true);
-        });
+        } catch (err) {
+                assert(true);
+        }
     });
 
 });
