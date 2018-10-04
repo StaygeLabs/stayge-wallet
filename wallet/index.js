@@ -266,7 +266,7 @@ Wallet.prototype.getScoreApi = async function(address) {
 Wallet.prototype.getTransactionResult = async function(txHash, ignorePending=true) {
     let i = 0
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 10; i++) {
         try {
             const txResult = await this._baseWallet.getTransactionResult(txHash)
             return txResult;
