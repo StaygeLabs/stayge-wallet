@@ -8,9 +8,8 @@
 const API_VERSION = require('./config.js').apiVersion;
 const request = require('request');
 const utils = require('./utils.js');
+const crypto = require('crypto');
 
-
-var msgId = 0;
 
 /**
  * Return prefix string of current api version
@@ -30,7 +29,7 @@ function toPayload(method, params) {
 
     const payload = {
         jsonrpc: '2.0',
-        id: ++msgId,
+        id: crypto.randomBytes(4).readUInt32BE(0, true),
         method: method,
     }
 
@@ -61,6 +60,16 @@ async function requestJsonRpc(url, payload) {
     return new Promise(function(resolve, reject) {
         request(opts, function(err, res, body) {
             if (err) reject(err);
+
+            //console.log(`opts=${JSON.stringify(opts)}`)
+            //console.log(`body=${body}`)
+            //console.log(`payload.id=${payload.id} body.id=${body.id}`)
+
+            //console.log(`err=${err} opts.body=${opts.body} body=${body}`)
+            if (!body || opts.body.id !== body.id) {
+                reject(new Error('The response id is not equal to the request id'))
+            }
+
             resolve(body);
         });
     });
@@ -165,7 +174,7 @@ module.exports = {
             null
         );
 
-        //console.log('payload = ' + JSON.stringify(payload));
+        //console.log(`getLastBlock : url=${url} payload = ${JSON.stringify(payload)}`);
 
         const body = await requestJsonRpc(url, payload);
         const result = body.result;
