@@ -1,6 +1,6 @@
 /**
  * Provides smart contract APIs for ACT
- * @module  stayge-wallet/act
+ * @module stayge-wallet/act
  */
 
 'use strict'
@@ -403,5 +403,6 @@ ACT.prototype.setWhitelist = async function(account, flag) {
     );
 }
 
+/** @type {ACT} */
 module.exports = ACT;
 

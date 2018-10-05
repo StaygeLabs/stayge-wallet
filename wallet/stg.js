@@ -386,5 +386,5 @@ STG.prototype.setWhitelist = async function(account, flag) {
     );
 }
 
+/** @type {STG} */
 module.exports = STG;
-
