@@ -1,6 +1,6 @@
 {
   "name": "stayge-wallet",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Wallet API for STAYGE",
   "main": "index.js",
   "scripts": {
