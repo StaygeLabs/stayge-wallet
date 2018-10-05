@@ -2,8 +2,8 @@
 
 const chai = require('chai');
 const assert = chai.assert;
-const utils = require('../icon-js/utils.js');
 const BigNumber = require('bignumber.js');
+const utils = require('../lib/icon-js/utils.js');
 
 describe('utils.toBigNumber()', function() {
 

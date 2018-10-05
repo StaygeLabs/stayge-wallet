@@ -1,2 +1,2 @@
 
-module.exports = require('./wallet');
+module.exports = require('./lib/wallet');

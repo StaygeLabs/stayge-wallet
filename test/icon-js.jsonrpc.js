@@ -2,9 +2,9 @@
 
 const chai = require('chai');
 const assert = chai.assert;
-const Wallet = require('../icon-js/wallet.js');
-const jsonrpc = require('../icon-js/jsonrpc.js');
-const utils = require('../icon-js/utils.js');
+const Wallet = require('../lib/icon-js/wallet.js');
+const jsonrpc = require('../lib/icon-js/jsonrpc.js');
+const utils = require('../lib/icon-js/utils.js');
 
 const ownerWallet = Wallet.fromKeyStoreObj({
         "address": "hxf6ccadc18a4f4902e03b8fced09dd8cfdac2e005",

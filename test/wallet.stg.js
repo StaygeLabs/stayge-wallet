@@ -2,7 +2,7 @@
 
 const chai = require('chai');
 const assert = chai.assert;
-const Wallet = require('../wallet');
+const Wallet = require('../lib/wallet');
 
 const ownerWallet = Wallet.fromKeyStoreObj({
         "address": "hxf6ccadc18a4f4902e03b8fced09dd8cfdac2e005",

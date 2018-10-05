@@ -2,7 +2,7 @@
 
 const chai = require('chai');
 const assert = chai.assert;
-const key = require('../icon-js/key.js');
+const key = require('../lib/icon-js/key.js');
 
 describe('key.privateKeyFromKeyStoreObj()', function() {
 
