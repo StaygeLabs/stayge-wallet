@@ -15,154 +15,187 @@ const DEFAULT_UPDATE_STEP_LIMIT = 3000000000; // 30 ICX, step price : 0.00000001
 const DEFAULT_TX_STEP_LIMIT = 100000000; // 1 ICX, step price : 0.00000001 ICX(10 Gloop)
 
 /**
- * A class for ICON Wallet
- * @class
- * @constructor
- * @param {Buffer} privateKey - private key for wallet
+ * Class representing a ICON Wallet
  */
-const Wallet = function(privateKey) {
-    this._privateKey = privateKey;
-    this._publicKey = key.privateToPublic(privateKey);
-    this._address = key.publicToAddress(this._publicKey);
-    this._endpoint = utils.getEndPointFromEnv();
-}
+class Wallet {
 
 
-/**
- * Get a private key of the wallet
- * @return {Buffer}
- */
-Wallet.prototype.getPrivateKey = function() {
-    return this._privateKey;
-}
+    /**
+     * Factory method to create a new wallet with a newly generated private key
+     * @return {Wallet}
+     */
+    static create() {
+        return new Wallet(key.generatePrivateKey());
+    }
 
-/**
- * Get a private key string of the wallet
- * @return {String}
- */
-Wallet.prototype.getPrivateKeyString = function() {
-    return this._privateKey.toString('hex');
-}
+    /**
+     * Factory method to create a wallet from the private key
+     * @param  {String} privateKeyString
+     * @return {Wallet}
+     */
+    static fromPrivateKey(privateKeyString) {
+        return new Wallet(Buffer.from(privateKeyString, 'hex'));
+    }
 
+    /**
+     * Factory method to create a wallet from the keystore object
+     * @param  {Object|string} keyStoreObj [description]
+     * @param  {String} password    [description]
+     * @return {Wallet}             [description]
+     */
+    static fromKeyStoreObj(keyStoreObj, password) {
+        //console.log('typeof keyStoreObj:'+typeof keyStoreObj);
+        const json = (typeof keyStoreObj === 'object') ? keyStoreObj : JSON.parse(keyStoreObj);
 
-/**
- * Get a public key of the wallet
- * @return {Buffer}
- */
-Wallet.prototype.getPublicKey = function() {
-    return this._publicKey;
-}
+        return new Wallet(key.privateKeyFromKeyStoreObj(
+            json,
+            password
+            ));
+    }
 
-
-/**
- * Get a public key string of the wallet
- * @return {String}
- */
-Wallet.prototype.getPublicKeyString = function() {
-    return this._publicKey.toString('hex');
-}
-
-
-/**
- * Get the wallet address
- * @return {Buffer}
- */
-Wallet.prototype.getAddress = function() {
-    return this._address;
-}
-
-/**
- * Get the wallet address string
- * @return {String}
- */
-Wallet.prototype.getAddressString = function() {
-    return 'hx' + this._address.toString('hex');
-}
-
-/**
- * Convert a wallet to key store object
- * @param  {String} password
- * @return {Object}
- */
-Wallet.prototype.toKeyStoreObj = function(password) {
-    return key.toKeyStoreObj(
-        this.getPrivateKey(),
-        this.getAddressString(),
-        password
-    );
-}
-
-/**
- * set endpoint
- * @param {String} name 'mainnet' | 'testnet'
- */
-Wallet.prototype.setEndPoint = function(name) {
-    this._endpoint = utils.getEndPoint(name);
-}
-
-/**
- * get endpoint
- * @return {String} uri of endpoint
- */
-Wallet.prototype.getEndPoint = function() {
-    return this._endpoint;
-}
+    /**
+     * Create a ICON Wallet
+     * @param {Buffer} privateKey - private key for wallet
+     */
+    constructor(privateKey) {
+        this._privateKey = privateKey;
+        this._publicKey = key.privateToPublic(privateKey);
+        this._address = key.publicToAddress(this._publicKey);
+        this._endpoint = utils.getEndPointFromEnv();
+    }
 
 
-/**
- * Get block information by height
- * @param  {Number|String} height
- * @return {Object}
- */
-Wallet.prototype.getBlockByHeight = function(height) {
-    return jsonrpc.getBlockByHeight(height, this.getEndPoint().url);
-}
+    /**
+     * Get the private key of the wallet
+     * @return {Buffer}
+     */
+    getPrivateKey() {
+        return this._privateKey;
+    }
+
+    /**
+     * Get the private key string of the wallet
+     * @return {String}
+     */
+    getPrivateKeyString() {
+        return this._privateKey.toString('hex');
+    }
 
 
-/**
- * Get block information by hash
- * @param  {String} height
- * @return {Object}
- */
-Wallet.prototype.getBlockByHash = function(hash) {
-    return jsonrpc.getBlockByHash(hash, this.getEndPoint().url);
-}
+    /**
+     * Get the public key of the wallet
+     * @return {Buffer}
+     */
+    getPublicKey() {
+        return this._publicKey;
+    }
 
 
-/**
- * Get a last block information
- * @return {Object}
- */
-Wallet.prototype.getLastBlock = function() {
-    return jsonrpc.getLastBlock(this.getEndPoint().url);
-}
+    /**
+     * Get the public key string of the wallet
+     * @return {String}
+     */
+    getPublicKeyString() {
+        return this._publicKey.toString('hex');
+    }
+
+    /**
+     * Get the address of the wallet
+     * @return {Buffer}
+     */
+    getAddress() {
+        return this._address;
+    }
+
+    /**
+     * Get the address string of the wallet
+     * @return {String}
+     */
+    getAddressString() {
+        return 'hx' + this._address.toString('hex');
+    }
+
+    /**
+     * Convert the wallet to the keystore object
+     * @param  {String} password
+     * @return {Object}
+     */
+    toKeyStoreObj(password) {
+        return key.toKeyStoreObj(
+            this.getPrivateKey(),
+            this.getAddressString(),
+            password
+        );
+    }
+
+    /**
+     * set the endpoint
+     * @param {String} name 'mainnet' | 'testnet'
+     */
+    setEndPoint(name) {
+        this._endpoint = utils.getEndPoint(name);
+    }
+
+    /**
+     * get the endpoint
+     * @return {String} uri of endpoint
+     */
+    getEndPoint() {
+        return this._endpoint;
+    }
+
+    /**
+     * Get the block information by height
+     * @param  {Number|String} height
+     * @return {Promise<Object>}
+     */
+    async getBlockByHeight(height) {
+        return jsonrpc.getBlockByHeight(height, this.getEndPoint().url);
+    }
 
 
-/**
- * Get balance of the wallet
- * @return {String}
- */
-Wallet.prototype.getBalance = function() {
-    return jsonrpc.getBalance(this.getAddressString(), this.getEndPoint().url);
-}
+    /**
+     * Get the block information by hash
+     * @param  {String} height
+     * @return {Promise<Object>}
+     */
+    async getBlockByHash(hash) {
+        return jsonrpc.getBlockByHash(hash, this.getEndPoint().url);
+    }
+
+    /**
+     * Get the last block information
+     * @return {Promise<Object>}
+     */
+    async getLastBlock() {
+        return jsonrpc.getLastBlock(this.getEndPoint().url);
+    }
 
 
-/**
- * Get total supply of ICX
- * @return {String}
- */
-Wallet.prototype.getTotalSupply = function() {
-    return jsonrpc.getTotalSupply(this.getEndPoint().url);
-}
+    /**
+     * Get balance of the wallet
+     * @return {Promise<String>}
+     */
+    async getBalance() {
+        return jsonrpc.getBalance(this.getAddressString(), this.getEndPoint().url);
+    }
 
-/**
- * Transfer ICX coins
- * @param {String} to
- * @param {Number} value
- * @return {String} txHash
- */
-Wallet.prototype.transferICX = function(to, value) {
-    return (async () => {
+    /**
+     * Get total supply of ICX
+     * @return {Promise<String>}
+     */
+    async getTotalSupply() {
+        return jsonrpc.getTotalSupply(this.getEndPoint().url);
+    }
+
+
+    /**
+     * Transfer ICX coins
+     * @param {String} to
+     * @param {Number} value
+     * @return {Promise<String>} txHash
+     */
+    async transferICX(to, value) {
         const data = {
             from: this.getAddressString(),
             to: to,
@@ -178,18 +211,16 @@ Wallet.prototype.transferICX = function(to, value) {
         );
 
         return result
-    })();
-}
+    }
 
 
-/**
- * Transafer a message
- * @param  {String} to
- * @param  {String} msg
- * @return {String} txHash
- */
-Wallet.prototype.transferMessage = function(to, msg) {
-    return (async () => {
+    /**
+     * Transafer a message
+     * @param  {String} to
+     * @param  {String} msg
+     * @return {Promise<String>} txHash
+     */
+    async transferMessage(to, msg) {
         const data = {
             from: this.getAddressString(),
             to: to,
@@ -206,19 +237,17 @@ Wallet.prototype.transferMessage = function(to, msg) {
         );
 
         return result
-    })();
-}
+    }
 
 
-/**
- * Send a transaction for calling a SCORE'S method
- * @param  {String} scoreAddress
- * @param  {String} scoreMethod
- * @param  {Object} methodParams
- * @return {String} txHash
- */
-Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams) {
-    return (async () => {
+    /**
+     * Send a transaction for calling a SCORE'S method
+     * @param  {String} scoreAddress
+     * @param  {String} scoreMethod
+     * @param  {Object} methodParams
+     * @return {Promise<String>} txHash
+     */
+    async callScoreTx(scoreAddress, scoreMethod, methodParams) {
         const data = {
             from: this.getAddressString(),
             to: scoreAddress,
@@ -241,20 +270,15 @@ Wallet.prototype.callScoreTx = function(scoreAddress, scoreMethod, methodParams)
         );
 
         return result
-    })();
-}
+    }
 
-
-
-/**
- * Install a SCORE on the ICON blockchain
- * @param  {String} to
- * @param  {String} scoreContent
- * @param  {Object} installParams
- * @return {String} txHash
- */
-Wallet.prototype.installScore = function(scoreContent, installParams) {
-    return (async () => {
+    /**
+     * Install a SCORE on the ICON blockchain
+     * @param  {String} scoreContent
+     * @param  {Object} installParams
+     * @return {Promise<String>} txHash
+     */
+    async installScore(scoreContent, installParams) {
         const data = {
             from: this.getAddressString(),
             to: 'cx0000000000000000000000000000000000000000',   // address 0 means SCORE install
@@ -278,19 +302,17 @@ Wallet.prototype.installScore = function(scoreContent, installParams) {
         );
 
         return result
-    })();
-}
+    }
 
 
-/**
- * Update a SCORE on the ICON blockchain
- * @param  {String} scoreAddress address of score
- * @param  {String} scoreContent score contents of hexstring format
- * @param  {Object} updateParams parameter for update
- * @return {Promise<String>} txHash
- */
-Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams) {
-    return (async () => {
+    /**
+     * Update the SCORE on the ICON blockchain
+     * @param  {String} scoreAddress address of score
+     * @param  {String} scoreContent score contents of hexstring format
+     * @param  {Object} updateParams parameter for update
+     * @return {Promise<String>}
+     */
+    async updateScore(scoreAddress, scoreContent, updateParams) {
         const data = {
             from: this.getAddressString(),
             to: scoreAddress,
@@ -314,19 +336,16 @@ Wallet.prototype.updateScore = function(scoreAddress, scoreContent, updateParams
         );
 
         return result
-    })();
-}
+    }
 
-
-/**
- * Call SCORE's external function
- * @param  {String} to
- * @param  {String} method
- * @param  {Object} params
- * @return {String}
- */
-Wallet.prototype.call = function(to, method, params) {
-    return (async () => {
+    /**
+     * Call SCORE's external function
+     * @param  {String} to
+     * @param  {String} method
+     * @param  {Object} params
+     * @return {Promise<String>}
+     */
+    async call(to, method, params) {
         const data = {
             from: this.getAddressString(),
             to: to,
@@ -343,69 +362,35 @@ Wallet.prototype.call = function(to, method, params) {
         );
 
         return result
-    })();
-}
+    }
 
+    /**
+     * Get the SCORE's external API list
+     * @param  {String} address
+     * @return {Promise<Object>}
+     */
+    async getScoreApi(address) {
+        return jsonrpc.getScoreApi(address, this.getEndPoint().url);
+    }
 
-/**
- * Get SCORE's external API list
- * @param  {String} address
- * @return {Object}
- */
-Wallet.prototype.getScoreApi = function(address) {
-    return jsonrpc.getScoreApi(address, this.getEndPoint().url);
-}
+    /**
+     * Get the transaction result with the specified txHash
+     * @param  {String} txHash
+     * @return {Promise<Object>}
+     */
+    async getTransactionResult(txHash) {
+        return jsonrpc.getTransactionResult(txHash, this.getEndPoint().url);
+    }
 
+    /**
+     * Get the transaction information by txHash
+     * @param  {String} txHash
+     * @return {Promise<Object>}
+     */
+    async getTransactionByHash(txHash) {
+        return jsonrpc.getTransactionByHash(txHash, this.getEndPoint().url);
+    }
 
-/**
- * Get the transaction result requested by transaction hash
- * @param  {String} txHash
- * @return {Object}
- */
-Wallet.prototype.getTransactionResult = function(txHash) {
-    return jsonrpc.getTransactionResult(txHash, this.getEndPoint().url);
-}
-
-
-/**
- * Get the transaction information by txHash
- * @param  {String} txHash
- * @return {Object}
- */
-Wallet.prototype.getTransactionByHash = function(txHash) {
-    return jsonrpc.getTransactionByHash(txHash, this.getEndPoint().url);
-}
-
-/**
- * Create a new wallet with a newly generated private key
- * @return {Wallet}
- */
-Wallet.create = function() {
-    return new Wallet(key.generatePrivateKey());
-}
-
-/**
- * @param  {String} privateKeyString
- * @return {Wallet}
- */
-Wallet.fromPrivateKey = function(privateKeyString) {
-    return new Wallet(Buffer.from(privateKeyString, 'hex'));
-}
-
-/**
- * Create a wallet from a keystore object
- * @param  {Object|string} keyStoreObj [description]
- * @param  {String} password    [description]
- * @return {Wallet}             [description]
- */
-Wallet.fromKeyStoreObj = function(keyStoreObj, password) {
-    //console.log('typeof keyStoreObj:'+typeof keyStoreObj);
-    const json = (typeof keyStoreObj === 'object') ? keyStoreObj : JSON.parse(keyStoreObj);
-
-    return new Wallet(key.privateKeyFromKeyStoreObj(
-        json,
-        password
-        ));
 }
 
 

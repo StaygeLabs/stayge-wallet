@@ -419,8 +419,8 @@ describe('wallet/index.getTotalSupply()', function() {
 
 describe('wallet/index.transferICX()', function() {
 
-    it('transfer a transaction', async function() {
-        const txHash = await ownerWallet.transferICX(
+    it('transfer coins', async function() {
+        const txHash = await ownerWallet.transferCoin(
             user1Wallet.getAddressString(),
             1
         );
@@ -433,7 +433,7 @@ describe('wallet/index.transferICX()', function() {
 
     it('invalid address', async function() {
         try {
-            const txHash = await ownerWallet.transferICX(
+            const txHash = await ownerWallet.transferCoin(
             'fda7ec74dfeac5d6b22844c8cbbf63f0b81c736e',
             0.1
             );
@@ -502,10 +502,10 @@ describe('wallet/index.call()', function() {
 
 
 
-describe('wallet/index.getScoreApi()', function() {
+describe('wallet/index.getContractApi()', function() {
 
     it('get SCORE\'s api list', async function() {
-        const result = await ownerWallet.getScoreApi(
+        const result = await ownerWallet.getContractApi(
             stgScoreAddress,
         );
 
@@ -516,7 +516,7 @@ describe('wallet/index.getScoreApi()', function() {
 
     it('invalid address', async function() {
         try {
-            const result = await ownerWallet.getScoreApi(
+            const result = await ownerWallet.getContractApi(
                 'xb0776ee37f5b45bfaea8cff1d8232fbb6122ec32',
             );
 
@@ -529,7 +529,7 @@ describe('wallet/index.getScoreApi()', function() {
 
     it('invalid address', async function() {
         try {
-            const result = await ownerWallet.getScoreApi(
+            const result = await ownerWallet.getContractApi(
                 'cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec31',
             );
 
@@ -549,7 +549,8 @@ describe('wallet/index.getTransactionResult()', function() {
 
     it('successfully completed transaction', async function() {
         const txResult = await ownerWallet.getTransactionResult(
-            '0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263'
+            '0xc8ac902521dc3485e9977f2b7764185e3ed7900a1528a226775a89c543a97263',
+            5
         );
 
         //console.log('txResult :' + JSON.stringify(txResult));
@@ -562,7 +563,6 @@ describe('wallet/index.getTransactionResult()', function() {
         try {
             await ownerWallet.getTransactionResult(
                 '6ffe8816153c3fbdae5612d1b2d73db1fd270e6c4a0b539355f7167426ff6b11',
-                false
             );
             assert(false);
         } catch (err) {
@@ -597,10 +597,10 @@ describe('wallet/index.getTransactionByHash()', function() {
 
 
 /*
-describe('wallet/index.installScore()', function() {
+describe('wallet/index.installContract()', function() {
 
-    it('install a new score of ACT', async function() {
-        const txHash = await ownerWallet.installScore(
+    it('install a new smart contract of ACT', async function() {
+        const txHash = await ownerWallet.installContract(
             'test/act.zip',
             {
                 name: 'BTS',
@@ -613,7 +613,7 @@ describe('wallet/index.installScore()', function() {
         console.log('txHash :' + txHash);
         assert.typeOf(txHash, 'String');
 
-        const txResult = await ownerWallet.getTransactionResult(txHash);
+        const txResult = await ownerWallet.getTransactionResult(txHash, 5);
         console.log(`txResult = ${JSON.stringify(txResult)}`);
         console.log(`scoreAddress = ${txResult.scoreAddress}`)
         assert.equal(txResult.status, '0x1');
@@ -621,10 +621,10 @@ describe('wallet/index.installScore()', function() {
 
 });
 
-describe('wallet/index.updateScore()', function() {
+describe('wallet/index.updateContract()', function() {
 
-    it('update the ACT score', async function() {
-        const txHash = await ownerWallet.updateScore(
+    it('update the ACT smart contract', async function() {
+        const txHash = await ownerWallet.updateContract(
             actScoreAddress,
             'test/act_upd.zip',
         );
@@ -632,7 +632,7 @@ describe('wallet/index.updateScore()', function() {
         console.log('txHash :' + txHash);
         assert.typeOf(txHash, 'String');
 
-        const txResult = await ownerWallet.getTransactionResult(txHash);
+        const txResult = await ownerWallet.getTransactionResult(txHash, 5);
         console.log(`txResult = ${JSON.stringify(txResult)}`);
         console.log(`scoreAddress = ${txResult.scoreAddress}`)
         assert.equal(txResult.status, '0x1');
@@ -652,7 +652,7 @@ describe('wallet/index.transferMessage()', function() {
         //console.log('txHash :' + txHash);
         assert.typeOf(txHash, 'String');
 
-        const txResult = await ownerWallet.getTransactionResult(txHash);
+        const txResult = await ownerWallet.getTransactionResult(txHash, 5);
         //console.log(`txResult = ${JSON.stringify(txResult)}`);
         assert.equal(txResult.status, '0x1');
     });
