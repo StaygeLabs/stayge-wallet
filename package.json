@@ -4,8 +4,8 @@
   "description": "Wallet API for STAYGE",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
-    "doc": "rm -rf docs/refs/*;./node_modules/.bin/jsdoc -r -d docs/refs -c ./.jsdoc.json -t ./node_modules/ink-docstrap/template .",
+    "lint": "./node_modules/.bin/eslint lib",
+    "doc": "rm -rf docs/refs/*;./node_modules/.bin/jsdoc -r -d docs/refs -c ./.jsdoc.json -t ./node_modules/ink-docstrap/template lib",
     "test": "mocha --timeout 10000",
     "test-coverage": "nyc mocha --timeout 10000"
   },

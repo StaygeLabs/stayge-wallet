@@ -417,7 +417,7 @@ describe('wallet/index.getTotalSupply()', function() {
 
 
 
-describe('wallet/index.transferICX()', function() {
+describe('wallet/index.transferCoin()', function() {
 
     it('transfer coins', async function() {
         const txHash = await ownerWallet.transferCoin(
