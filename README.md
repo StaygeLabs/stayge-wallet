@@ -9,8 +9,14 @@ Currently, the [STAYGE](http://stayge.io/) wallet is supporting only the [ICON](
 
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Create a wallet with newly generated keys](#)
+    - [Create a wallet with newly generated keys](#Create-a-wallet-with-newly-generated-keys)
     - [Create a wallet from the private key](#create-a-wallet-from-the-private-key)
+    - [Create a wallet from the keystore file](#Create-a-wallet-from-the-keystore-file)
+    - [Convert a wallet to the keystore json object](#Convert-a-wallet-to-the-keystore-json-object)
+    - [Retrieve the block/transaction information on the blockchain](#Retrieve-the-block-transaction-information-on-the-blockchain)
+    - [Make transactions for the coin transfer and sending a message](#Make-transactions-for-the-coin-transfer-and-sending-a-message)
+    - [Interface with the smart contract of the ACT token](#Interface-with-the-smart-contract-of-the-ACT-token)
+- [API Reference](#API-Reference)
 - [License](#license)
 
 ## Installation
@@ -374,6 +380,7 @@ yarn add stayge-wallet
 ```
 
 ## API Reference
+For the complete API Reference, refer to doc/refs/index.html
 
 ## License
 MIT License
