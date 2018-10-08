@@ -13,12 +13,12 @@ Currently, the [STAYGE](http://stayge.io/) wallet is supporting only the [ICON](
     - [Create a wallet from the private key](#create-a-wallet-from-the-private-key)
     - [Create a wallet from the keystore file](#create-a-wallet-from-the-keystore-file)
     - [Convert a wallet to the keystore json object](#convert-a-wallet-to-the-keystore-json-object)
-    - [Retrieve the block/transaction information on the blockchain](#retrieve-the-block-transaction-information-on-the-blockchain)
+    - [Retrieve the block/transaction information on the blockchain](#retrieve-the-block-transaction/information-on-the-blockchain)
     - [Make transactions for the coin transfer and sending a message](#make-transactions-for-the-coin-transfer-and-sending-a-message)
     - [Deploy and update a smart contract on the blockchain](#deploy-and-update-a-smart-contract-on-the-blockchain)
-    - [Interface with the smart contract of the ACT token](#interface-with-the-smart-contract-of-the-ACT-token)
-    - [Interface with the smart contract of the STG token](#interface-with-the-smart-contract-of-the-STG-token)
-- [API Reference](#API-Reference)
+    - [Interface with the smart contract of the ACT token](#interface-with-the-smart-contract-of-the-act-token)
+    - [Interface with the smart contract of the STG token](#interface-with-the-smart-contract-of-the-stg-token)
+- [API Reference](#api-reference)
 - [License](#license)
 
 ## Installation
