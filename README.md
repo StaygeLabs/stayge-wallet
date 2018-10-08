@@ -32,6 +32,7 @@ yarn add stayge-wallet
 ```
 
 ## Usage
+When the STAYGE wallet is created, the endpoint of the JSON RPC server for the blockchain is set automatically according to the environment where it is executed. If `process.env.NODE_ENV` variable is set to 'production', it will connect to the [mainnet of the ICON](https://tracker.icon.foundation/), otherwise [testnet](https://bicon.tracker.solidwallet.io/) will be chosen. If you want to choose the endpoint explicitly, you can call the method of `setEndPoint(name)`, the argument of which can be 'mainnet' or 'testnet', after creating a wallet.
 
 ### Create a wallet with newly generated keys
 
@@ -505,7 +506,7 @@ yarn add stayge-wallet
 
 
 ## API Reference
-For the complete API Reference, refer to doc/refs/index.html
+For the complete API Reference, [click here](http://docs.stayge.net/stayge-wallet/)
 
 ## License
 MIT License

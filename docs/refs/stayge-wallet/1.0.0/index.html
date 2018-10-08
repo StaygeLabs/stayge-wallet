@@ -118,7 +118,8 @@
 npm install stayge-wallet
 
 # yarn
-yarn add stayge-wallet</code></pre><h2>Usage</h2><h3>Create a wallet with newly generated keys</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
+yarn add stayge-wallet</code></pre><h2>Usage</h2><p>When the STAYGE wallet is created, the endpoint of the JSON RPC server for the blockchain is set automatically according to the environment where it is executed. If <code>process.env.NODE_ENV</code> variable is set to 'production', it will connect to the <a href="https://tracker.icon.foundation/">mainnet of the ICON</a>, otherwise <a href="https://bicon.tracker.solidwallet.io/">testnet</a> will be chosen. If you want to choose the endpoint explicitly, you can call the method of <code>setEndPoint(name)</code>, the argument of which can be 'mainnet' or 'testnet', after creating a wallet.</p>
+<h3>Create a wallet with newly generated keys</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const wallet = Wallet.create();
 
     console.log(wallet.getPrivateKeyString()); // 7d716d0ddd7b5d567aa7296f8a9f5e11be0127c1da726047d1f6f48380ca0778
@@ -536,7 +537,7 @@ yarn add stayge-wallet</code></pre><h2>Usage</h2><h3>Create a wallet with newly 
         {&quot;txHash&quot;:&quot;0x446f3e335e1b851cea5bcbe9700a602c936b2bb7ea21bd6e396cfd420fba9a5a&quot;,&quot;blockHeight&quot;:&quot;0x2437&quot;,&quot;blockHash&quot;:&quot;0x6b606460a1392d0899ba768af7660a5beb3561ae2f6ce1bc619ad38651382f52&quot;,&quot;txIndex&quot;:&quot;0x3&quot;,&quot;to&quot;:&quot;cx8ada5f95f337ae332c97f3375e7e4f8209617143&quot;,&quot;stepUsed&quot;:&quot;0x23c08&quot;,&quot;stepPrice&quot;:&quot;0x2540be400&quot;,&quot;cumulativeStepUsed&quot;:&quot;0x78a00&quot;,&quot;eventLogs&quot;:[{&quot;scoreAddress&quot;:&quot;cx8ada5f95f337ae332c97f3375e7e4f8209617143&quot;,&quot;indexed&quot;:[&quot;Transfer(Address,Address,int,bytes)&quot;,&quot;hx3938461680520062e9fe7e46288d6b74a8682ce7&quot;,&quot;hxd67aa5101f339e3afd278a9a26bf78d94f1ba802&quot;,&quot;0x8ac7230489e80000&quot;],&quot;data&quot;:[&quot;0x&quot;]}],&quot;logsBloom&quot;:&quot;0x000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000001000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000&quot;,&quot;status&quot;:&quot;0x1&quot;}
 
      */
-</code></pre><h2>API Reference</h2><p>For the complete API Reference, refer to doc/refs/index.html</p>
+</code></pre><h2>API Reference</h2><p>For the complete API Reference, <a href="http://docs.stayge.net/stayge-wallet/">click here</a></p>
 <h2>License</h2><p>MIT License</p></article>
     </section>
 
