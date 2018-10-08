@@ -1,75 +1,140 @@
-STAYGE Wallet API for NodeJS
-================================
+<!DOCTYPE html>
 
-This is the [STAYGE](http://stayge.io/) Wallet API for NodeJs providing several features such as creating a wallet, retrieving block/transaction information on the blockchain, making a transaction for transfering coins and interacting with smart contracts for the [STAYGE](http://stayge.io/) services.
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Index</title>
 
-Currently, the [STAYGE](http://stayge.io/) wallet is supporting only the [ICON](https://m.icon.foundation/?lang=en) as an underlying blockchain network. To interface with the ICON network, it implemented the NodeJs version of the ICON SDK([python](https://github.com/icon-project/icon-sdk-python), [java](https://github.com/icon-project/icon-sdk-java)) based on the [ICON JSON-RPC specification](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md). In the future, the [STAYGE](http://stayge.io/) Network will be provided for the [STAYGE](http://stayge.io/) services.
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
-## Table of Contents
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
 
-- [Installation](#installation)
-- [Usage](#usage)
-    - [Create a wallet with newly generated keys](#create-a-wallet-with-newly-generated-keys)
-    - [Create a wallet from the private key](#create-a-wallet-from-the-private-key)
-    - [Create a wallet from the keystore file](#create-a-wallet-from-the-keystore-file)
-    - [Convert a wallet to the keystore json object](#convert-a-wallet-to-the-keystore-json-object)
-    - [Retrieve the block/transaction information on the blockchain](#retrieve-the-block-transaction-information-on-the-blockchain)
-    - [Make transactions for the coin transfer and sending a message](#make-transactions-for-the-coin-transfer-and-sending-a-message)
-    - [Deploy and update a smart contract on the blockchain](#deploy-and-update-a-smart-contract-on-the-blockchain)
-    - [Interface with the smart contract of the ACT token](#interface-with-the-smart-contract-of-the-ACT-token)
-    - [Interface with the smart contract of the STG token](#interface-with-the-smart-contract-of-the-STG-token)
-- [API Reference](#API-Reference)
-- [License](#license)
+</head>
 
-## Installation
+<body>
 
-```bash
-# npm
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+    <h3>stayge-wallet 1.0.0</h3>
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>STAYGE Wallet API for NodeJS</h1><p>This is the <a href="http://stayge.io/">STAYGE</a> Wallet API for NodeJs providing several features such as creating a wallet, retrieving block/transaction information on the blockchain, making a transaction for transfering coins and interacting with smart contracts for the <a href="http://stayge.io/">STAYGE</a> services.</p>
+<p>Currently, the <a href="http://stayge.io/">STAYGE</a> wallet is supporting only the <a href="https://m.icon.foundation/?lang=en">ICON</a> as an underlying blockchain network. To interface with the ICON network, it implemented the NodeJs version of the ICON SDK(<a href="https://github.com/icon-project/icon-sdk-python">python</a>, <a href="https://github.com/icon-project/icon-sdk-java">java</a>) based on the <a href="https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md">ICON JSON-RPC specification</a>. In the future, the <a href="http://stayge.io/">STAYGE</a> Network will be provided for the <a href="http://stayge.io/">STAYGE</a> services.</p>
+<h2>Table of Contents</h2><ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#create-a-wallet-with-newly-generated-keys">Create a wallet with newly generated keys</a></li>
+<li><a href="#create-a-wallet-from-the-private-key">Create a wallet from the private key</a></li>
+<li><a href="#create-a-wallet-from-the-keystore-file">Create a wallet from the keystore file</a></li>
+<li><a href="#convert-a-wallet-to-the-keystore-json-object">Convert a wallet to the keystore json object</a></li>
+<li><a href="#retrieve-the-block-transaction-information-on-the-blockchain">Retrieve the block/transaction information on the blockchain</a></li>
+<li><a href="#make-transactions-for-the-coin-transfer-and-sending-a-message">Make transactions for the coin transfer and sending a message</a></li>
+<li><a href="#deploy-and-update-a-smart-contract-on-the-blockchain">Deploy and update a smart contract on the blockchain</a></li>
+<li><a href="#interface-with-the-smart-contract-of-the-ACT-token">Interface with the smart contract of the ACT token</a></li>
+<li><a href="#interface-with-the-smart-contract-of-the-STG-token">Interface with the smart contract of the STG token</a></li>
+</ul>
+</li>
+<li><a href="#API-Reference">API Reference</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2>Installation</h2><pre class="prettyprint source lang-bash"><code># npm
 npm install stayge-wallet
 
 # yarn
-yarn add stayge-wallet
-```
-
-## Usage
-
-### Create a wallet with newly generated keys
-
-```javascript
-    const Wallet = require('stayge-wallet');
+yarn add stayge-wallet</code></pre><h2>Usage</h2><h3>Create a wallet with newly generated keys</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const wallet = Wallet.create();
 
     console.log(wallet.getPrivateKeyString()); // 7d716d0ddd7b5d567aa7296f8a9f5e11be0127c1da726047d1f6f48380ca0778
     console.log(wallet.getAddressString()); // hx22e9d89e560f225271d2fb912774e364f8c25a6c
-    console.log(wallet.getPublicKeyString()); // 482dffbef9c029df3162580407cf3f355f1937f6a31e61744afe61f8eb11a274615d5c305478b35a325e38806e7ce6d2cd936a0f39676b3725727ea01ed5e091
-```
-
-### Create a wallet from the private key
-
-```javascript
-    const Wallet = require('stayge-wallet');
+    console.log(wallet.getPublicKeyString()); // 482dffbef9c029df3162580407cf3f355f1937f6a31e61744afe61f8eb11a274615d5c305478b35a325e38806e7ce6d2cd936a0f39676b3725727ea01ed5e091</code></pre><h3>Create a wallet from the private key</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const wallet = Wallet.fromPrivateKey('7d716d0ddd7b5d567aa7296f8a9f5e11be0127c1da726047d1f6f48380ca0778');
 
     console.log(wallet.getPrivateKeyString()); // 7d716d0ddd7b5d567aa7296f8a9f5e11be0127c1da726047d1f6f48380ca0778
     console.log(wallet.getAddressString()); // hx22e9d89e560f225271d2fb912774e364f8c25a6c
-    console.log(wallet.getPublicKeyString()); // 482dffbef9c029df3162580407cf3f355f1937f6a31e61744afe61f8eb11a274615d5c305478b35a325e38806e7ce6d2cd936a0f39676b3725727ea01ed5e091
-```
-
-### Create a wallet from the keystore file
-
-```javascript
-    const Wallet = require('stayge-wallet');
+    console.log(wallet.getPublicKeyString()); // 482dffbef9c029df3162580407cf3f355f1937f6a31e61744afe61f8eb11a274615d5c305478b35a325e38806e7ce6d2cd936a0f39676b3725727ea01ed5e091</code></pre><h3>Create a wallet from the keystore file</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const password = 'test123!';
     const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
 
     console.log(wallet.getPrivateKeyString()); // 3f3a98221b8113c12651542cc3d4103b683bf57472dc1eb3d0e8cf41a0ec97f3
     console.log(wallet.getAddressString()); // hx3938461680520062e9fe7e46288d6b74a8682ce7
-    console.log(wallet.getPublicKeyString()); // 30009a315e8b83acb6a0925e085dd9545ca10e67c846a3c23c8831b429b4be157759a701e2fe848e6d636a787f8ecc942e9bb0d687dcbc3c57d59d47814c5a52
-```
-
-### Convert a wallet to the keystore json object
-```javascript
-    const Wallet = require('stayge-wallet');
+    console.log(wallet.getPublicKeyString()); // 30009a315e8b83acb6a0925e085dd9545ca10e67c846a3c23c8831b429b4be157759a701e2fe848e6d636a787f8ecc942e9bb0d687dcbc3c57d59d47814c5a52</code></pre><h3>Convert a wallet to the keystore json object</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const wallet = Wallet.create();
     const password = 'test123';
     const keyStoreObj = wallet.toKeyStoreObj(password); // The private key is encrypted with the specified password
@@ -97,12 +162,7 @@ yarn add stayge-wallet
           coinType: 'icx'
         }
      */
-
-```
-
-### Retrieve the block/transaction information on the blockchain
-```javascript
-    const Wallet = require('stayge-wallet');
+</code></pre><h3>Retrieve the block/transaction information on the blockchain</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const wallet = Wallet.create();
 
     // get the block information by the block height
@@ -267,13 +327,7 @@ yarn add stayge-wallet
            '0x00000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000050000000000010000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000400000000001040000000000000000000000000000000000000000000000000004000000000044000000000000000000000000000000000000000000000000004000000000002600000000000000000000000000000000000000000000000000340000000000800000000000000000000000000000000000000000000000000000000000000005000000000000',
           status: '0x1' }
      */
-
-```
-
-### Make transactions for the coin transfer and sending a message
-
-```javascript
-    const Wallet = require('stayge-wallet');
+</code></pre><h3>Make transactions for the coin transfer and sending a message</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const password = 'test123!';
     const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
 
@@ -329,13 +383,7 @@ yarn add stayge-wallet
           logsBloom:
            '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           status: '0x1' }
-     */
-```
-
-### Deploy and update a smart contract on the blockchain
-
-```javascript
-    const Wallet = require('stayge-wallet');
+     */</code></pre><h3>Deploy and update a smart contract on the blockchain</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const password = 'test123!';
     const wallet = Wallet.fromKeyStoreFile('../test/test_owner.keystore', password);
 
@@ -397,13 +445,7 @@ yarn add stayge-wallet
           logsBloom:
            '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
           status: '0x1' }
-     */
-```
-
-### Interface with the smart contract of the ACT token
-
-```javascript
-    const Wallet = require('stayge-wallet');
+     */</code></pre><h3>Interface with the smart contract of the ACT token</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const password = 'test123!';
     const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
 
@@ -446,15 +488,9 @@ yarn add stayge-wallet
         console.log(JSON.stringify(txResult));
     });
     /*
-        {"txHash":"0x953892f757824559d647c894af7fa170c5b9a04892288b7557a3b70e9017c201","blockHeight":"0x242a","blockHash":"0xa2863755a5fcce196542507ac37240847cd506f0f9d408bcb2c09f4bcecd2bd0","txIndex":"0x2","to":"cx3d85fc30097cb8b18eb52de927b444833c690705","stepUsed":"0x23c08","stepPrice":"0x2540be400","cumulativeStepUsed":"0x54df8","eventLogs":[{"scoreAddress":"cx3d85fc30097cb8b18eb52de927b444833c690705","indexed":["Transfer(Address,Address,int,bytes)","hx3938461680520062e9fe7e46288d6b74a8682ce7","hxd67aa5101f339e3afd278a9a26bf78d94f1ba802","0x8ac7230489e80000"],"data":["0x"]}],"logsBloom":"0x000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000001000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000","status":"0x1"}
+        {&quot;txHash&quot;:&quot;0x953892f757824559d647c894af7fa170c5b9a04892288b7557a3b70e9017c201&quot;,&quot;blockHeight&quot;:&quot;0x242a&quot;,&quot;blockHash&quot;:&quot;0xa2863755a5fcce196542507ac37240847cd506f0f9d408bcb2c09f4bcecd2bd0&quot;,&quot;txIndex&quot;:&quot;0x2&quot;,&quot;to&quot;:&quot;cx3d85fc30097cb8b18eb52de927b444833c690705&quot;,&quot;stepUsed&quot;:&quot;0x23c08&quot;,&quot;stepPrice&quot;:&quot;0x2540be400&quot;,&quot;cumulativeStepUsed&quot;:&quot;0x54df8&quot;,&quot;eventLogs&quot;:[{&quot;scoreAddress&quot;:&quot;cx3d85fc30097cb8b18eb52de927b444833c690705&quot;,&quot;indexed&quot;:[&quot;Transfer(Address,Address,int,bytes)&quot;,&quot;hx3938461680520062e9fe7e46288d6b74a8682ce7&quot;,&quot;hxd67aa5101f339e3afd278a9a26bf78d94f1ba802&quot;,&quot;0x8ac7230489e80000&quot;],&quot;data&quot;:[&quot;0x&quot;]}],&quot;logsBloom&quot;:&quot;0x000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000001000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000&quot;,&quot;status&quot;:&quot;0x1&quot;}
      */
-
-```
-
-### Interface with the smart contract of the STG token
-
-```javascript
-    const Wallet = require('stayge-wallet');
+</code></pre><h3>Interface with the smart contract of the STG token</h3><pre class="prettyprint source lang-javascript"><code>    const Wallet = require('stayge-wallet');
     const password = 'test123!';
     const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
 
@@ -497,15 +533,149 @@ yarn add stayge-wallet
         console.log(JSON.stringify(txResult));
     });
     /*
-        {"txHash":"0x446f3e335e1b851cea5bcbe9700a602c936b2bb7ea21bd6e396cfd420fba9a5a","blockHeight":"0x2437","blockHash":"0x6b606460a1392d0899ba768af7660a5beb3561ae2f6ce1bc619ad38651382f52","txIndex":"0x3","to":"cx8ada5f95f337ae332c97f3375e7e4f8209617143","stepUsed":"0x23c08","stepPrice":"0x2540be400","cumulativeStepUsed":"0x78a00","eventLogs":[{"scoreAddress":"cx8ada5f95f337ae332c97f3375e7e4f8209617143","indexed":["Transfer(Address,Address,int,bytes)","hx3938461680520062e9fe7e46288d6b74a8682ce7","hxd67aa5101f339e3afd278a9a26bf78d94f1ba802","0x8ac7230489e80000"],"data":["0x"]}],"logsBloom":"0x000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000001000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000","status":"0x1"}
+        {&quot;txHash&quot;:&quot;0x446f3e335e1b851cea5bcbe9700a602c936b2bb7ea21bd6e396cfd420fba9a5a&quot;,&quot;blockHeight&quot;:&quot;0x2437&quot;,&quot;blockHash&quot;:&quot;0x6b606460a1392d0899ba768af7660a5beb3561ae2f6ce1bc619ad38651382f52&quot;,&quot;txIndex&quot;:&quot;0x3&quot;,&quot;to&quot;:&quot;cx8ada5f95f337ae332c97f3375e7e4f8209617143&quot;,&quot;stepUsed&quot;:&quot;0x23c08&quot;,&quot;stepPrice&quot;:&quot;0x2540be400&quot;,&quot;cumulativeStepUsed&quot;:&quot;0x78a00&quot;,&quot;eventLogs&quot;:[{&quot;scoreAddress&quot;:&quot;cx8ada5f95f337ae332c97f3375e7e4f8209617143&quot;,&quot;indexed&quot;:[&quot;Transfer(Address,Address,int,bytes)&quot;,&quot;hx3938461680520062e9fe7e46288d6b74a8682ce7&quot;,&quot;hxd67aa5101f339e3afd278a9a26bf78d94f1ba802&quot;,&quot;0x8ac7230489e80000&quot;],&quot;data&quot;:[&quot;0x&quot;]}],&quot;logsBloom&quot;:&quot;0x000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000001000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000&quot;,&quot;status&quot;:&quot;0x1&quot;}
 
      */
+</code></pre><h2>API Reference</h2><p>For the complete API Reference, refer to doc/refs/index.html</p>
+<h2>License</h2><p>MIT License</p></article>
+    </section>
 
-```
 
 
-## API Reference
-For the complete API Reference, refer to doc/refs/index.html
 
-## License
-MIT License
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on Mon Oct 8th 2018
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

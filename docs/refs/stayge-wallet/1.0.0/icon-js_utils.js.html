@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Modules</title>
+	<title>DocStrap Source: icon-js/utils.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -67,109 +67,161 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	<h1 class="page-title">Modules</h1>
+		<h1 class="page-title">Source: icon-js/utils.js</h1>
+    
 <section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/**
+ * Provides utility functions
+ * @module  stayge-wallet/icon-js/utils
+ */
 
-<header>
-    
-        <h2>
-        
-        </h2>
-        
-    
-</header>
+'use strict'
 
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
+const BigNumber = require('bignumber.js');
+const config = require('./config.js');
 
 
+module.exports = {
+    /**
+     * Returns true if object is string, otherwise false
+     * @param {Object} object
+     * @return {Boolean}
+     */
+    isString(object) {
+        return typeof object === 'string' ||
+            (object &amp;&amp;
+             object.constructor &amp;&amp;
+             object.constructor.name === 'String');
+    },
 
-	
+    /**
+     * Returns true if object is BigNumber, otherwise false
+     * @param {Object}
+     * @return {Boolean}
+     */
+    isBigNumber(object) {
+        return (object &amp;&amp; (object instanceof BigNumber || (object.constructor &amp;&amp; object.constructor.name === 'BigNumber')));
+    },
 
-	
+    /**
+     * Transforms into an bignumber
+     * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
+     * @return {BigNumber} BigNumber
+    */
+    toBigNumber(number) {
+        number = number || 0;
+        if (this.isBigNumber(number))
+            return number;
 
-	
+        if (this.isString(number) &amp;&amp;
+            (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
+            return new BigNumber(number.replace('0x',''), 16);
+        }
 
-	
-</dl>
+        return new BigNumber(number.toString(10), 10);
+    },
+    /**
+     * Convert to icx unit
+     * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
+     * @return {String}
+    */
+    convertToIcx(value) {
+        return this.toBigNumber(value)
+                   .dividedBy(config.unitIcx)
+                   .toString(10);
+    },
 
+    /**
+     * Convert to loop unit
+     * @param {Number|String|BigNumber} value
+     * @return {BigNumber}
+     */
+    convertToLoop(value) {
+        return this.toBigNumber(value).times(config.unitIcx);
+    },
 
-        
-    
-    </div>
+    /**
+     * Convert a number to hexadecimal string
+     * @param  {Number|String|BigNumber} value
+     * @return {String}
+     */
+    toHexString(value) {
+        if (typeof value === 'number') {
+            return value &lt; 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
+        } else if (typeof value === 'string' &amp;&amp; !value.startsWith('0x')) {
+            return '0x' + value.toString(16);
+        } else if (this.isBigNumber(value)) {
+            return value &lt; 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
+        } else {
+            return value;
+        }
+    },
 
-    
+    /**
+     * Convert to hash string leading '0x'
+     * @param  {String} value
+     * @return {String}
+     */
+    toHashString(value) {
+        return value.substring(0, 2) === '0x' ? value : '0x' + value;
+    },
 
-    
+    /**
+     * Returns endpoint of the specified name
+     * @param  {String} name mainnet | testnet
+     * @return {Object}
+     */
+    getEndPoint(name) {
+        return config.endpoints[name];
+    },
 
-    
-        <h3 class="subsection-title">Classes</h3>
+    /**
+     * Get a endpoint for current environment
+     * @return {String}
+     */
+    getEndPointFromEnv() {
+        //console.log('NODE_ENV : ' + process.env.NODE_ENV);
 
-        <dl>
-            <dt><a href="module-stayge-wallet_act-ACT.html">ACT</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">Wallet</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-stayge-wallet_stg-STG.html">STG</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-stayge-wallet-Wallet.html">Wallet</a></dt>
-            <dd></dd>
-        </dl>
-    
+        if (process.env.NODE_ENV === 'production') {
+            return this.getEndPoint('mainnet');
+        } else {
+            return this.getEndPoint('testnet');
+        }
+    },
 
-    
+    /**
+     * Sleep for the specified time
+     * @param  {Number} ms milliseconds
+     * @return {Promise}
+     */
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    },
 
-    
+    /**
+     * Convert string to hexastring
+     * @param  {String} str
+     * @return {String}
+     */
+    convertToHex(str) {
+        let hex = '';
+        for(let i = 0; i &lt; str.length; i++) {
+            hex += '' + str.charCodeAt(i).toString(16);
+        }
+        return hex;
+    },
 
-    
-
-    
-
-    
-
-    
-</article>
-
+};</pre>
+    </article>
 </section>
+
 
 
 
@@ -179,10 +231,6 @@
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
@@ -215,7 +263,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Sat Oct 6th 2018
+		on Mon Oct 8th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

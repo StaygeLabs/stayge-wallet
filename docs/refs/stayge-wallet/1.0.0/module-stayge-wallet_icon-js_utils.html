@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Module: stayge-wallet/icon-js/jsonrpc</title>
+	<title>DocStrap Module: stayge-wallet/icon-js/utils</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,7 +72,7 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: stayge-wallet/icon-js/jsonrpc</h1>
+	<h1 class="page-title">Module: stayge-wallet/icon-js/utils</h1>
 <section>
 
 <header>
@@ -84,7 +84,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Provides APIs for jsonrpc of ICON</p></div>
+            <div class="description"><p>Provides utility functions</p></div>
         
 
         
@@ -122,8 +122,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-1">line 1</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-1">line 1</a>
 			</li>
 		</ul>
 	</dd>
@@ -160,7 +160,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".call"><span class="type-signature">&lt;static> </span>call(params, endpoint)</h4>
+    <h4 class="name" id=".convertToHex"><span class="type-signature">&lt;static> </span>convertToHex(str)</h4>
     
     
 </dt>
@@ -168,7 +168,7 @@
 
     
     <div class="description">
-        <p>call SCORE's external function</p>
+        <p>Convert string to hexastring</p>
     </div>
     
 
@@ -203,7 +203,755 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>str</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-134">line 134</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".convertToIcx"><span class="type-signature">&lt;static> </span>convertToIcx(a)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Convert to icx unit</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+|
+
+<span class="param-type">BigNumber</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>number, string, HEX string or BigNumber</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-56">line 56</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".convertToLoop"><span class="type-signature">&lt;static> </span>convertToLoop(value)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Convert to loop unit</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+|
+
+<span class="param-type">BigNumber</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-67">line 67</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">BigNumber</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".getEndPoint"><span class="type-signature">&lt;static> </span>getEndPoint(name)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns endpoint of the specified name</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>mainnet | testnet</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-102">line 102</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".getEndPointFromEnv"><span class="type-signature">&lt;static> </span>getEndPointFromEnv()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get a endpoint for current environment</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-110">line 110</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".isBigNumber"><span class="type-signature">&lt;static> </span>isBigNumber()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns true if object is BigNumber, otherwise false</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
 
             <td class="type">
@@ -224,16 +972,150 @@
         </tr>
 
     
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-30">line 30</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".isString"><span class="type-signature">&lt;static> </span>isString(object)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns true if object is string, otherwise false</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
-                <td class="name"><code>endpoint</code></td>
+                <td class="name"><code>object</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
 
@@ -288,8 +1170,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-337">line 337</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-18">line 18</a>
 			</li>
 		</ul>
 	</dd>
@@ -325,7 +1207,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;String></span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -342,7 +1224,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".getBalance"><span class="type-signature">&lt;static> </span>getBalance(address, endpoint)</h4>
+    <h4 class="name" id=".sleep"><span class="type-signature">&lt;static> </span>sleep(ms)</h4>
     
     
 </dt>
@@ -350,7 +1232,7 @@
 
     
     <div class="description">
-        <p>Get a balance of the address</p>
+        <p>Sleep for the specified time</p>
     </div>
     
 
@@ -385,375 +1267,7 @@
 
         <tr>
             
-                <td class="name"><code>address</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-85">line 85</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>balance</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;String></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getBlockByHash"><span class="type-signature">&lt;static> </span>getBlockByHash(hash, endpoint)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get a block information by hash</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>hash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-141">line 141</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getBlockByHeight"><span class="type-signature">&lt;static> </span>getBlockByHeight(height, endpoint)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get a block information by height</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>height</code></td>
+                <td class="name"><code>ms</code></td>
             
 
             <td class="type">
@@ -770,31 +1284,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last"><p>milliseconds</p></td>
         </tr>
 
     
@@ -838,8 +1328,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-110">line 110</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-125">line 125</a>
 			</li>
 		</ul>
 	</dd>
@@ -875,7 +1365,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;Object></span>
+<span class="param-type">Promise</span>
 
 
 
@@ -892,7 +1382,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".getLastBlock"><span class="type-signature">&lt;static> </span>getLastBlock(endpoint)</h4>
+    <h4 class="name" id=".toBigNumber"><span class="type-signature">&lt;static> </span>toBigNumber(a)</h4>
     
     
 </dt>
@@ -900,7 +1390,7 @@
 
     
     <div class="description">
-        <p>Get a last block information</p>
+        <p>Transforms into an bignumber</p>
     </div>
     
 
@@ -935,13 +1425,19 @@
 
         <tr>
             
-                <td class="name"><code>endpoint</code></td>
+                <td class="name"><code>a</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type">Number</span>
+|
+
 <span class="param-type">String</span>
+|
+
+<span class="param-type">BigNumber</span>
 
 
 
@@ -952,7 +1448,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>number, string, HEX string or BigNumber</p></td>
         </tr>
 
     
@@ -996,348 +1492,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-170">line 170</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getScoreApi"><span class="type-signature">&lt;static> </span>getScoreApi(address, endpoint)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return score api</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>address</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-307">line 307</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getTotalSupply"><span class="type-signature">&lt;static> </span>getTotalSupply(endpoint)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get total supply of ICX</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-284">line 284</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-39">line 39</a>
 			</li>
 		</ul>
 	</dd>
@@ -1366,7 +1522,7 @@
     
             
 <div class="param-desc">
-    <p>total supply</p>
+    <p>BigNumber</p>
 </div>
 
 
@@ -1377,7 +1533,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;String></span>
+<span class="param-type">BigNumber</span>
 
 
 
@@ -1394,7 +1550,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".getTransactionByHash"><span class="type-signature">&lt;static> </span>getTransactionByHash(txHash, endpoint)</h4>
+    <h4 class="name" id=".toHashString"><span class="type-signature">&lt;static> </span>toHashString(value)</h4>
     
     
 </dt>
@@ -1402,7 +1558,7 @@
 
     
     <div class="description">
-        <p>Get the transaction information by txHash</p>
+        <p>Convert to hash string leading '0x'</p>
     </div>
     
 
@@ -1437,31 +1593,7 @@
 
         <tr>
             
-                <td class="name"><code>txHash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
@@ -1522,8 +1654,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-256">line 256</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-93">line 93</a>
 			</li>
 		</ul>
 	</dd>
@@ -1551,10 +1683,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>transaction information</p>
-</div>
-
 
 
 <dl>
@@ -1563,7 +1691,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;Object></span>
+<span class="param-type">String</span>
 
 
 
@@ -1580,7 +1708,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".getTransactionResult"><span class="type-signature">&lt;static> </span>getTransactionResult(txHash, endpoint)</h4>
+    <h4 class="name" id=".toHexString"><span class="type-signature">&lt;static> </span>toHexString(value)</h4>
     
     
 </dt>
@@ -1588,7 +1716,7 @@
 
     
     <div class="description">
-        <p>Get the transaction result requested by transaction hash</p>
+        <p>Convert a number to hexadecimal string</p>
     </div>
     
 
@@ -1623,37 +1751,19 @@
 
         <tr>
             
-                <td class="name"><code>txHash</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type">Number</span>
+|
+
 <span class="param-type">String</span>
+|
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+<span class="param-type">BigNumber</span>
 
 
 
@@ -1708,302 +1818,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-226">line 226</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".sendTransaction"><span class="type-signature">&lt;static> </span>sendTransaction(rawTx, endpoint)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Send a transaction</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>rawTx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>[description]</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>endpoint</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>[description]</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-198">line 198</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>transaction hash</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;String></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~getCurrentApiPrefix"><span class="type-signature">&lt;inner> </span>getCurrentApiPrefix()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return prefix string of current api version</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-18">line 18</a>
+				<a href="icon-js_utils.js.html">icon-js/utils.js</a>,
+				 <a href="icon-js_utils.js.html#sunlight-1-line-76">line 76</a>
 			</li>
 		</ul>
 	</dd>
@@ -2040,370 +1856,6 @@
     <dd>
         
 <span class="param-type">String</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~requestJsonRpc"><span class="type-signature">&lt;async, inner> </span>requestJsonRpc(url, payload)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Make a request via json rpc</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>payload</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-49">line 49</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~toPayload"><span class="type-signature">&lt;inner> </span>toPayload(method, params)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return payload for json rpc 2.0</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>method</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_jsonrpc.js.html">icon-js/jsonrpc.js</a>,
-				 <a href="icon-js_jsonrpc.js.html#sunlight-1-line-28">line 28</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
 
 
 
@@ -2470,7 +1922,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Sat Oct 6th 2018
+		on Mon Oct 8th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

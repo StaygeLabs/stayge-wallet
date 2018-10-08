@@ -78,12 +78,12 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-stayge-wallet.html">stayge-wallet</a>~</span>
+            <span class="ancestors"><a href="module-stayge-wallet_icon-js_wallet.html">module:stayge-wallet/icon-js/wallet</a>~</span>
         
         Wallet
         </h2>
         
-            <div class="class-description"><p>Class representing a STAYGE Wallet</p></div>
+            <div class="class-description"><p>Class representing a ICON Wallet</p></div>
         
     
 </header>
@@ -95,7 +95,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Wallet"><span class="type-signature"></span>new Wallet(baseWallet)</h4>
+    <h4 class="name" id="Wallet"><span class="type-signature"></span>new Wallet(privateKey)</h4>
     
     
 </dt>
@@ -103,7 +103,7 @@
 
     
     <div class="description">
-        <p>Create a Wallet</p>
+        <p>Create a ICON Wallet</p>
     </div>
     
 
@@ -138,13 +138,13 @@
 
         <tr>
             
-                <td class="name"><code>baseWallet</code></td>
+                <td class="name"><code>privateKey</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Buffer</span>
 
 
 
@@ -155,7 +155,7 @@
 
             
 
-            <td class="description last"><p>underlying wallet object</p></td>
+            <td class="description last"><p>private key for wallet</p></td>
         </tr>
 
     
@@ -199,8 +199,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-19">line 19</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-20">line 20</a>
 			</li>
 		</ul>
 	</dd>
@@ -305,190 +305,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-25">line 25</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Wallet</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".fromKeyStoreFile"><span class="type-signature">&lt;static> </span>fromKeyStoreFile(keyStorePath, password)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Factory method to create a wallet from the keystore file</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>keyStorePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-57">line 57</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-27">line 27</a>
 			</li>
 		</ul>
 	</dd>
@@ -593,7 +411,7 @@
 <span class="param-type">Object</span>
 |
 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
 
@@ -604,7 +422,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>[description]</p></td>
         </tr>
 
     
@@ -628,7 +446,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>[description]</p></td>
         </tr>
 
     
@@ -672,8 +490,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-46">line 46</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-46">line 46</a>
 			</li>
 		</ul>
 	</dd>
@@ -701,6 +519,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>[description]</p>
+</div>
+
 
 
 <dl>
@@ -734,7 +556,7 @@
 
     
     <div class="description">
-        <p>Factory method to create a wallet from the specified private key</p>
+        <p>Factory method to create a wallet from the private key</p>
     </div>
     
 
@@ -830,8 +652,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-35">line 35</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-36">line 36</a>
 			</li>
 		</ul>
 	</dd>
@@ -884,168 +706,6 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="act"><span class="type-signature"></span>act(scoreAddress)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return ACT socre object with the specified score address</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>scoreAddress</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>address of score</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-87">line 87</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>score object of ACT</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">ACT</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="call"><span class="type-signature">&lt;async> </span>call(to, method, params)</h4>
     
     
@@ -1054,7 +714,7 @@
 
     
     <div class="description">
-        <p>Call a smart contract's external function for querying</p>
+        <p>Call SCORE's external function</p>
     </div>
     
 
@@ -1198,8 +858,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-299">line 299</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-348">line 348</a>
 			</li>
 		</ul>
 	</dd>
@@ -1252,7 +912,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="callContractTx"><span class="type-signature">&lt;async> </span>callContractTx(contractAddress, contractMethod, methodParams)</h4>
+    <h4 class="name" id="callScoreTx"><span class="type-signature">&lt;async> </span>callScoreTx(scoreAddress, scoreMethod, methodParams)</h4>
     
     
 </dt>
@@ -1260,7 +920,7 @@
 
     
     <div class="description">
-        <p>Send a transaction for calling a smart contract's method</p>
+        <p>Send a transaction for calling a SCORE'S method</p>
     </div>
     
 
@@ -1295,7 +955,7 @@
 
         <tr>
             
-                <td class="name"><code>contractAddress</code></td>
+                <td class="name"><code>scoreAddress</code></td>
             
 
             <td class="type">
@@ -1319,7 +979,7 @@
 
         <tr>
             
-                <td class="name"><code>contractMethod</code></td>
+                <td class="name"><code>scoreMethod</code></td>
             
 
             <td class="type">
@@ -1404,8 +1064,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-252">line 252</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-250">line 250</a>
 			</li>
 		</ul>
 	</dd>
@@ -1434,7 +1094,7 @@
     
             
 <div class="param-desc">
-    <p>hash of transacgtion</p>
+    <p>txHash</p>
 </div>
 
 
@@ -1470,7 +1130,7 @@
 
     
     <div class="description">
-        <p>Get the wallet address</p>
+        <p>Get the address of the wallet</p>
     </div>
     
 
@@ -1516,8 +1176,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-131">line 131</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-106">line 106</a>
 			</li>
 		</ul>
 	</dd>
@@ -1578,7 +1238,7 @@
 
     
     <div class="description">
-        <p>Get the wallet address string</p>
+        <p>Get the address string of the wallet</p>
     </div>
     
 
@@ -1624,8 +1284,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-140">line 140</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-114">line 114</a>
 			</li>
 		</ul>
 	</dd>
@@ -1732,8 +1392,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-206">line 206</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-179">line 179</a>
 			</li>
 		</ul>
 	</dd>
@@ -1761,10 +1421,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>balance of the wallet owner</p>
-</div>
-
 
 
 <dl>
@@ -1798,7 +1454,7 @@
 
     
     <div class="description">
-        <p>Get block information by hash</p>
+        <p>Get the block information by hash</p>
     </div>
     
 
@@ -1834,333 +1490,6 @@
         <tr>
             
                 <td class="name"><code>height</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>hash of block</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-188">line 188</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>block information</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getBlockByHeight"><span class="type-signature">&lt;async> </span>getBlockByHeight(height)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get block information by height</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>height</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>height of block</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-178">line 178</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>block information</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Object></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getContractApi"><span class="type-signature">&lt;async> </span>getContractApi(address)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the smart contract's external API list</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>address</code></td>
             
 
             <td class="type">
@@ -2221,8 +1550,169 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-308">line 308</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-162">line 162</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Object></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getBlockByHeight"><span class="type-signature">&lt;async> </span>getBlockByHeight(height)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the block information by height</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-152">line 152</a>
 			</li>
 		</ul>
 	</dd>
@@ -2283,7 +1773,7 @@
 
     
     <div class="description">
-        <p>get endpoint</p>
+        <p>get the endpoint</p>
     </div>
     
 
@@ -2329,8 +1819,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-168">line 168</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-143">line 143</a>
 			</li>
 		</ul>
 	</dd>
@@ -2359,7 +1849,7 @@
     
             
 <div class="param-desc">
-    <p>endpoint information</p>
+    <p>uri of endpoint</p>
 </div>
 
 
@@ -2395,7 +1885,7 @@
 
     
     <div class="description">
-        <p>Get a last block information</p>
+        <p>Get the last block information</p>
     </div>
     
 
@@ -2441,8 +1931,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-197">line 197</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-170">line 170</a>
 			</li>
 		</ul>
 	</dd>
@@ -2470,10 +1960,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>block information</p>
-</div>
-
 
 
 <dl>
@@ -2553,8 +2039,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-96">line 96</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-72">line 72</a>
 			</li>
 		</ul>
 	</dd>
@@ -2661,8 +2147,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-105">line 105</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-80">line 80</a>
 			</li>
 		</ul>
 	</dd>
@@ -2723,7 +2209,7 @@
 
     
     <div class="description">
-        <p>Get a public key of the wallet</p>
+        <p>Get the public key of the wallet</p>
     </div>
     
 
@@ -2769,8 +2255,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-114">line 114</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-89">line 89</a>
 			</li>
 		</ul>
 	</dd>
@@ -2831,7 +2317,7 @@
 
     
     <div class="description">
-        <p>Get a public key string of the wallet</p>
+        <p>Get the public key string of the wallet</p>
     </div>
     
 
@@ -2877,8 +2363,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-123">line 123</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-98">line 98</a>
 			</li>
 		</ul>
 	</dd>
@@ -2915,6 +2401,164 @@
     <dd>
         
 <span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getScoreApi"><span class="type-signature">&lt;async> </span>getScoreApi(address)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the SCORE's external API list</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-372">line 372</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Object></span>
 
 
 
@@ -2985,8 +2629,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-215">line 215</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-187">line 187</a>
 			</li>
 		</ul>
 	</dd>
@@ -3014,10 +2658,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>total supply of underlying network</p>
-</div>
-
 
 
 <dl>
@@ -3147,8 +2787,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-351">line 351</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-390">line 390</a>
 			</li>
 		</ul>
 	</dd>
@@ -3201,7 +2841,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getTransactionResult"><span class="type-signature">&lt;async> </span>getTransactionResult(txHash, timeout)</h4>
+    <h4 class="name" id="getTransactionResult"><span class="type-signature">&lt;async> </span>getTransactionResult(txHash)</h4>
     
     
 </dt>
@@ -3209,7 +2849,7 @@
 
     
     <div class="description">
-        <p>Get the transaction result requested by transaction hash</p>
+        <p>Get the transaction result with the specified txHash</p>
     </div>
     
 
@@ -3233,8 +2873,6 @@
 
         
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -3262,42 +2900,8 @@
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last"><p>seconds to timeout. if not specified, it will be set to the default value of 0</p></td>
         </tr>
 
     
@@ -3341,8 +2945,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-319">line 319</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-381">line 381</a>
 			</li>
 		</ul>
 	</dd>
@@ -3395,7 +2999,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="installContract"><span class="type-signature">&lt;async> </span>installContract(contractPath, installParams)</h4>
+    <h4 class="name" id="installScore"><span class="type-signature">&lt;async> </span>installScore(scoreContent, installParams)</h4>
     
     
 </dt>
@@ -3403,7 +3007,7 @@
 
     
     <div class="description">
-        <p>Install a smart contract on the underlying blockchain</p>
+        <p>Install a SCORE on the ICON blockchain</p>
     </div>
     
 
@@ -3438,7 +3042,7 @@
 
         <tr>
             
-                <td class="name"><code>contractPath</code></td>
+                <td class="name"><code>scoreContent</code></td>
             
 
             <td class="type">
@@ -3523,8 +3127,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-267">line 267</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-281">line 281</a>
 			</li>
 		</ul>
 	</dd>
@@ -3589,7 +3193,7 @@
 
     
     <div class="description">
-        <p>set endpoint</p>
+        <p>set the endpoint</p>
     </div>
     
 
@@ -3685,8 +3289,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-159">line 159</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-135">line 135</a>
 			</li>
 		</ul>
 	</dd>
@@ -3711,168 +3315,6 @@
     
 
     
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stg"><span class="type-signature"></span>stg(scoreAddress)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return STG score object with the specified score address</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>scoreAddress</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>address of score</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-77">line 77</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>score object of STG</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">STG</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -3889,7 +3331,7 @@
 
     
     <div class="description">
-        <p>Convert a wallet to key store object</p>
+        <p>Convert the wallet to the keystore object</p>
     </div>
     
 
@@ -3941,7 +3383,7 @@
 
             
 
-            <td class="description last"><p>password for the wallet</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -3985,8 +3427,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-150">line 150</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-123">line 123</a>
 			</li>
 		</ul>
 	</dd>
@@ -4039,7 +3481,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="transferCoin"><span class="type-signature">&lt;async> </span>transferCoin(to, value)</h4>
+    <h4 class="name" id="transferICX"><span class="type-signature">&lt;async> </span>transferICX(to, value)</h4>
     
     
 </dt>
@@ -4047,7 +3489,7 @@
 
     
     <div class="description">
-        <p>Transfer coins</p>
+        <p>Transfer ICX coins</p>
     </div>
     
 
@@ -4099,7 +3541,7 @@
 
             
 
-            <td class="description last"><p>address of recipient</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -4123,7 +3565,7 @@
 
             
 
-            <td class="description last"><p>value to transfer</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -4167,8 +3609,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-226">line 226</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-198">line 198</a>
 			</li>
 		</ul>
 	</dd>
@@ -4197,7 +3639,7 @@
     
             
 <div class="param-desc">
-    <p>hash of transaction</p>
+    <p>txHash</p>
 </div>
 
 
@@ -4285,7 +3727,7 @@
 
             
 
-            <td class="description last"><p>address of recipent</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -4309,7 +3751,7 @@
 
             
 
-            <td class="description last"><p>message to transfer</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -4353,8 +3795,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-237">line 237</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-223">line 223</a>
 			</li>
 		</ul>
 	</dd>
@@ -4383,7 +3825,7 @@
     
             
 <div class="param-desc">
-    <p>hash of transaction</p>
+    <p>txHash</p>
 </div>
 
 
@@ -4411,7 +3853,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="updateContract"><span class="type-signature">&lt;async> </span>updateContract(contractAddress, contractPath, updateParams)</h4>
+    <h4 class="name" id="updateScore"><span class="type-signature">&lt;async> </span>updateScore(scoreAddress, scoreContent, updateParams)</h4>
     
     
 </dt>
@@ -4419,7 +3861,7 @@
 
     
     <div class="description">
-        <p>Update the smart contract on the underlying blockchain</p>
+        <p>Update the SCORE on the ICON blockchain</p>
     </div>
     
 
@@ -4454,13 +3896,13 @@
 
         <tr>
             
-                <td class="name"><code>contractAddress</code></td>
+                <td class="name"><code>scoreAddress</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">type</span>
+<span class="param-type">String</span>
 
 
 
@@ -4471,20 +3913,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>address of score</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>contractPath</code></td>
+                <td class="name"><code>scoreContent</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">type</span>
+<span class="param-type">String</span>
 
 
 
@@ -4495,7 +3937,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>score contents of hexstring format</p></td>
         </tr>
 
     
@@ -4508,7 +3950,7 @@
             <td class="type">
             
                 
-<span class="param-type">type</span>
+<span class="param-type">Object</span>
 
 
 
@@ -4519,7 +3961,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>parameter for update</p></td>
         </tr>
 
     
@@ -4563,8 +4005,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wallet_index.js.html">wallet/index.js</a>,
-				 <a href="wallet_index.js.html#sunlight-1-line-281">line 281</a>
+				<a href="icon-js_wallet.js.html">icon-js/wallet.js</a>,
+				 <a href="icon-js_wallet.js.html#sunlight-1-line-315">line 315</a>
 			</li>
 		</ul>
 	</dd>
@@ -4592,10 +4034,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>txHash</p>
-</div>
-
 
 
 <dl>
@@ -4671,7 +4109,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Sat Oct 6th 2018
+		on Mon Oct 8th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

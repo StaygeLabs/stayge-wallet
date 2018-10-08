@@ -116,6 +116,44 @@
     });
 })();
 
+(() => {
+    console.log('\n# Deploy and update a smart contract on the blockchain');
+    const Wallet = require('../../stayge-wallet');
+    const password = 'test123!';
+    const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
+
+    // install a smart contract with the specified zip file
+    wallet.installContract(
+        '../test/act.zip',
+        {
+            name: 'EXO',
+            symbol: 'ACT',
+            initialSupply: '0x0',
+            decimals: '0x12'
+        }
+    ).then((txHash) => {
+        console.log('installContract:');
+        console.log(txHash);
+        return wallet.getTransactionResult(txHash, 5); // set timeout of 5 sec for the confirmation of the transaction
+    }).then((txResult) => {
+        console.log('installContract:');
+        console.log(txResult);
+    });
+
+    // update a smart contract of the specified contract address with the zip file
+    wallet.updateContract(
+        'cx2f7bf7cebd92f15ff9c4aba2a1fd79b6a0529f93',     // contract address
+        '../test/act.zip', // The contract sources will be updated to the specified zip files
+    ).then((txHash) => {
+        console.log('updateContract:');
+        console.log(txHash);
+        return wallet.getTransactionResult(txHash, 5); // set timeout of 5 sec for the confirmation of the transaction
+    }).then((txResult) => {
+        console.log('updateContract:');
+        console.log(txResult);
+    });
+
+})();
 
 (() => {
     console.log('\n# Interface with the smart contract of the ACT token');
@@ -160,6 +198,60 @@
         return wallet.getTransactionResult(txHash, 5);
     }).then((txResult) => {
         console.log('ACT transfer:');
+        console.log(JSON.stringify(txResult));
+    });
+
+})();
+
+(() => {
+    console.log('\n# Interface with the smart contract of the STG token');
+    const Wallet = require('../../stayge-wallet');
+    const password = 'test123!';
+    const wallet = Wallet.fromKeyStoreFile('./test_user1.keystore', password);
+
+    const stgScoreAddress = 'cx8ada5f95f337ae332c97f3375e7e4f8209617143';
+    const stg = wallet.stg(stgScoreAddress);
+
+    // get the name of the STG
+    stg.name().then((name) => {
+        console.log('STG name:');
+        console.log(name); // STG
+    });
+
+    // get the symbol of the STG
+    stg.symbol().then((symbol) => {
+        console.log('STG symbol:');
+        console.log(symbol); // STG
+    });
+
+    // get the decimals of the STG
+    stg.decimals().then((decimals) => {
+        console.log('STG decimals:');
+        console.log(decimals); // 18
+    });
+
+    // get the total supply of the STG
+    stg.totalSupply().then((totalSupply) => {
+        console.log('STG totalSupply:');
+        console.log(totalSupply); //
+    });
+
+    // get the own balance of the STG
+    stg.balanceOf().then((balance) => {
+        console.log('STG balance:');
+        console.log(balance); //
+    });
+
+    // transfer STG to the specific account
+    stg.transfer(
+        'hxd67aa5101f339e3afd278a9a26bf78d94f1ba802',
+        10
+    ).then((txHash) => {
+        console.log('STG transfer:');
+        console.log(txHash);
+        return wallet.getTransactionResult(txHash, 5);
+    }).then((txResult) => {
+        console.log('STG transfer:');
         console.log(JSON.stringify(txResult));
     });
 
