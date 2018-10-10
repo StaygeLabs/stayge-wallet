@@ -1,9 +1,16 @@
-STAYGE Wallet API for NodeJS
+STAYGE Wallet API for Node.js
 ================================
 
-This is the [STAYGE](http://stayge.io/) Wallet API for NodeJs providing several features such as creating a wallet, retrieving block/transaction information on the blockchain, making a transaction for transfering coins and interacting with smart contracts for the [STAYGE](http://stayge.io/) services.
+This is the [STAYGE](http://stayge.io/) Wallet API for Node.js providing several features such as creating a wallet, retrieving block/transaction information on the blockchain, making a transaction for transferring coins and interacting with smart contracts for the [STAYGE](http://stayge.io/) services.
 
-Currently, the [STAYGE](http://stayge.io/) wallet is supporting only the [ICON](https://m.icon.foundation/?lang=en) as an underlying blockchain network. To interface with the ICON network, it implemented the NodeJs version of the ICON SDK([python](https://github.com/icon-project/icon-sdk-python), [java](https://github.com/icon-project/icon-sdk-java)) based on the [ICON JSON-RPC specification](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md). In the future, the [STAYGE](http://stayge.io/) Network will be provided for the [STAYGE](http://stayge.io/) services.
+Currently, the [STAYGE](http://stayge.io/) wallet is supporting only the [ICON](https://m.icon.foundation/?lang=en) as an underlying blockchain network. To interface with the ICON network, it implemented the Node.js version of the ICON SDK([python](https://github.com/icon-project/icon-sdk-python), [java](https://github.com/icon-project/icon-sdk-java)) based on the [ICON JSON-RPC specification](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md). In the future, the [STAYGE](http://stayge.io/) Network will be provided for the [STAYGE](http://stayge.io/) services.
+
+-
+
+이것은 Node.js용 STAYGE 지갑 API로서, 지갑생성, 블록체인 내에서의 블록/거래 정보검색, STAYGE 서비스를 위한 코인 거래 및 스마트컨트랙트 생성/조회/거래 등의 기능을 제공합니다.
+
+현재, STAYGE 지갑은 기반 블록체인 네트워크로 ICON만을 지원하고 있습니다.
+ICON 네트워크와 통신하기 위해 ICON JSON-RPC 사양에 기반한 ICON SDK (Python, Java)의 Node.js 버전을 구현했습니다. 추후 STAYGE Network가 기반 블록체인 네트워크로 지원될 예정입니다.
 
 ## Table of Contents
 
