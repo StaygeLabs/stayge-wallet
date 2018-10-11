@@ -9,6 +9,14 @@
     "test": "mocha --timeout 10000",
     "test-coverage": "nyc mocha --timeout 10000"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StaygeLabs/stayge-wallet.git"
+  },
+  "homepage": "https://github.com/StaygeLabs/stayge-wallet",
+  "engines": {
+    "node": ">=8"
+  },
   "author": "stayge.io",
   "authors": [
     {
