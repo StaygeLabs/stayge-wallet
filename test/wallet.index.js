@@ -603,7 +603,7 @@ describe('wallet/index.installContract()', function() {
         const txHash = await ownerWallet.installContract(
             'test/act.zip',
             {
-                name: 'BTS',
+                name: 'dev_[{S}].\\[{E}].\\S',
                 symbol: 'ACT',
                 initialSupply: '0x0',
                 decimals: '0x12'
