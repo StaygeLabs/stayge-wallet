@@ -376,9 +376,9 @@ describe('wallet/stg.transfer()', function() {
             assert.isTrue(paused);
 
             txHash = await stg.setBlacklist(user1Wallet.getAddressString(), true);
-            //console.log(`whitelist txHash = ${txHash}`);
+            console.log(`whitelist txHash = ${txHash}`);
             txResult = await ownerWallet.getTransactionResult(txHash, 5);
-            //console.log(`txResult = ${JSON.stringify(txResult)}`);
+            console.log(`txResult = ${JSON.stringify(txResult)}`);
             assert.equal(txResult.status, '0x1');
 
             let oldUser1Balance = await stg.balanceOf(user1Wallet.getAddressString());

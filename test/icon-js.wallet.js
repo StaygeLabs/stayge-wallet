@@ -89,7 +89,6 @@ describe('icon-js/Wallet.create()', function() {
 
         const wallet = Wallet.create();
 
-        /*
         console.log('address(string) = ' + wallet.getAddressString());
         console.log('length of private key = ' + wallet.getPrivateKey().length);
         console.log('private key string = ' + wallet.getPrivateKeyString());
@@ -97,7 +96,6 @@ describe('icon-js/Wallet.create()', function() {
         console.log('public key string = ' + wallet.getPublicKeyString());
         console.log('length of address = ' + wallet.getAddress().length);
         console.log('address string = ' + wallet.getAddressString());
-        */
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
         assert.lengthOf(wallet.getPrivateKeyString(), 64);
