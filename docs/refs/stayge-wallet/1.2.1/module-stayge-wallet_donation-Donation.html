@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Module: stayge-wallet/icon-js/tx</title>
+	<title>DocStrap Class: Donation</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li>
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
 				</ul>
 			</li>
 			
@@ -72,10 +72,19 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: stayge-wallet/icon-js/tx</h1>
+	<h1 class="page-title">Class: Donation</h1>
 <section>
 
 <header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a>~</span>
+        
+        Donation
+        </h2>
+        
+            <div class="class-description"><p>Class representing the Donation smart contract</p></div>
+        
     
 </header>
 
@@ -84,10 +93,102 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Provides transaction related functions for ICON</p></div>
+<hr>
+<dt>
+    <h4 class="name" id="Donation"><span class="type-signature"></span>new Donation(wallet, scoreAddress)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Create a Donation</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
         
 
         
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>wallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Wallet</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scoreAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>contract address of Donation</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
 <dl class="details">
     
 
@@ -122,8 +223,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-1">line 1</a>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-13">line 13</a>
 			</li>
 		</ul>
 	</dd>
@@ -137,7 +238,21 @@
 </dl>
 
 
-        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
     
     </div>
 
@@ -160,7 +275,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".makeIcxRawTx"><span class="type-signature">&lt;static> </span>makeIcxRawTx(data, nid)</h4>
+    <h4 class="name" id="name"><span class="type-signature">&lt;async> </span>name()</h4>
     
     
 </dt>
@@ -168,7 +283,115 @@
 
     
     <div class="description">
-        <p>Make a raw transaction for ICX</p>
+        <p>Returns name</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-30">line 30</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;String></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="refund"><span class="type-signature">&lt;async> </span>refund(ACT, to, value, data)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Refund donation amount</p>
     </div>
     
 
@@ -203,31 +426,7 @@
 
         <tr>
             
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>nid</code></td>
+                <td class="name"><code>ACT</code></td>
             
 
             <td class="type">
@@ -244,154 +443,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>contract address for community</p></td>
         </tr>
 
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-160">line 160</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".signRawTx"><span class="type-signature">&lt;static> </span>signRawTx(privateKey, rawTx)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Sign a raw transaction</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>privateKey</code></td>
+                <td class="name"><code>to</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Buffer</span>
+<span class="param-type">String</span>
 
 
 
@@ -402,349 +467,9 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>address of the recipient</p></td>
         </tr>
 
-    
-
-        <tr>
-            
-                <td class="name"><code>rawTx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-194">line 194</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~concatTypedArrays"><span class="type-signature">&lt;inner> </span>concatTypedArrays(a, b)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Concatenate two typed arrays</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">TypedArray</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">TypedArray</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-143">line 143</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Buffer</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="~escapeString"><span class="type-signature">&lt;inner> </span>escapeString(value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Escape a string for transaction</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
@@ -755,6 +480,30 @@
             <td class="type">
             
                 
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the amount to refund</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">String</span>
 
 
@@ -766,7 +515,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>optional</p></td>
         </tr>
 
     
@@ -810,8 +559,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-126">line 126</a>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-91">line 91</a>
 			</li>
 		</ul>
 	</dd>
@@ -839,6 +588,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>txHash</p>
+</div>
+
 
 
 <dl>
@@ -847,7 +600,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Promise.&lt;String></span>
 
 
 
@@ -864,7 +617,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="~generateHashKey"><span class="type-signature">&lt;inner> </span>generateHashKey(obj)</h4>
+    <h4 class="name" id="totalArtists"><span class="type-signature">&lt;async> </span>totalArtists()</h4>
     
     
 </dt>
@@ -872,7 +625,7 @@
 
     
     <div class="description">
-        <p>Generate a hash key for transaction</p>
+        <p>Returns total number of artists</p>
     </div>
     
 
@@ -881,56 +634,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -968,8 +671,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-21">line 21</a>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-73">line 73</a>
 			</li>
 		</ul>
 	</dd>
@@ -1005,7 +708,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Promise.&lt;Number></span>
 
 
 
@@ -1022,7 +725,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="~serializeArray"><span class="type-signature">&lt;inner> </span>serializeArray(arr)</h4>
+    <h4 class="name" id="totalDonationAmt"><span class="type-signature">&lt;async> </span>totalDonationAmt()</h4>
     
     
 </dt>
@@ -1030,7 +733,7 @@
 
     
     <div class="description">
-        <p>Serialize a array for transaction</p>
+        <p>Returns total doantion amount</p>
     </div>
     
 
@@ -1039,56 +742,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>arr</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1126,8 +779,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-87">line 87</a>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-45">line 45</a>
 			</li>
 		</ul>
 	</dd>
@@ -1163,7 +816,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Promise.&lt;Number></span>
 
 
 
@@ -1180,7 +833,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="~serializeObj"><span class="type-signature">&lt;inner> </span>serializeObj(obj)</h4>
+    <h4 class="name" id="totalUsers"><span class="type-signature">&lt;async> </span>totalUsers()</h4>
     
     
 </dt>
@@ -1188,7 +841,7 @@
 
     
     <div class="description">
-        <p>Serialize a object for transaction</p>
+        <p>Returns total number of users</p>
     </div>
     
 
@@ -1197,56 +850,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1284,8 +887,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="icon-js_tx.js.html">icon-js/tx.js</a>,
-				 <a href="icon-js_tx.js.html#sunlight-1-line-38">line 38</a>
+				<a href="wallet_donation.js.html">wallet/donation.js</a>,
+				 <a href="wallet_donation.js.html#sunlight-1-line-59">line 59</a>
 			</li>
 		</ul>
 	</dd>
@@ -1321,7 +924,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Promise.&lt;Number></span>
 
 
 
@@ -1388,7 +991,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Mon Oct 8th 2018
+		on Mon Aug 5th 2019
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

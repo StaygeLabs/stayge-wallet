@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: icon-js/utils.js</title>
+	<title>DocStrap Source: wallet/donation.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li>
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
 				</ul>
 			</li>
 			
@@ -72,153 +72,127 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: icon-js/utils.js</h1>
+		<h1 class="page-title">Source: wallet/donation.js</h1>
     
 <section>
     <article>
         <pre
             class="sunlight-highlight-javascript linenums">/**
- * Provides utility functions
- * @module  stayge-wallet/icon-js/utils
+ * Provides smart contract APIs for Donation
+ * @module stayge-wallet/donation
  */
 
 'use strict'
 
-const BigNumber = require('bignumber.js');
-const config = require('./config.js');
+const utils = require('../icon-js/utils.js');
 
+/**
+ * Class representing the Donation smart contract
+ */
+class Donation {
 
-module.exports = {
     /**
-     * Returns true if object is string, otherwise false
-     * @param {Object} object
-     * @return {Boolean}
+     * Create a Donation
+     * @param {Wallet} wallet
+     * @param {String} scoreAddress contract address of Donation
      */
-    isString(object) {
-        return typeof object === 'string' ||
-            (object &amp;&amp;
-             object.constructor &amp;&amp;
-             object.constructor.name === 'String');
-    },
+    constructor(wallet, scoreAddress) {
+        this._wallet = wallet;
+        this._scoreAddress = scoreAddress;
+    }
+
 
     /**
-     * Returns true if object is BigNumber, otherwise false
-     * @param {Object}
-     * @return {Boolean}
+     * Returns name
+     * @return {Promise&lt;String>}
      */
-    isBigNumber(object) {
-        return (object &amp;&amp; (object instanceof BigNumber || (object.constructor &amp;&amp; object.constructor.name === 'BigNumber')));
-    },
+    async name() {
+        const name = await this._wallet.call(
+            this._scoreAddress,
+            'name',
+            {}
+        );
+
+        return name;
+    }
+
 
     /**
-     * Transforms into an bignumber
-     * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
-     * @return {BigNumber} BigNumber
-    */
-    toBigNumber(number) {
-        number = number || 0;
-        if (this.isBigNumber(number))
-            return number;
-
-        if (this.isString(number) &amp;&amp;
-            (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
-            return new BigNumber(number.replace('0x',''), 16);
-        }
-
-        return new BigNumber(number.toString(10), 10);
-    },
-    /**
-     * Convert to icx unit
-     * @param {Number|String|BigNumber} a number, string, HEX string or BigNumber
-     * @return {String}
-    */
-    convertToIcx(value) {
-        return this.toBigNumber(value)
-                   .dividedBy(config.unitIcx)
-                   .toString(10);
-    },
-
-    /**
-     * Convert to loop unit
-     * @param {Number|String|BigNumber} value
-     * @return {BigNumber}
+     * Returns total doantion amount
+     * @return {Promise&lt;Number>}
      */
-    convertToLoop(value) {
-        return this.toBigNumber(value).times(config.unitIcx);
-    },
+    async totalDonationAmt() {
+        const amt = await this._wallet.call(
+            this._scoreAddress,
+            'total_donation_amt',
+            {}
+        );
+
+        return utils.toBigNumber(amt).toNumber();
+    }
 
     /**
-     * Convert a number to hexadecimal string
-     * @param  {Number|String|BigNumber} value
-     * @return {String}
+     * Returns total number of users
+     * @return {Promise&lt;Number>}
      */
-    toHexString(value) {
-        if (typeof value === 'number') {
-            return value &lt; 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
-        } else if (typeof value === 'string' &amp;&amp; !value.startsWith('0x')) {
-            return '0x' + value.toString(16);
-        } else if (this.isBigNumber(value)) {
-            return value &lt; 0 ? '-0x' + value.toString(16).substr(1) : '0x' + value.toString(16);
-        } else {
-            return value;
-        }
-    },
+    async totalUsers() {
+        const users = await this._wallet.call(
+            this._scoreAddress,
+            'total_users',
+            {}
+        );
+
+        return utils.toBigNumber(users).toNumber();
+    }
 
     /**
-     * Convert to hash string leading '0x'
-     * @param  {String} value
-     * @return {String}
+     * Returns total number of artists
+     * @return {Promise&lt;Number>}
      */
-    toHashString(value) {
-        return value.substring(0, 2) === '0x' ? value : '0x' + value;
-    },
+    async totalArtists() {
+        const artists = await this._wallet.call(
+            this._scoreAddress,
+            'total_artists',
+            {}
+        );
+
+        return utils.toBigNumber(artists).toNumber();
+    }
 
     /**
-     * Returns endpoint of the specified name
-     * @param  {String} name mainnet | testnet
-     * @return {Object}
+     * Refund donation amount
+     * @param  {String} ACT contract address for community
+     * @param  {String} to address of the recipient
+     * @param  {Number} value the amount to refund
+     * @param  {String} data optional
+     * @return {Promise&lt;String>} txHash
      */
-    getEndPoint(name) {
-        return config.endpoints[name];
-    },
+    async refund(community, to, value, data='') {
+        const decimals = await this._wallet.call(
+            community,
+            'decimals',
+            {}
+        );
 
-    /**
-     * Get a endpoint for current environment
-     * @return {String}
-     */
-    getEndPointFromEnv() {
-        //console.log('NODE_ENV : ' + process.env.NODE_ENV);
+        return this._wallet.callContractTx(
+            this._scoreAddress,
+            'refund',
+            {
+                _community: community,
+                _to: to,
+                _value: utils.toHexString(
+                    utils.toBigNumber(value).times(10 ** utils.toBigNumber(decimals))
+                ),
+                _data: data.length > 0 ? utils.convertToHex(data) : data,
+            }
+        );
+    }
+}
 
-        if (process.env.NODE_ENV === 'production') {
-            return this.getEndPoint('mainnet');
-        } else {
-            return this.getEndPoint('testnet');
-        }
-    },
+/** @type {Donation} */
+module.exports = Donation;
 
-    /**
-     * Sleep for the specified time
-     * @param  {Number} ms milliseconds
-     * @return {Promise}
-     */
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    },
-
-    /**
-     * Convert string to hexastring
-     * @param  {String} str
-     * @return {String}
-     */
-    convertToHex(str) {
-        let hex = '';
-        for(let i = 0; i &lt; str.length; i++) {
-            hex += '' + str.charCodeAt(i).toString(16);
-        }
-        return hex;
-    },
-
-};</pre>
+</pre>
     </article>
 </section>
 
@@ -263,7 +237,7 @@ module.exports = {
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Mon Oct 8th 2018
+		on Mon Aug 5th 2019
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: wallet/act.js</title>
+	<title>DocStrap Source: wallet/stg.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li>
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
 				</ul>
 			</li>
 			
@@ -72,14 +72,14 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: wallet/act.js</h1>
+		<h1 class="page-title">Source: wallet/stg.js</h1>
     
 <section>
     <article>
         <pre
             class="sunlight-highlight-javascript linenums">/**
- * Provides smart contract APIs for ACT
- * @module stayge-wallet/act
+ * Provides smart contract APIs for STG
+ * @module  stayge-wallet/stg
  */
 
 'use strict'
@@ -87,14 +87,14 @@
 const utils = require('../icon-js/utils.js');
 
 /**
- * Class representing the ACT smart contract
+ * Class representing the STG smart contract
  */
-class ACT {
+class STG {
 
     /**
-     * Create a ACT
+     * Create a STG
      * @param {Wallet} wallet
-     * @param {String} scoreAddress contract address of ACT
+     * @param {String} scoreAddress contract address of STG
      */
     constructor(wallet, scoreAddress) {
         this._wallet = wallet;
@@ -173,7 +173,7 @@ class ACT {
 
 
     /**
-     * Returns balance of ACT for the specified owner
+     * Returns balance of STG for the specified owner
      * @param  {String} owner address of owner
      * @return {Promise&lt;Number>}
      */
@@ -201,7 +201,7 @@ class ACT {
 
 
     /**
-     * Transfer ACT to the specified recipient
+     * Transfer STG to the specified recipient
      * @param  {String} to address of the recipient
      * @param  {Number} value the amount to transfer
      * @param  {String} data optional
@@ -226,7 +226,6 @@ class ACT {
             }
         );
     }
-
 
     /**
      * Returns allowance of the spender for the owner balance
@@ -256,9 +255,9 @@ class ACT {
 
 
     /**
-     * Approve spender to transfer the specified ACT from the owner's balance
+     * Approve spender to transfer the specified STG from the owner's balance
      * @param  {String} spender address of the spender
-     * @param  {Number} value   ACT amount to approve
+     * @param  {Number} value   STG amount to approve
      * @return {Promise&lt;String>} txHash
      */
     async approve(spender, value) {
@@ -280,11 +279,10 @@ class ACT {
         );
     }
 
-
     /**
      * Increase allowance of the spender for the owner's balance
      * @param  {String} spender address of the spender
-     * @param  {Number} value   ACT amount to increase
+     * @param  {Number} value   STG amount to increase
      * @return {Promise&lt;String>} txHash
      */
     async incAllowance(spender, value) {
@@ -306,10 +304,11 @@ class ACT {
         );
     }
 
+
     /**
      * Decrease allowance of the spender for the owner's balance
      * @param  {String} spender address of the spender
-     * @param  {Number} value   ACT amount to decrease
+     * @param  {Number} value   STG amount to decrease
      * @return {Promise&lt;String>} txHash
      */
     async decAllowance(spender, value) {
@@ -333,11 +332,11 @@ class ACT {
 
 
     /**
-     * Tranfer ACT from sender to recipient
+     * Tranfer STG from sender to recipient
      * Only the amount of allowance from sender can be tranferred
      * @param  {String} from  address of the sender
      * @param  {String} to    address of the recipient
-     * @param  {Number} value ACT amount to transfer
+     * @param  {Number} value STG amount to transfer
      * @return {Promise&lt;String>} txHash
      */
     async transferFrom(from, to, value) {
@@ -360,14 +359,12 @@ class ACT {
         );
     }
 
-
     /**
-     * Mint tokens and allocate to the specified recipient
-     * @param  {String} to     address of the recipient
+     * Mint tokens and allocate to the contract owner
      * @param  {Number} amount amount to mint
      * @return {Promise&lt;String>} txHash
      */
-    async mint(to, amount) {
+    async mint(amount) {
         const decimals = await this._wallet.call(
             this._scoreAddress,
             'decimals',
@@ -378,14 +375,12 @@ class ACT {
             this._scoreAddress,
             'mint',
             {
-                _to: to,
                 _amount: utils.toHexString(
                     utils.toBigNumber(amount).times(10 ** utils.toBigNumber(decimals))
                 ),
             }
         );
     }
-
 
     /**
      * Burn tokens
@@ -410,7 +405,6 @@ class ACT {
         );
     }
 
-
     /**
      * Pause contract to disable it's functionalities
      * @return {Promise&lt;String>} txHash
@@ -421,7 +415,6 @@ class ACT {
             'pause',
         );
     }
-
 
     /**
      * Unpause contract to enable it's functionalities
@@ -485,12 +478,11 @@ class ACT {
             }
         );
     }
-
 }
 
-/** @type {ACT} */
-module.exports = ACT;
 
+/** @type {STG} */
+module.exports = STG;
 </pre>
     </article>
 </section>
@@ -536,7 +528,7 @@ module.exports = ACT;
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Mon Oct 8th 2018
+		on Mon Aug 5th 2019
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
