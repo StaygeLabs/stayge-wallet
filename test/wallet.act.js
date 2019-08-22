@@ -82,6 +82,7 @@ const user2Wallet = Wallet.fromKeyStoreObj({
 );
 
 const stgScoreAddress = 'cx8ada5f95f337ae332c97f3375e7e4f8209617143';
+const actScoreAddress = 'cx0b2151838dbe4253f19f908021880876dab7581e';
 const actKardScoreAddress = 'cx3d85fc30097cb8b18eb52de927b444833c690705';
 const actAceScoreAddress = 'cxdccbc7ee2d5581e62c8ba300219a5e8d05b58215';
 
@@ -1069,4 +1070,35 @@ describe('wallet/act.transferFrom()', function() {
         }
     });
 });
+
+
+describe('wallet/act.addFeeWhitelist()', function() {
+
+    it('addFeeWhitelist', async function() {
+        try {
+            const act = ownerWallet.act(actScoreAddress);
+
+            let proportion = await act.getProportion(ownerWallet.getAddressString());
+            console.log(`proportion = ${proportion}`);
+
+            const txHash = await act.addFeeWhitelist(ownerWallet.getAddressString(), 100);
+
+            //console.log(`transfer txHash = ${txHash}`);
+
+            const txResult = await user1Wallet.getTransactionResult(txHash, 5);
+            console.log(`txResult = ${JSON.stringify(txResult)}`);
+            //assert.equal(txResult.status, '0x1');
+
+            proportion = await act.getProportion(ownerWallet.getAddressString());
+            console.log(`proportion = ${proportion}`);
+
+        } catch (err) {
+            //console.log(`err = ${err}`);
+            assert(false, err)
+        }
+    });
+});
+
+
+
 

@@ -81,7 +81,7 @@ const user2Wallet = Wallet.fromKeyStoreObj({
 );
 
 const stgScoreAddress = 'cx8ada5f95f337ae332c97f3375e7e4f8209617143';
-const actScoreAddress = 'cx2f7bf7cebd92f15ff9c4aba2a1fd79b6a0529f93';
+const actScoreAddress = 'cx0b2151838dbe4253f19f908021880876dab7581e';
 
 describe('wallet/index.create()', function() {
 
@@ -90,15 +90,13 @@ describe('wallet/index.create()', function() {
 
         const wallet = Wallet.create();
 
-        /*
-        console.log('address(string) = ' + wallet.getAddressString());
-        console.log('length of private key = ' + wallet.getPrivateKey().length);
-        console.log('private key string = ' + wallet.getPrivateKeyString());
-        console.log('length of public key = ' + wallet.getPublicKey().length);
-        console.log('public key string = ' + wallet.getPublicKeyString());
-        console.log('length of address = ' + wallet.getAddress().length);
-        console.log('address string = ' + wallet.getAddressString());
-        */
+        //console.log('address(string) = ' + wallet.getAddressString());
+        //console.log('length of private key = ' + wallet.getPrivateKey().length);
+        //console.log('private key string = ' + wallet.getPrivateKeyString());
+        //console.log('length of public key = ' + wallet.getPublicKey().length);
+        //console.log('public key string = ' + wallet.getPublicKeyString());
+        //console.log('length of address = ' + wallet.getAddress().length);
+        //console.log('address string = ' + wallet.getAddressString());
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
         assert.lengthOf(wallet.getPrivateKeyString(), 64);
@@ -116,15 +114,13 @@ describe('wallet/index.fromPrivateKey()', function() {
 
         const wallet = Wallet.fromPrivateKey('71fc378d3a3fb92b57474af156f376711a8a89d277c9b60a923a1db75575b1cc');
 
-        /*
-        console.log('address(string) = ' + wallet.getAddressString());
-        console.log('length of private key = ' + wallet.getPrivateKey().length);
-        console.log('private key string = ' + wallet.getPrivateKeyString());
-        console.log('length of public key = ' + wallet.getPublicKey().length);
-        console.log('public key strin = ' + wallet.getPublicKeyString());
-        console.log('length of address = ' + wallet.getAddress().length);
-        console.log('address string = ' + wallet.getAddressString());
-        */
+        //console.log('address(string) = ' + wallet.getAddressString());
+        //console.log('length of private key = ' + wallet.getPrivateKey().length);
+        //console.log('private key string = ' + wallet.getPrivateKeyString());
+        //console.log('length of public key = ' + wallet.getPublicKey().length);
+        //console.log('public key strin = ' + wallet.getPublicKeyString());
+        //console.log('length of address = ' + wallet.getAddress().length);
+        //console.log('address string = ' + wallet.getAddressString());
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
         assert.lengthOf(wallet.getPublicKey(), 64);
@@ -165,15 +161,13 @@ describe('wallet/index.fromKeyStoreObj()', function() {
 
         const wallet = Wallet.fromKeyStoreObj(keyStoreObj, password);
 
-        /*
-        console.log('address(string) = ' + wallet.getAddressString());
-        console.log('length of private key = ' + wallet.getPrivateKey().length);
-        console.log('private key string = ' + wallet.getPrivateKeyString());
-        console.log('length of public key = ' + wallet.getPublicKey().length);
-        console.log('public key strin = ' + wallet.getPublicKeyString());
-        console.log('length of address = ' + wallet.getAddress().length);
-        console.log('address string = ' + wallet.getAddressString());
-        */
+        //console.log('address(string) = ' + wallet.getAddressString());
+        //console.log('length of private key = ' + wallet.getPrivateKey().length);
+        //console.log('private key string = ' + wallet.getPrivateKeyString());
+        //console.log('length of public key = ' + wallet.getPublicKey().length);
+        //console.log('public key strin = ' + wallet.getPublicKeyString());
+        //console.log('length of address = ' + wallet.getAddress().length);
+        //console.log('address string = ' + wallet.getAddressString());
 
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
@@ -215,15 +209,13 @@ describe('wallet/index.fromKeyStoreObj()', function() {
 
         const wallet = Wallet.fromKeyStoreObj(keyStoreObj, password);
 
-        /*
-        console.log('address(string) = ' + wallet.getAddressString());
-        console.log('length of private key = ' + wallet.getPrivateKey().length);
-        console.log('private key string = ' + wallet.getPrivateKeyString());
-        console.log('length of public key = ' + wallet.getPublicKey().length);
-        console.log('public key strin = ' + wallet.getPublicKeyString());
-        console.log('length of address = ' + wallet.getAddress().length);
-        console.log('address string = ' + wallet.getAddressString());
-        */
+        //console.log('address(string) = ' + wallet.getAddressString());
+        //console.log('length of private key = ' + wallet.getPrivateKey().length);
+        //console.log('private key string = ' + wallet.getPrivateKeyString());
+        //console.log('length of public key = ' + wallet.getPublicKey().length);
+        //console.log('public key strin = ' + wallet.getPublicKeyString());
+        //console.log('length of address = ' + wallet.getAddress().length);
+        //console.log('address string = ' + wallet.getAddressString());
 
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
@@ -245,15 +237,13 @@ describe('wallet/index.fromKeyStoreFile()', function() {
         const password = 'test123!';
         const wallet = Wallet.fromKeyStoreFile('test/test_user1.keystore', password);
 
-        /*
-        console.log('address(string) = ' + wallet.getAddressString());
-        console.log('length of private key = ' + wallet.getPrivateKey().length);
-        console.log('private key string = ' + wallet.getPrivateKeyString());
-        console.log('length of public key = ' + wallet.getPublicKey().length);
-        console.log('public key strin = ' + wallet.getPublicKeyString());
-        console.log('length of address = ' + wallet.getAddress().length);
-        console.log('address string = ' + wallet.getAddressString());
-        */
+        //console.log('address(string) = ' + wallet.getAddressString());
+        //console.log('length of private key = ' + wallet.getPrivateKey().length);
+        //console.log('private key string = ' + wallet.getPrivateKeyString());
+        //console.log('length of public key = ' + wallet.getPublicKey().length);
+        //console.log('public key strin = ' + wallet.getPublicKeyString());
+        //console.log('length of address = ' + wallet.getAddress().length);
+        //console.log('address string = ' + wallet.getAddressString());
 
         assert.lengthOf(wallet.getPrivateKey(), 32);
         assert.lengthOf(wallet.getPublicKey(), 64);
@@ -658,4 +648,49 @@ describe('wallet/index.transferMessage()', function() {
     });
 
 });
+
+
+describe('wallet/index.depositFeeSharing()', function() {
+
+    it('deposit for fee sharing', async function() {
+        const txHash = await ownerWallet.depositFeeSharing(
+            actScoreAddress,
+            5000,
+        );
+
+        console.log('txHash :' + txHash);
+        //assert.typeOf(txHash, 'String');
+
+        const txResult = await ownerWallet.getTransactionResult(txHash, 5);
+        console.log(`txResult = ${JSON.stringify(txResult)}`);
+        //assert.equal(txResult.status, '0x1');
+
+        const status = await ownerWallet.getScoreStatus(actScoreAddress);
+        console.log(`status = ${JSON.stringify(status)}`);
+    });
+
+});
+
+/*
+describe('wallet/index.withdrawFeeSharing()', function() {
+
+    it('withdraw the deposit for fee sharing', async function() {
+        const txHash = await ownerWallet.withdrawFeeSharing(
+            actScoreAddress,
+            '0xc2715525612d36a5acfb57fcc51379ae60e4a2a6c34a7fac6e2f41a54534199b'
+        );
+
+        console.log('txHash :' + txHash);
+        //assert.typeOf(txHash, 'String');
+
+        const txResult = await ownerWallet.getTransactionResult(txHash, 5);
+        console.log(`txResult = ${JSON.stringify(txResult)}`);
+        //assert.equal(txResult.status, '0x1');
+
+        const status = await ownerWallet.getScoreStatus(actScoreAddress);
+        console.log(`status = ${JSON.stringify(status)}`);
+    });
+
+});
+*/
 
