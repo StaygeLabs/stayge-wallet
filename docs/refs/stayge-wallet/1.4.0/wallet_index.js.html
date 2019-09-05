@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Source: wallet/index.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: wallet/index.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/**
+ * STAYGE wallet module for javascript
+ * @module stayge-wallet
+*/
+
+'use strict'
+
+const fs = require('fs')
+const AdmZip = require('adm-zip');
+const IconWallet = require('../icon-js/wallet.js');
+const utils = require('../icon-js/utils.js');
+const STG = require('./stg.js')
+const ACT = require('./act.js')
+const Donation = require('./donation.js')
+const TodaysIdol = require('./todaysidol.js')
+const WOK = require('./wok.js')
+
+
+ /**
+  * Class representing a STAYGE Wallet
+  */
+class Wallet {
+
+    /**
+     * Factory method to create a new wallet with a newly generated private key
+     * @return {Wallet}
+     */
+    static create() {
+        return new Wallet(IconWallet.create());
+    }
+
+
+    /**
+     * Factory method to create a wallet from the specified private key
+     * @param  {String} privateKeyString
+     * @return {Wallet}
+     */
+    static fromPrivateKey(privateKeyString) {
+        return new Wallet(IconWallet.fromPrivateKey(privateKeyString));
+    }
+
+
+    /**
+     * Factory method to create a wallet from the keystore object
+     * @param  {Object|String} keyStoreObj
+     * @param  {String} password
+     * @return {Wallet}
+     */
+    static fromKeyStoreObj(keyStoreObj, password) {
+        return new Wallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
+    }
+
+
+    /**
+     * Factory method to create a wallet from the keystore file
+     * @param  {String} keyStorePath
+     * @param  {String} password
+     * @return {Wallet}
+     */
+    static fromKeyStoreFile(keyStorePath, password) {
+        const content = fs.readFileSync(keyStorePath);
+        const keyStoreObj = JSON.parse(content);
+        return new Wallet(IconWallet.fromKeyStoreObj(keyStoreObj, password));
+    }
+
+    /**
+     * Create a Wallet
+     * @param {Object} baseWallet underlying wallet object
+     */
+    constructor(baseWallet) {
+        this._baseWallet = baseWallet;
+    }
+
+
+    /**
+     * Return STG score object with the specified score address
+     * @param  {String} scoreAddress address of score
+     * @return {STG} score object of STG
+     */
+    stg(scoreAddress) {
+        return new STG(this, scoreAddress)
+    }
+
+
+    /**
+     * Return ACT score object with the specified score address
+     * @param  {String} scoreAddress address of score
+     * @return {ACT} score object of ACT
+     */
+    act(scoreAddress) {
+        return new ACT(this, scoreAddress)
+    }
+
+    /**
+     * Return Donation score object with the specified score address
+     * @param  {String} scoreAddress address of score
+     * @return {Donation} score object of Donation
+     */
+    donation(scoreAddress) {
+        return new Donation(this, scoreAddress)
+    }
+
+    /**
+     * Return TodaysIdol score object with the specified score address
+     * @param  {String} scoreAddress address of score
+     * @return {ACT} score object of TodaysIdol
+     */
+    todaysidol(scoreAddress) {
+        return new TodaysIdol(this, scoreAddress)
+    }
+
+    /**
+     * Return WOK score object with the specified score address
+     * @param  {String} scoreAddress address of score
+     * @return {WOK} score object of WOK
+     */
+    wok(scoreAddress) {
+        return new WOK(this, scoreAddress)
+    }
+
+    /**
+     * Get the private key of the wallet
+     * @return {Buffer}
+     */
+    getPrivateKey() {
+        return this._baseWallet.getPrivateKey();
+    }
+
+
+    /**
+     * Get the private key string of the wallet
+     * @return {String}
+     */
+    getPrivateKeyString() {
+        return this._baseWallet.getPrivateKeyString();
+    }
+
+
+    /**
+     * Get a public key of the wallet
+     * @return {Buffer}
+     */
+    getPublicKey() {
+        return this._baseWallet.getPublicKey();
+    }
+
+
+    /**
+     * Get a public key string of the wallet
+     * @return {String}
+     */
+    getPublicKeyString() {
+        return this._baseWallet.getPublicKeyString();
+    }
+
+    /**
+     * Get the wallet address
+     * @return {Buffer}
+     */
+    getAddress() {
+        return this._baseWallet.getAddress();
+    }
+
+
+    /**
+     * Get the wallet address string
+     * @return {String}
+     */
+    getAddressString() {
+        return this._baseWallet.getAddressString();
+    }
+
+
+    /**
+     * Convert a wallet to key store object
+     * @param  {String} password password for the wallet
+     * @return {Object}
+     */
+    toKeyStoreObj(password) {
+        return this._baseWallet.toKeyStoreObj(password);
+    }
+
+
+    /**
+     * set endpoint
+     * @param {String} name 'mainnet' | 'testnet'
+     */
+    setEndPoint(name) {
+        return this._baseWallet.setEndPoint(name);
+    }
+
+
+    /**
+     * get endpoint
+     * @return {String} endpoint information
+     */
+    getEndPoint() {
+        return this._baseWallet.getEndPoint();
+    }
+
+
+    /**
+     * Get block information by height
+     * @param  {Number|String} height height of block
+     * @return {Promise&lt;Object>} block information
+     */
+    async getBlockByHeight(height) {
+        return this._baseWallet.getBlockByHeight(height);
+    }
+
+
+    /**
+     * Get block information by hash
+     * @param  {String} height hash of block
+     * @return {Promise&lt;Object>} block information
+     */
+    async getBlockByHash(hash) {
+        return this._baseWallet.getBlockByHash(hash);
+    }
+
+
+    /**
+     * Get a last block information
+     * @return {Promise&lt;Object>} block information
+     */
+    async getLastBlock() {
+        return this._baseWallet.getLastBlock();
+    }
+
+
+    /**
+     * Get balance of the wallet
+     * @return {Promise&lt;String>} balance of the wallet owner
+     */
+    async getBalance() {
+        return this._baseWallet.getBalance();
+    }
+
+
+    /**
+     * Get total supply of ICX
+     * @return {Promise&lt;String>} total supply of underlying network
+     */
+    async getTotalSupply() {
+        return this._baseWallet.getTotalSupply();
+    }
+
+
+    /**
+     * Transfer coins
+     * @param {String} to address of recipient
+     * @param {Number} value value to transfer
+     * @return {Promise&lt;String>} hash of transaction
+     */
+    async transferCoin(to, value) {
+        return this._baseWallet.transferICX(to, value);
+    }
+
+
+    /**
+     * Transafer a message
+     * @param  {String} to address of recipent
+     * @param  {String} msg message to transfer
+     * @return {Promise&lt;String>} hash of transaction
+     */
+    async transferMessage(to, msg) {
+        return this._baseWallet.transferMessage(
+            to,
+            msg.length > 0 ? utils.convertToHex(msg) : msg
+        );
+    }
+
+
+    /**
+     * Send a transaction for calling a smart contract's method
+     * @param  {String} contractAddress
+     * @param  {String} contractMethod
+     * @param  {Object} methodParams
+     * @return {Promise&lt;String>} hash of transacgtion
+     */
+    async callContractTx(
+        contractAddress,
+        contractMethod,
+        methodParams
+    ) {
+        return this._baseWallet.callScoreTx(contractAddress, contractMethod, methodParams);
+    }
+
+
+    /**
+     * Install a smart contract on the underlying blockchain
+     * @param  {String} contractPath
+     * @param  {Object} installParams
+     * @return {Promise&lt;String>} txHash
+     */
+    async installContract(contractPath, installParams) {
+        const zip = new AdmZip(contractPath);
+        const contractContent = '0x' + zip.toBuffer().toString('hex');
+        return this._baseWallet.installScore(contractContent, installParams);
+    }
+
+
+    /**
+     * Update the smart contract on the underlying blockchain
+     * @param  {type} contractAddress
+     * @param  {type} contractPath
+     * @param  {type} updateParams
+     * @return {Promise&lt;String>} txHash
+     */
+    async updateContract(
+        contractAddress,
+        contractPath,
+        updateParams
+    ) {
+        const zip = new AdmZip(contractPath);
+        const contractContent = '0x' + zip.toBuffer().toString('hex');
+        return this._baseWallet.updateScore(contractAddress, contractContent, updateParams);
+    }
+
+
+    /**
+     * Call a smart contract's external function for querying
+     * @param  {String} to
+     * @param  {String} method
+     * @param  {Object} params
+     * @return {Promise&lt;String>}
+     */
+    async call(to, method, params) {
+        return this._baseWallet.call(to, method, params);
+    }
+
+    /**
+     * Get the smart contract's external API list
+     * @param  {String} address
+     * @return {Promise&lt;Object>}
+     */
+    async getContractApi(address) {
+        return this._baseWallet.getScoreApi(address);
+    }
+
+
+    /**
+     * Get the transaction result requested by transaction hash
+     * @param  {String} txHash
+     * @param  {Number} timeout seconds to timeout. if not specified, it will be set to the default value of 0
+     * @return {Promise&lt;Object>}
+     */
+    async getTransactionResult(txHash, timeout=0) {
+        const SLEEP_UNIT = 500;
+        let loopcnt = 0;
+        let i = 0;
+
+        timeout = timeout || 0;
+        loopcnt = (timeout === 0) ? 1 : (timeout * 1000 / SLEEP_UNIT);
+
+        for (i = 0; i &lt; loopcnt; i++) {
+            try {
+                const txResult = await this._baseWallet.getTransactionResult(txHash)
+                return txResult;
+            } catch (err) {
+                //console.log(`getTransactionResult = ${err.message}`);
+
+                if (err.message.indexOf('Pending') !== -1 ||
+                    err.message.indexOf('Invalid params txHash') !== -1) {
+                    await utils.sleep(500);
+                } else {
+                    throw err;
+                }
+            }
+        }
+
+        throw new Error(`The transaction of ${txHash} is pending`);
+    }
+
+    /**
+     * Get the transaction information by txHash
+     * @param  {String} txHash
+     * @return {Promise&lt;Object>}
+     */
+    async getTransactionByHash(txHash) {
+        return this._baseWallet.getTransactionByHash(txHash);
+    }
+
+
+    /**
+     * deposit for fee sharing
+     * @param  {String} contractAddress
+     * @param  {Number} amt
+     * @return {Promise&lt;String>} hash of transaction
+     */
+    async depositFeeSharing(
+        contractAddress,
+        amt
+    ) {
+        return this._baseWallet.depositFeeSharing(contractAddress, amt);
+    }
+
+
+    /**
+     * withdraw the deposit for fee sharing
+     * @param  {String} contractAddress
+     * @param  {Number} amt
+     * @return {Promise&lt;String>} hash of transaction
+     */
+    async withdrawFeeSharing(
+        contractAddress,
+        depositId
+    ) {
+        return this._baseWallet.withdrawFeeSharing(contractAddress, depositId);
+    }
+
+
+    /**
+     * Returns symbol
+     * @return {Promise&lt;String>}
+     */
+    async getScoreStatus(contractAddress) {
+        const status = await this.call(
+            'cx0000000000000000000000000000000000000001',
+            'getScoreStatus',
+            {
+                address: contractAddress
+            }
+        );
+
+        return status;
+    }
+
+}
+
+
+/** @type {Wallet} */
+module.exports = Wallet;
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on Thu Sep 5th 2019
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

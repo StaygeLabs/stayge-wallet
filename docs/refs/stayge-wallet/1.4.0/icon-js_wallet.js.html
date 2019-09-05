@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Source: icon-js/wallet.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: icon-js/wallet.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/**
+ * ICON wallet module for javascript
+ * @module stayge-wallet/icon-js/wallet
+*/
+
+'use strict'
+
+const key = require('./key.js');
+const utils = require('./utils.js');
+const jsonrpc = require('./jsonrpc.js');
+const tx = require('./tx.js');
+
+const DEFAULT_DEPLOY_STEP_LIMIT = 2000000000; // 20 ICX, step price : 0.00000001 ICX(10 Gloop)
+const DEFAULT_UPDATE_STEP_LIMIT = 3000000000; // 30 ICX, step price : 0.00000001 ICX(10 Gloop)
+const DEFAULT_TX_STEP_LIMIT = 500000; // 0.005 ICX, step price : 0.00000001 ICX(10 Gloop)
+
+/**
+ * Class representing a ICON Wallet
+ */
+class Wallet {
+
+
+    /**
+     * Factory method to create a new wallet with a newly generated private key
+     * @return {Wallet}
+     */
+    static create() {
+        return new Wallet(key.generatePrivateKey());
+    }
+
+    /**
+     * Factory method to create a wallet from the private key
+     * @param  {String} privateKeyString
+     * @return {Wallet}
+     */
+    static fromPrivateKey(privateKeyString) {
+        return new Wallet(Buffer.from(privateKeyString, 'hex'));
+    }
+
+    /**
+     * Factory method to create a wallet from the keystore object
+     * @param  {Object|string} keyStoreObj [description]
+     * @param  {String} password    [description]
+     * @return {Wallet}             [description]
+     */
+    static fromKeyStoreObj(keyStoreObj, password) {
+        //console.log('typeof keyStoreObj:'+typeof keyStoreObj);
+        const json = (typeof keyStoreObj === 'object') ? keyStoreObj : JSON.parse(keyStoreObj);
+
+        return new Wallet(key.privateKeyFromKeyStoreObj(
+            json,
+            password
+            ));
+    }
+
+    /**
+     * Create a ICON Wallet
+     * @param {Buffer} privateKey - private key for wallet
+     */
+    constructor(privateKey) {
+        this._privateKey = privateKey;
+        this._publicKey = key.privateToPublic(privateKey);
+        this._address = key.publicToAddress(this._publicKey);
+        this._endpoint = utils.getEndPointFromEnv();
+    }
+
+
+    /**
+     * Get the private key of the wallet
+     * @return {Buffer}
+     */
+    getPrivateKey() {
+        return this._privateKey;
+    }
+
+    /**
+     * Get the private key string of the wallet
+     * @return {String}
+     */
+    getPrivateKeyString() {
+        return this._privateKey.toString('hex');
+    }
+
+
+    /**
+     * Get the public key of the wallet
+     * @return {Buffer}
+     */
+    getPublicKey() {
+        return this._publicKey;
+    }
+
+
+    /**
+     * Get the public key string of the wallet
+     * @return {String}
+     */
+    getPublicKeyString() {
+        return this._publicKey.toString('hex');
+    }
+
+    /**
+     * Get the address of the wallet
+     * @return {Buffer}
+     */
+    getAddress() {
+        return this._address;
+    }
+
+    /**
+     * Get the address string of the wallet
+     * @return {String}
+     */
+    getAddressString() {
+        return 'hx' + this._address.toString('hex');
+    }
+
+    /**
+     * Convert the wallet to the keystore object
+     * @param  {String} password
+     * @return {Object}
+     */
+    toKeyStoreObj(password) {
+        return key.toKeyStoreObj(
+            this.getPrivateKey(),
+            this.getAddressString(),
+            password
+        );
+    }
+
+    /**
+     * set the endpoint
+     * @param {String} name 'mainnet' | 'testnet'
+     */
+    setEndPoint(name) {
+        this._endpoint = utils.getEndPoint(name);
+    }
+
+    /**
+     * get the endpoint
+     * @return {String} uri of endpoint
+     */
+    getEndPoint() {
+        return this._endpoint;
+    }
+
+    /**
+     * Get the block information by height
+     * @param  {Number|String} height
+     * @return {Promise&lt;Object>}
+     */
+    async getBlockByHeight(height) {
+        return jsonrpc.getBlockByHeight(height, this.getEndPoint().url);
+    }
+
+
+    /**
+     * Get the block information by hash
+     * @param  {String} height
+     * @return {Promise&lt;Object>}
+     */
+    async getBlockByHash(hash) {
+        return jsonrpc.getBlockByHash(hash, this.getEndPoint().url);
+    }
+
+    /**
+     * Get the last block information
+     * @return {Promise&lt;Object>}
+     */
+    async getLastBlock() {
+        return jsonrpc.getLastBlock(this.getEndPoint().url);
+    }
+
+
+    /**
+     * Get balance of the wallet
+     * @return {Promise&lt;String>}
+     */
+    async getBalance() {
+        return jsonrpc.getBalance(this.getAddressString(), this.getEndPoint().url);
+    }
+
+    /**
+     * Get total supply of ICX
+     * @return {Promise&lt;String>}
+     */
+    async getTotalSupply() {
+        return jsonrpc.getTotalSupply(this.getEndPoint().url);
+    }
+
+
+    /**
+     * Transfer ICX coins
+     * @param {String} to
+     * @param {Number} value
+     * @return {Promise&lt;String>} txHash
+     */
+    async transferICX(to, value) {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
+            value: value,
+        };
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+
+    /**
+     * Transafer a message
+     * @param  {String} to
+     * @param  {String} msg
+     * @return {Promise&lt;String>} txHash
+     */
+    async transferMessage(to, msg) {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
+            dataType: 'message',
+            data: msg,
+        };
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+
+    /**
+     * Send a transaction for calling a SCORE'S method
+     * @param  {String} scoreAddress
+     * @param  {String} scoreMethod
+     * @param  {Object} methodParams
+     * @return {Promise&lt;String>} txHash
+     */
+    async callScoreTx(scoreAddress, scoreMethod, methodParams) {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
+            dataType: 'call',
+            data: {
+                method: scoreMethod
+            },
+        };
+
+        if (methodParams) {
+            data.data.params = methodParams;
+        }
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+    /**
+     * Install a SCORE on the ICON blockchain
+     * @param  {String} scoreContent
+     * @param  {Object} installParams
+     * @return {Promise&lt;String>} txHash
+     */
+    async installScore(scoreContent, installParams) {
+        const data = {
+            from: this.getAddressString(),
+            to: 'cx0000000000000000000000000000000000000000',   // address 0 means SCORE install
+            stepLimit: DEFAULT_DEPLOY_STEP_LIMIT,
+            dataType: 'deploy',
+            data: {
+                contentType: 'application/zip',
+                content: scoreContent,
+            },
+        };
+
+        if (installParams) {
+            data.data.params = installParams;
+        }
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+
+    /**
+     * Update the SCORE on the ICON blockchain
+     * @param  {String} scoreAddress address of score
+     * @param  {String} scoreContent score contents of hexstring format
+     * @param  {Object} updateParams parameter for update
+     * @return {Promise&lt;String>}
+     */
+    async updateScore(scoreAddress, scoreContent, updateParams) {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            stepLimit: DEFAULT_UPDATE_STEP_LIMIT,
+            dataType: 'deploy',
+            data: {
+                contentType: 'application/zip',
+                content: scoreContent,
+            },
+        };
+
+        if (updateParams) {
+            data.data.params = updateParams;
+        }
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+    /**
+     * Call SCORE's external function
+     * @param  {String} to
+     * @param  {String} method
+     * @param  {Object} params
+     * @return {Promise&lt;String>}
+     */
+    async call(to, method, params) {
+        const data = {
+            from: this.getAddressString(),
+            to: to,
+            dataType: 'call',
+            data: {
+                method: method,
+                params: params
+            }
+        };
+
+        const result = await jsonrpc.call(
+            data,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+    /**
+     * Get the SCORE's external API list
+     * @param  {String} address
+     * @return {Promise&lt;Object>}
+     */
+    async getScoreApi(address) {
+        return jsonrpc.getScoreApi(address, this.getEndPoint().url);
+    }
+
+    /**
+     * Get the transaction result with the specified txHash
+     * @param  {String} txHash
+     * @return {Promise&lt;Object>}
+     */
+    async getTransactionResult(txHash) {
+        return jsonrpc.getTransactionResult(txHash, this.getEndPoint().url);
+    }
+
+    /**
+     * Get the transaction information by txHash
+     * @param  {String} txHash
+     * @return {Promise&lt;Object>}
+     */
+    async getTransactionByHash(txHash) {
+        return jsonrpc.getTransactionByHash(txHash, this.getEndPoint().url);
+    }
+
+
+    /**
+     * deposit to the score for virtual step
+     * @param  {String} scoreAddress
+     * @param  {Number} amt
+     * @return {Promise&lt;String>} txHash
+     */
+    async depositFeeSharing(scoreAddress, amt) {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            value: amt,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
+            dataType: 'deposit',
+            data: {
+                action: 'add'
+            },
+        };
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+    /**
+     * withdraw the deposit for virtual step
+     * @param  {String} scoreAddress
+     * @param  {Number} amt
+     * @return {Promise&lt;String>} txHash
+     */
+    async withdrawFeeSharing(scoreAddress, depositId) {
+        const data = {
+            from: this.getAddressString(),
+            to: scoreAddress,
+            stepLimit: DEFAULT_TX_STEP_LIMIT,
+            dataType: 'deposit',
+            data: {
+                action: 'withdraw',
+                id: depositId
+            },
+        };
+
+        const rawTx = tx.makeIcxRawTx(data, this.getEndPoint().nid);
+        const rawTxSigned = tx.signRawTx(this.getPrivateKey(), rawTx)
+        const result = await jsonrpc.sendTransaction(
+            rawTxSigned,
+            this.getEndPoint().url
+        );
+
+        return result
+    }
+
+}
+
+
+
+/** @type {Wallet} */
+module.exports = Wallet;
+
+
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on Thu Sep 5th 2019
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

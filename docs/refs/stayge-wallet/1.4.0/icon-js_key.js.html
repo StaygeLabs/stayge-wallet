@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>DocStrap Source: icon-js/key.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">DocStrap</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet.html">stayge-wallet</a></li><li><a href="module-stayge-wallet_act.html">stayge-wallet/act</a></li><li><a href="module-stayge-wallet_donation.html">stayge-wallet/donation</a></li><li><a href="module-stayge-wallet_icon-js_jsonrpc.html">stayge-wallet/icon-js/jsonrpc</a></li><li><a href="module-stayge-wallet_icon-js_key.html">stayge-wallet/icon-js/key</a></li><li><a href="module-stayge-wallet_icon-js_tx.html">stayge-wallet/icon-js/tx</a></li><li><a href="module-stayge-wallet_icon-js_utils.html">stayge-wallet/icon-js/utils</a></li><li><a href="module-stayge-wallet_icon-js_wallet.html">stayge-wallet/icon-js/wallet</a></li><li><a href="module-stayge-wallet_stg.html">stayge-wallet/stg</a></li><li><a href="module-stayge-wallet_todaysidol.html">stayge-wallet/todaysidol</a></li><li><a href="module-stayge-wallet_wok.html">stayge-wallet/wok</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-stayge-wallet_act-ACT.html">stayge-wallet/act~ACT</a></li><li><a href="module-stayge-wallet_donation-Donation.html">stayge-wallet/donation~Donation</a></li><li><a href="module-stayge-wallet_icon-js_wallet-Wallet.html">stayge-wallet/icon-js/wallet~Wallet</a></li><li><a href="module-stayge-wallet_stg-STG.html">stayge-wallet/stg~STG</a></li><li><a href="module-stayge-wallet_todaysidol-TodaysIdol.html">stayge-wallet/todaysidol~TodaysIdol</a></li><li><a href="module-stayge-wallet_wok-WOK.html">stayge-wallet/wok~WOK</a></li><li><a href="module-stayge-wallet-Wallet.html">stayge-wallet~Wallet</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: icon-js/key.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/**
+ * Provides key related functions for ICON
+ * @module stayge-wallet/icon-js/key
+*/
+
+'use strict'
+
+const crypto = require('crypto');
+const secp256k1 = require('secp256k1');
+const sha3_256 = require('js-sha3').sha3_256;
+const keccak256 = require('js-sha3').keccak256;
+const scrypt = require('scrypt.js');
+const uuidv4 = require('uuid/v4');
+
+
+module.exports = {
+
+    /**
+     * Generate a new private key
+     * @return {Buffer}
+     */
+    generatePrivateKey() {
+        return crypto.randomBytes(32);
+    },
+
+    /**
+     * @param  {Buffer} privateKey
+     * @return {Buffer}
+     */
+    privateToPublic(privateKey) {
+        return secp256k1.publicKeyCreate(privateKey, false).slice(1);
+    },
+
+    /**
+     * @param  {Buffer} publicKey
+     * @return {Buffer}
+     */
+    publicToAddress(publicKey) {
+        return Buffer.from(sha3_256(publicKey), 'hex').slice(-20);
+    },
+
+
+    /**
+     * Get a private key from the key store object
+     * @param  {Object} keyStoreObj
+     * @param  {string} password
+     * @return {Buffer} private key
+     */
+    privateKeyFromKeyStoreObj(keyStoreObj, password) {
+        let derivedKey;
+
+        if (typeof keyStoreObj !== 'object') {
+            throw new Error('keyStoreObj type should be Object.');
+        }
+
+        if (typeof password !== 'string') {
+            throw new Error('password type should be string.');
+        }
+
+        if (keyStoreObj.version !== 3) {
+            throw new Error('keySotreObj is not a V3 wallet');
+        }
+
+        if (keyStoreObj.crypto.kdf === 'scrypt') {
+            const kdfparams = keyStoreObj.crypto.kdfparams;
+
+            derivedKey = scrypt(
+                Buffer.from(password),
+                Buffer.from(kdfparams.salt, 'hex'),
+                kdfparams.n,
+                kdfparams.r,
+                kdfparams.p,
+                kdfparams.dklen
+            )
+
+        } else if (keyStoreObj.crypto.kdf === 'pbkdf2') {
+            const kdfparams = keyStoreObj.crypto.kdfparams;
+
+            if (kdfparams.prf !== 'hmac-sha256') {
+                throw new Error('Unsupported parameters to PBKDF2');
+            }
+
+            derivedKey = crypto.pbkdf2Sync(
+                Buffer.from(password),
+                Buffer.from(kdfparams.salt, 'hex'),
+                kdfparams.c,
+                kdfparams.dklen,
+                'sha256'
+            );
+        } else {
+            throw new Error('Unsupported key derivation function.');
+        }
+
+        const ciphertext = Buffer.from(
+            keyStoreObj.crypto.ciphertext,
+            'hex'
+        );
+
+        const mac = keccak256(Buffer.concat([derivedKey.slice(16, 32), ciphertext]));
+
+        /*
+        console.log('mac = ' + mac);
+        console.log('crypto.mac = ' + keyStoreObj.crypto.mac);
+        */
+
+        if (mac !== keyStoreObj.crypto.mac) {
+            throw new Error('Failed to derive a key');
+        }
+
+        const decipher = crypto.createDecipheriv(
+            keyStoreObj.crypto.cipher,
+            derivedKey.slice(0, 16),
+            Buffer.from(
+                keyStoreObj.crypto.cipherparams.iv, 'hex'
+            )
+        );
+
+        return Buffer.concat([
+            decipher.update(ciphertext),
+            decipher.final()
+        ]);
+    },
+
+    /**
+     * Return a keystore object from the wallet information
+     * @param  {Buffer} privateKey
+     * @param  {String} address
+     * @param  {String} password
+     * @param  {Object} options
+     * @return {Object} keystore object
+     */
+    toKeyStoreObj(privateKey, address, password, options) {
+
+        options = options || {};
+
+        const opts = {
+            salt: options.salt || crypto.randomBytes(32),
+            iv: options.iv || crypto.randomBytes(16),
+            kdf: options.kdf || 'scrypt',
+            dklen: options.dklen || 32,
+            c: options.c || 262144,
+            prf: 'hmac-sha256',
+            n: options.n || 262144,
+            r: options.r || 8,
+            p: options.p || 1,
+            cipher: options.cipher || 'aes-128-ctr',
+            uuid: options.uuid || crypto.randomBytes(16)
+        };
+
+        const kdfparams = {
+            dklen: opts.dklen,
+            salt: opts.salt.toString('hex')
+        };
+
+        let derivedKey;
+
+        if (opts.kdf === 'pbkdf2') {
+            kdfparams.c = opts.c;
+            kdfparams.prf = opts.prf;
+            derivedKey = crypto.pbkdf2Sync(
+                Buffer.from(password),
+                opts.salt,
+                opts.c,
+                opts.dklen,
+                'sha256'
+            );
+        } else if (opts.kdf === 'scrypt') {
+            kdfparams.n = opts.n;
+            kdfparams.r = opts.r;
+            kdfparams.p = opts.p;
+            derivedKey = scrypt(
+                Buffer.from(password),
+                opts.salt,
+                kdfparams.n,
+                kdfparams.r,
+                kdfparams.p,
+                kdfparams.dklen
+            );
+        } else {
+            throw new Error('Unsupported kdf.');
+        }
+
+        const cipher = crypto.createCipheriv(
+            opts.cipher,
+            derivedKey.slice(0, 16),
+            opts.iv
+        );
+
+        if (!cipher) {
+            throw new Error('Unsupported cipher');
+        }
+
+        const ciphertext = Buffer.concat(
+            [cipher.update(privateKey), cipher.final()]
+        );
+
+        const mac = keccak256(
+            Buffer.concat(
+                [derivedKey.slice(16, 32), Buffer.from(ciphertext, 'hex')]
+            )
+        );
+
+        return {
+            version: 3,
+            id: uuidv4({ random: opts.uuid }),
+            address: address,
+            crypto: {
+                ciphertext: ciphertext.toString('hex'),
+                cipherparams: {
+                    iv: opts.iv.toString('hex')
+                },
+                cipher: opts.cipher,
+                kdf: opts.kdf,
+                kdfparams: kdfparams,
+                mac: mac
+            },
+            coinType: 'icx'
+        }
+    },
+
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on Thu Sep 5th 2019
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
